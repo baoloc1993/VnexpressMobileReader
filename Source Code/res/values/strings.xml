@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyanmarNews</string>
+    <string name="app_name">VnexpressReader</string>
     <string name="title_section1">News Live</string>
     <string name="title_section2">Breaking News</string>
     <string name="title_section3">Selected News</string>
