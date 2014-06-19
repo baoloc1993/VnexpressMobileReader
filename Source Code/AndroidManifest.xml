@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:configChanges="orientation|screenSize"
-            android:name="com.example.myanmarnews.MainActivity"
+            android:name="com.vnexpressandroidreader.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,10 +33,10 @@
         </activity>
         
          <!-- Add New Site Activity -->
-        <activity android:name=".AddNewSiteActivity" />
+        <activity android:name="com.vnexpressandroidreader.AddNewSiteActivity" />
          
         <!-- List rss items Activity -->
-        <activity android:name=".ListRSSItemsActivity"
+        <activity android:name="com.vnexpressandroidreader.ListRSSItemsActivity"
             android:configChanges="keyboardHidden|orientation"/>
          
         

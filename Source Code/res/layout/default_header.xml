@@ -34,7 +34,7 @@
 
     </FrameLayout>
 
-    <com.example.myanmarnews.libs.smoothprogressbar.SmoothProgressBar
+    <com.vnexpressandroidreader.libs.smoothprogressbar.SmoothProgressBar
         android:id="@+id/ptr_progress"
         style="@style/Widget.ProgressBar.PullToRefresh"
         android:layout_width="match_parent"
