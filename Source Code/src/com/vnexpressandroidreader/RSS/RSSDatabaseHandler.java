@@ -12,22 +12,26 @@ package com.vnexpressandroidreader.RSS;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.myanmarnews.R;
+import com.vnexpressandroidreader.MainActivity;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
  
     // Database Name
     private static final String DATABASE_NAME = "rssReader";
  
     // Contacts table name
-    private static final String TABLE_RSS = "websites";
+    private static String TABLE_RSS = "websites";
  
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -40,6 +44,25 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_PUBLIC_DATE = "public_date";
     
     private Context myContext;
+    
+    //String of table-name
+    private String table_name_array[] = {
+    		"home_page",
+    		"business",
+    		"cars",
+    		"chat",
+    		"digital",
+    		"entertainment",
+    		"sports",
+    		"funny",
+    		"laws",
+    		"life",
+    		"news",
+    		"science",
+    		"social",
+    		"travelling",
+    		"world"
+    };
  
     
 
@@ -47,6 +70,8 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
     
     public RSSDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        TABLE_RSS = getTableName();
+        
         this.myContext = context;
         //this.getWritableDatabase();
        // SQLiteDatabase sqlite;
@@ -58,13 +83,16 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
     	
-    	
-        String CREATE_RSS_TABLE = "CREATE TABLE " + TABLE_RSS + "(" + KEY_ID
-                + " INTEGER PRIMARY KEY, " + KEY_TITLE + " TEXT, " + KEY_LINK
-                + " TEXT, " +  KEY_IMG_LINK + " TEXT, " 
-                + KEY_DESCRIPTION + " TEXT, " + KEY_PUBLIC_DATE + " TEXT" + ");";
+    	for (String table_name : table_name_array){
+    		String CREATE_RSS_TABLE = "CREATE TABLE " + table_name + "(" + KEY_ID
+                    + " INTEGER PRIMARY KEY, " + KEY_TITLE + " TEXT, " + KEY_LINK
+                    + " TEXT, " +  KEY_IMG_LINK + " TEXT, " 
+                    + KEY_DESCRIPTION + " TEXT, " + KEY_PUBLIC_DATE + " TEXT" + ");";
+    		 db.execSQL(CREATE_RSS_TABLE);
+    	}
+        
 
-        db.execSQL(CREATE_RSS_TABLE);
+       
     	
 
     }
@@ -88,15 +116,15 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
     	
     	
         SQLiteDatabase db = this.getWritableDatabase();
-
+        
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, site.getTitle()); // site title
         values.put(KEY_LINK, site.getLink()); // site url
         values.put(KEY_IMG_LINK, site.getImageLink()); // rss img 
         values.put(KEY_DESCRIPTION, site.getDescription()); // site description
-        //values.put(KEY_RSS_LINK, site.getRSSLink()); // rss rss url
+        
         values.put(KEY_PUBLIC_DATE, site.getPubDate());   //pulic date
-   
+        //Log.d("DATABASE", "TABLE = " + site.getTitle());
         // Check if row already existed in database
        // Log.d("IMAGE LINK", site.getImageLink());
         if (!isSiteExists(db, site.getImageLink())) {
@@ -272,7 +300,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
      * */
     public boolean isSiteExists(SQLiteDatabase db, String img_link) {
  
-        Cursor cursor = db.rawQuery("SELECT 1 FROM " + TABLE_RSS
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_RSS
                 + " WHERE img_link = '" + img_link + "'", new String[] {});
         boolean exists = (cursor.getCount() > 0);
         return exists;
@@ -288,6 +316,66 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
         int cnt = cursor.getCount();
         cursor.close();
         return cnt;
+    }
+    
+    /**
+     * Set table name
+     */
+    private String getTableName(){
+    	String table_name;
+    	
+		switch(MainActivity.nameCategory){
+		
+		case Homepage:
+			table_name = table_name_array[0];
+			break;
+		case Business:
+			table_name = table_name_array[1];
+			break;
+		case Car:
+			table_name = table_name_array[2];
+			break;
+		case Chat:
+			table_name = table_name_array[3];
+			break;
+		case Digital:
+			table_name = table_name_array[4];
+			break;
+		case Entertainment:
+			table_name = table_name_array[5];
+			break;
+		case Sports:
+			table_name = table_name_array[6];
+			break;
+		case Funny:
+			table_name = table_name_array[7];
+			break;
+		case Laws:
+			table_name = table_name_array[8];
+			break;
+		case Life:
+			table_name = table_name_array[9];
+			break;
+		case News:
+			table_name = table_name_array[10];
+			break;
+		case Science:
+			table_name = table_name_array[11];
+			break;
+		case Social:
+			table_name = table_name_array[12];
+			break;
+		case Travelling:
+			table_name = table_name_array[13];
+			break;
+		case World:
+			table_name = table_name_array[14];
+			break;
+		default:
+			table_name = table_name_array[0];
+			
+		}
+		return table_name;
     }
  
 }

@@ -127,7 +127,7 @@ public class RSSParser {
             try{
             	
                 Document doc = this.getDomElement(rss_feed_xml);
-               // Log.d("RSS IS FETCHED?",rss_feed_xml);
+               
                 NodeList nodeList = doc.getElementsByTagName(TAG_CHANNEL);
                 Element e = (Element) nodeList.item(0);
                  
@@ -137,13 +137,13 @@ public class RSSParser {
                 // looping through each item
                 for(int i = 0; i < items.getLength(); i++){
                     Element e1 = (Element) items.item(i);
-                     
+                    
                     String title = this.getValue(e1, TAG_TITLE);
                     String link = this.getValue(e1, TAG_LINK);
                     String description = this.getValue(e1, TAG_DESRIPTION);
                     String pubdate = this.getValue(e1, TAG_PUB_DATE);
                     //String guid = this.getValue(e1, TAG_GUID);
-                   
+                    
                     
                     //Get url image from a text
                     /**
@@ -166,7 +166,6 @@ public class RSSParser {
 	                    	
 	                    }
                     }
-                    
                     
                     
                    if (url_img != null){

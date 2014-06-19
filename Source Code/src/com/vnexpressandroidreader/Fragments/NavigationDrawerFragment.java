@@ -110,10 +110,23 @@ public class NavigationDrawerFragment extends Fragment {
         
         //Create ArrayList for Item in menu
         ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
-        listItem.add(new DrawerItem(getString(R.string.title_section1), R.drawable.ic_launcher));
-        listItem.add(new DrawerItem(getString(R.string.title_section2), R.drawable.ic_launcher));
-        listItem.add(new DrawerItem(getString(R.string.title_section3), R.drawable.ic_launcher));
-        listItem.add(new DrawerItem(getString(R.string.title_section4), R.drawable.ic_launcher));
+        listItem.add(new DrawerItem(getString(R.string.title_home_page), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_news), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_life), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_world), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_business), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_entertainment), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_sports), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_laws), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_travelling), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_science), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_digital), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_cars), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_social), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_funny), R.drawable.vnexpress));
+        
+        
+        
         
         //SetAdapter for menu
         mDrawerListView.setAdapter(new ListDrawerItemAdapter(
@@ -265,27 +278,18 @@ public class NavigationDrawerFragment extends Fragment {
             //Toast.makeText(getActivity(), "Layout Change.", Toast.LENGTH_SHORT).show();
         	android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
         	switch (MainActivity.currentFragment) {
-			case GridBrakingNews:
-				fragmentManager.beginTransaction().replace(R.id.container,new BreakingNewsFragment());
-				MainActivity.currentFragment = Constant.ListBrakingNews;
-				MainActivity.curViewGroup = Constant.List;
+			case Grid:
+				fragmentManager.beginTransaction().replace(R.id.container,new ListViewNewsLiveFragment()).commit();
+				MainActivity.currentFragment = Constant.List;
+				//MainActivity.curViewGroup = Constant.List;
 				
 				break;
-			case ListBrakingNews:
-				fragmentManager.beginTransaction().replace(R.id.container,new BreakingNewsFragment()).commit();
-				MainActivity.currentFragment = Constant.GridBrakingNews;
-				MainActivity.curViewGroup = Constant.Grid;
+			case List:
+				fragmentManager.beginTransaction().replace(R.id.container,new GridViewNewsLiveFragment()).commit();
+				MainActivity.currentFragment = Constant.Grid;
+				//MainActivity.curViewGroup = Constant.Grid;
 				break;
-			case GridLiveNews:
-				fragmentManager.beginTransaction().replace(R.id.container, new ListViewNewsLiveFragment()).commit();
-				MainActivity.currentFragment = Constant.ListLiveNews;
-				MainActivity.curViewGroup = Constant.List;
-				break;
-			case ListLiveNews:
-				fragmentManager.beginTransaction().replace(R.id.container, new GridViewNewsLiveFragment()).commit();
-				MainActivity.currentFragment = Constant.GridLiveNews;
-				MainActivity.curViewGroup = Constant.Grid;
-				break;
+			
 			default:
 				break;
 			}

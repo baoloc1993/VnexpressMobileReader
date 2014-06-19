@@ -31,11 +31,12 @@ public class MainActivity extends FragmentActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	public static boolean FirstOpen;
-	public static Constant currentFragment;
+	public static Constant currentFragment = Constant.List;
 	public static Constant curViewGroup;
 	public static Activity activity;
 	public static List<RSSItem> rssItems = new ArrayList<RSSItem>();
 	public static int LIMITED_NUMBER = 100;
+	public static NameCategories nameCategory;
 	
 	
 	/**
@@ -89,55 +90,106 @@ public class MainActivity extends FragmentActivity implements
 		FragmentManager fragmentManager = getFragmentManager();
 		switch (position) {
 		case 0:
-			fragmentManager.beginTransaction()
-					.replace(R.id.container, new ListViewNewsLiveFragment()).commit();
-			currentFragment = Constant.ListLiveNews;
-			curViewGroup = Constant.List;
+			nameCategory = NameCategories.Homepage;
 			break;
 		case 1:
-			fragmentManager.beginTransaction()
-					.replace(R.id.container, new BreakingNewsFragment())
-					.commit();
-			currentFragment = Constant.ListBrakingNews;
-			curViewGroup = Constant.List;
+			nameCategory = NameCategories.News;
 			break;
 		case 2:
-			fragmentManager.beginTransaction()
-					.replace(R.id.container, new SelectedNewsFragment())
-					.commit();
-			currentFragment = Constant.ListSelectedNews;
-			curViewGroup = Constant.List;
+			nameCategory = NameCategories.Life;
+			break;
+		case 3:
+			nameCategory = NameCategories.World;
+			break;
+		case 4:
+			nameCategory = NameCategories.Business;
+			break;
+		case 5:
+			nameCategory = NameCategories.Entertainment;
+			break;
+		case 6:
+			nameCategory = NameCategories.Sports;
+			break;
+		case 7:
+			nameCategory = NameCategories.Laws;
+			break;
+		case 8:
+			nameCategory = NameCategories.Travelling;
+			break;
+		case 9:
+			nameCategory = NameCategories.Science;
+			break;
+		case 10:
+			nameCategory = NameCategories.Digital;
+			break;
+		case 11:
+			nameCategory = NameCategories.Car;
+			break;
+		case 12:
+			nameCategory = NameCategories.Social;
+			break;
+		case 13:
+			nameCategory = NameCategories.Chat;
+			break;
+		case 14:
+			nameCategory = NameCategories.Funny;
+			break;	
+		default:
+			nameCategory = NameCategories.Homepage;
 			break;
 			
-		case 3:
-			fragmentManager.beginTransaction()
-					.replace(R.id.container, new SocialNetworkFragment())
-					.commit();
-			currentFragment = Constant.SocialNetwork;
-			break;
-		default:
-			fragmentManager.beginTransaction()
-					.replace(R.id.container, new SocialNetworkFragment())
-					.commit();
-			currentFragment = Constant.SocialNetwork;
-			break;
 		}
+		curViewGroup = Constant.List;
+		fragmentManager.beginTransaction().replace(R.id.container, new ListViewNewsLiveFragment()).commit();
 
 	}
 
 	public void onSectionAttached(int number) {
 		switch (number) {
 		case 1:
-			mTitle = getString(R.string.title_section1);
+			mTitle = getString(R.string.title_home_page);
 			break;
 		case 2:
-			mTitle = getString(R.string.title_section2);
+			mTitle = getString(R.string.title_news);
 			break;
 		case 3:
-			mTitle = getString(R.string.title_section3);
+			mTitle = getString(R.string.title_life);
 			break;
 		case 4:
-			mTitle = getString(R.string.title_section4);
+			mTitle = getString(R.string.title_world);
+			break;
+		case 5:
+			mTitle = getString(R.string.title_business);
+			break;
+		case 6:
+			mTitle = getString(R.string.title_entertainment);
+			break;
+		case 7:
+			mTitle = getString(R.string.title_sports);
+			break;
+		case 8:
+			mTitle = getString(R.string.title_laws);
+			break;
+		case 9:
+			mTitle = getString(R.string.title_travelling);
+			break;
+		case 10:
+			mTitle = getString(R.string.title_science);
+			break;
+		case 11:
+			mTitle = getString(R.string.title_digital);
+			break;
+		case 12:
+			mTitle = getString(R.string.title_cars);
+			break;
+		case 13:
+			mTitle = getString(R.string.title_social);
+			break;
+		case 14:
+			mTitle = getString(R.string.title_chat);
+			break;
+		case 15:
+			mTitle = getString(R.string.title_funny);
 			break;
 		}
 	}

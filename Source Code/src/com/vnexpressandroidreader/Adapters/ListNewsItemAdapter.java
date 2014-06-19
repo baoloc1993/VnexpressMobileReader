@@ -3,6 +3,7 @@ package com.vnexpressandroidreader.Adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class ListNewsItemAdapter extends ArrayAdapter<RSSItem> {
 			 * Therefore, i refers to the current Item object.
 			 */
 			RSSItem i = objects.get(position);
-
+			
 			if (i != null) {
 
 				// This is how you obtain a reference to the TextViews.
@@ -76,6 +77,7 @@ public class ListNewsItemAdapter extends ArrayAdapter<RSSItem> {
 				//Config parameter of each textview and imageview(Resize)
 				//For TITLE, ICON, CONTENT, TIMESTAMP
 				
+
 				if (title != null){
 					title.setText( i.getTitle());
 				}

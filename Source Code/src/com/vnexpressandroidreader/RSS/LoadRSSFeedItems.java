@@ -25,20 +25,13 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 	private ProgressDialog pDialog;
 	RSSParser rssParser = new RSSParser();
 	private ViewGroup viewGroup;
-	private String currentViewGroup;
-	private String LIST ="list";
-	private String GRID = "grid";
+	
 	private PullToRefreshLayout pullToRefreshLayout;
 	public LoadRSSFeedItems(ViewGroup viewGroup, PullToRefreshLayout pullToRefreshLayout) {
 		// TODO Auto-generated constructor stub
 		this.viewGroup = viewGroup;
 		this.pullToRefreshLayout = pullToRefreshLayout;
-		if(MainActivity.currentFragment == Constant.ListLiveNews){
-			currentViewGroup = LIST;
-		}
-		if(MainActivity.currentFragment == Constant.GridLiveNews){
-			currentViewGroup = GRID;
-		}
+
 	}
 	/**
 	 * Before starting background thread Show Progress Dialog
@@ -68,8 +61,8 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		// IF INTERNET CONNECTING, RETRIVE DATA FROM RSS LINK
 		// list of rss items
 		if (BasicFunctions.isConnectingToInternet(MainActivity.activity.getApplicationContext())) {
-			rssItems = rssParser
-					.getRSSFeedItems(MainActivity.activity.getString(R.string.rss_link));
+			//Log.d("DEBUG", "CATE = " + getRssUrl());
+			rssItems = rssParser.getRSSFeedItems(getRssUrl());
 		}
 
 		// updating UI from Background Thread
@@ -112,16 +105,18 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 					// Add RSSItem to RSSItems
 					rssItemsDataBase.add(newItem);
+					//Log.d("DATABASE", "TABLE = " + rssItemsDataBase.get(0).getTitle());
 				}
-				if(currentViewGroup == LIST){
-				ListNewsItemAdapter adapter = new ListNewsItemAdapter(
-						MainActivity.activity,
-						R.layout.preview_single_news_list_layout,
-						(ArrayList<RSSItem>) rssItemsDataBase);
-
-				((ListView)viewGroup).setAdapter(adapter);
+				if(viewGroup instanceof ListView){
+					Log.d("DATABASE", "TABLE = " + rssItemsDataBase.size());
+					ListNewsItemAdapter adapter = new ListNewsItemAdapter(
+							MainActivity.activity,
+							R.layout.preview_single_news_list_layout,
+							(ArrayList<RSSItem>) rssItemsDataBase);
+	
+					((ListView)viewGroup).setAdapter(adapter);
 				}
-				if(currentViewGroup == GRID){
+				if(viewGroup instanceof GridView){
 					GridNewsItemAdapter adapter = new GridNewsItemAdapter(
 							MainActivity.activity,
 							R.layout.preview_single_news_grid_layout,
@@ -151,6 +146,62 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 			pullToRefreshLayout.setRefreshComplete();
 		}
 
+	}
+	
+	private String getRssUrl(){
+		String url_name;
+		switch(MainActivity.nameCategory){
+		
+		case Homepage:
+			url_name = MainActivity.activity.getString(R.string.rss_home_page);
+			break;
+		case Business:
+			url_name = MainActivity.activity.getString(R.string.rss_business);
+			break;
+		case Car:
+			url_name = MainActivity.activity.getString(R.string.rss_cars);
+			break;
+		case Chat:
+			url_name = MainActivity.activity.getString(R.string.rss_chat);
+			break;
+		case Digital:
+			url_name = MainActivity.activity.getString(R.string.rss_digital);
+			break;
+		case Entertainment:
+			url_name = MainActivity.activity.getString(R.string.rss_entertainment);
+			break;
+		case Sports:
+			url_name = MainActivity.activity.getString(R.string.rss_sports);
+			break;
+		case Funny:
+			url_name = MainActivity.activity.getString(R.string.rss_funny);
+			break;
+		case Laws:
+			url_name = MainActivity.activity.getString(R.string.rss_laws);
+			break;
+		case Life:
+			url_name = MainActivity.activity.getString(R.string.rss_home_page);
+			break;
+		case News:
+			url_name = MainActivity.activity.getString(R.string.rss_news);
+			break;
+		case Science:
+			url_name = MainActivity.activity.getString(R.string.rss_science);
+			break;
+		case Social:
+			url_name = MainActivity.activity.getString(R.string.rss_social);
+			break;
+		case Travelling:
+			url_name = MainActivity.activity.getString(R.string.rss_travelling);
+			break;
+		case World:
+			url_name = MainActivity.activity.getString(R.string.rss_world);
+			break;
+		default:
+			url_name = MainActivity.activity.getString(R.string.rss_home_page);
+			
+		}
+		return url_name;
 	}
 }
 
