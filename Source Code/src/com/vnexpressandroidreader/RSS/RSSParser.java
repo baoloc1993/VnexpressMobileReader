@@ -162,11 +162,9 @@ public class RSSParser {
                     	//If the link is image, load to RSSItem
 	                    if (urlStr.endsWith(".jpg") || urlStr.endsWith(".png")){
 	                    	url_img = urlStr;
-	                    	 
 	                    	
 	                    }
                     }
-                    
                     
                    if (url_img != null){
                 	   RSSItem rssItem = new RSSItem(DEFAULT_ID,title, link, description, pubdate, url_img);

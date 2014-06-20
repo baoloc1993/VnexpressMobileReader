@@ -281,13 +281,13 @@ public class NavigationDrawerFragment extends Fragment {
 			case Grid:
 				fragmentManager.beginTransaction().replace(R.id.container,new ListViewNewsLiveFragment()).commit();
 				MainActivity.currentFragment = Constant.List;
-				//MainActivity.curViewGroup = Constant.List;
+				MainActivity.curViewGroup = Constant.List;
 				
 				break;
 			case List:
 				fragmentManager.beginTransaction().replace(R.id.container,new GridViewNewsLiveFragment()).commit();
 				MainActivity.currentFragment = Constant.Grid;
-				//MainActivity.curViewGroup = Constant.Grid;
+				MainActivity.curViewGroup = Constant.Grid;
 				break;
 			
 			default:
