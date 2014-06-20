@@ -169,5 +169,27 @@ public class BasicFunctions {
 	};
 	return onItemClickListener;
 	}
-	
+	/**
+	 * Eg for Tag: a, img, b...
+	 * @param tag
+	 * @return
+	 */
+	public static String removeHTMLTag(String tag, String html){
+		String result = html;
+		String openTag = "<"+ tag;
+		String closeTag = "</"+tag+">";
+		int openIndex = html.indexOf(openTag);
+		if(openIndex == -1) return html;
+		int closeIndex = html.indexOf(closeTag)+closeTag.length();
+		StringBuilder sb = new StringBuilder(html);
+		StringBuilder out = new StringBuilder();
+		for(int i=0;i<sb.length();i++){
+			if(i>openIndex&&i<closeIndex){
+				
+			}else{
+				out.append(sb.charAt(i));
+			}
+		}
+		return out.toString();
+	}
 }
