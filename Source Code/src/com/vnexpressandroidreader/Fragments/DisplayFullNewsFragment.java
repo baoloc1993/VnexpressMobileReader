@@ -135,8 +135,18 @@ public class DisplayFullNewsFragment extends Fragment {
 					// below).
 				// Return a PlaceholderFragment (defined as a static inner class
 				//Log.d("SECTIONPAGER", "CALLED");
-
-				return PlaceholderFragment.newInstance(position+1);
+				Bundle arg = new Bundle();
+				RSSDatabaseHandler rssDb = new RSSDatabaseHandler(getActivity());
+		        //List<WebSite> websites = rssDb.getAllSitesByID();
+//		        Log.d("value of SIZE OF DATABASE", "TEST = " + String.valueOf(DisplayFullNewsFragment.size));
+//		        Log.d("value of SIZE OF DATABASE", "USING FUNCTION TEST = " + String.valueOf(rssDb.getDatabaseSize()));
+		        
+		        
+		        	WebSite website = rssDb.getSiteById(position);
+		        	DisplayWebNewsFragment f = new DisplayWebNewsFragment();
+		        	arg.putString(DisplayWebNewsFragment.KEY_SITE_LINK, website.getLink());
+		        	f.setArguments(arg);
+				return f;
 			}
 
 			@Override
@@ -149,142 +159,7 @@ public class DisplayFullNewsFragment extends Fragment {
 
 		}
 
-		/**
-		 * A placeholder fragment containing a simple view.
-		 */
-		public static class PlaceholderFragment extends android.support.v4.app.Fragment {
-
-			/**
-			 * Returns a new instance of this fragment for the given section number.
-			 */
-			public static PlaceholderFragment newInstance(int sectionNumber) {
-				PlaceholderFragment fragment = new PlaceholderFragment();
-				Bundle args = new Bundle();
-				
-				args.putInt(ARG_ID, sectionNumber);
-				fragment.setArguments(args);
-				return fragment;
-			}
-
-			public PlaceholderFragment() {
-			}
-
-			private int id ;
-			@Override
-			public View onCreateView(LayoutInflater inflater, ViewGroup container,
-					Bundle savedInstanceState) {
-				View rootView = inflater.inflate(R.layout.display_web_page, container,
-						false);
-		    	//Get Data from previous fragment
-	    		Bundle bundle = this.getArguments();
-		        int position = bundle.getInt(ARG_ID);
-		        //int id = 0;
-		        
-		       // size = bundle.getInt(ARG_SIZE);
-		        Log.d("value of position in placeholder fragment", "TEST " + String.valueOf(position));
-		        //Log.d("value of ID in placeholder fragment", String.valueOf(DisplayFullNewsFragment.id+position-1));
-		        //Log.d("value of SIZE in placeholder fragment", String.valueOf(size));
-		        
-		       // id = DisplayFullNewsFragment.id +position -1;
-		        //Get data from database
-		        RSSDatabaseHandler rssDb = new RSSDatabaseHandler(getActivity());
-		        //List<WebSite> websites = rssDb.getAllSitesByID();
-//		        Log.d("value of SIZE OF DATABASE", "TEST = " + String.valueOf(DisplayFullNewsFragment.size));
-//		        Log.d("value of SIZE OF DATABASE", "USING FUNCTION TEST = " + String.valueOf(rssDb.getDatabaseSize()));
-		        
-		        
-		        	WebSite website = rssDb.getSiteById(position);
-		    		
-	    			final RSSItem item = new RSSItem(
-	    					website.getId(),
-	    					website.getTitle(),
-	    					website.getLink(),
-	    					website.getDescription(),
-	    					website.getPubDate(),
-	    					 website.getImageLink());
-		        
-    			//Log.d("DEBUG", "TITLE = " + item.getTitle());
-		        //Get ID Layout
-		        TextView page_title = (TextView) rootView.findViewById(R.id.page_title);
-			    TextView page_public_date = (TextView) rootView.findViewById(R.id.page_public_date);
-			    ImageView page_image = (ImageView) rootView.findViewById(R.id.page_image);
-			    TextView page_content = (TextView) rootView.findViewById(R.id.page_content);
-			    Button go_to_website = (Button) rootView.findViewById(R.id.go_to_website_button);
-			    
-			    
-			    //Get information of current News
-
-			    page_title.setText(item.getTitle());
-			    page_public_date.setText(item.getPubdate());
-			    page_content.setText(item.getDescription());
-			    
-			    Log.d("TEXTVIEW", "TITLE = " + item.getTitle());
-			    //Set information for ImageView
-			   ImageLoader imgLoader = new ImageLoader(getActivity());
-				// Loader image - will be shown before loading image
-		        int loader = R.drawable.image_not_found;
-		         
-				imgLoader.DisplayImage(item.getImgUrl(), loader, page_image);
-				
-			    //Set Information for button
-			   go_to_website.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					Bundle args = new Bundle();
-					//Go to webView
-					args.putString(DisplaySingleNewsFragment.KEY_SITE_LINK, item.getLink());
-					android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-	                DisplaySingleNewsFragment displaySingleNewsFragment = new DisplaySingleNewsFragment();
-	                displaySingleNewsFragment.setArguments(args);
-	                
-	                //Go to DisplayFullNewsFragment
-	    	        fragmentManager.beginTransaction().replace(R.id.container, displaySingleNewsFragment).commit();
-					
-				}
-			});
-			   rootView.setFocusableInTouchMode(true);
-				rootView.requestFocus();
-				rootView.setOnKeyListener(new View.OnKeyListener() {
-				       
-
-						@Override
-						public boolean onKey(View v, int keyCode, KeyEvent event) {
-							// TODO Auto-generated method stub
-							Log.i(getTag(), "keyCode: " + keyCode);
-				            if( keyCode == KeyEvent.KEYCODE_BACK ) {
-				                 
-				            	Bundle args = new Bundle();
-				            	//String fragment_type = args.getString(ARG_TYPE_FRAGMENT);
-				                
-				                FragmentManager fragmentManager = getActivity().getFragmentManager();
-				                
-				                //displayFullNewsFragment.setArguments(args);
-				                ListViewNewsLiveFragment list = new ListViewNewsLiveFragment();
-				                GridViewNewsLiveFragment grid = new GridViewNewsLiveFragment();
-				                //Log.d("DEBUG", "LIST = " + fragment_type);
-				                //Back to ListFragment
-				                if (MainActivity.curViewGroup == Constant.List){
-				                	fragmentManager.beginTransaction().replace(R.id.container, list).commit();
-				                } 
-				                
-				                //Back to GridFragment
-				                if (MainActivity.curViewGroup == Constant.Grid){
-				                	Log.d("aaaa", "GRID");
-				                	fragmentManager.beginTransaction().replace(R.id.container, grid).commit();
-				                }
-				              //  getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-				                return true;
-				            } else {
-				                return false;
-				            }
-						}
-				    });
-				return rootView;
-			}
-			
-		}
+		
 		
 		@Override
 		public void onAttach(Activity activity) {
