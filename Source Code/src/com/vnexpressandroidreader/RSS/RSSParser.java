@@ -165,7 +165,7 @@ public class RSSParser {
 	                    	
 	                    }
                     }
-                    
+                    Log.d("aaa", "DESC " + description);
                    if (url_img != null){
                 	   RSSItem rssItem = new RSSItem(DEFAULT_ID,title, link, description, pubdate, url_img);
                    
