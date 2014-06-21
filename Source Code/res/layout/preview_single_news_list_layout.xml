@@ -25,7 +25,7 @@
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/icon"
         android:text="title"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_toLeftOf="@+id/icon"
         android:lines="3"
         android:text="content"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
         android:id="@+id/icon"

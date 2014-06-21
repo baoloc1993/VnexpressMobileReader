@@ -172,7 +172,7 @@ public class RSSParser {
                     //description =Html.fromHtml(description).toString();
                     description = Jsoup.parse(description).text();
                     String result = BasicFunctions.removeHTMLTag("a", description);
-                    Log.d("aaa", "DESC " + description);
+                   
                    if (url_img != null){
                 	   RSSItem rssItem = new RSSItem(DEFAULT_ID,title, link, description, pubdate, url_img);
                    
