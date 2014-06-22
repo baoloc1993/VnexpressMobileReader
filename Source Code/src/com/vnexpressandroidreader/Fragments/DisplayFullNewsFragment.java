@@ -141,11 +141,11 @@ public class DisplayFullNewsFragment extends Fragment {
 //		        Log.d("value of SIZE OF DATABASE", "TEST = " + String.valueOf(DisplayFullNewsFragment.size));
 //		        Log.d("value of SIZE OF DATABASE", "USING FUNCTION TEST = " + String.valueOf(rssDb.getDatabaseSize()));
 		        
-		        //POSITION START AT 0, ID IN DATABASE START AT 1	
-	        	WebSite website = rssDb.getSiteById(position+1);
-	        	DisplayWebNewsFragment f = new DisplayWebNewsFragment();
-	        	arg.putString(DisplayWebNewsFragment.KEY_SITE_LINK, website.getLink());
-	        	f.setArguments(arg);
+		        
+		        	WebSite website = rssDb.getSiteById(position);
+		        	DisplayWebNewsFragment f = new DisplayWebNewsFragment();
+		        	arg.putString(DisplayWebNewsFragment.KEY_SITE_LINK, website.getLink());
+		        	f.setArguments(arg);
 				return f;
 			}
 
