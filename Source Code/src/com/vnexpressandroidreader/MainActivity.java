@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.res.AssetManager;
@@ -195,10 +196,10 @@ public class MainActivity extends FragmentActivity implements
 	}
 
 	public void restoreActionBar() {
-		// ActionBar actionBar = getActionBar();
-		// actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		// actionBar.setDisplayShowTitleEnabled(true);
-		// actionBar.setTitle(mTitle);
+		ActionBar actionBar = getActionBar();
+		 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		 actionBar.setDisplayShowTitleEnabled(true);
+		 actionBar.setTitle(mTitle);
 	}
 
 	@Override
