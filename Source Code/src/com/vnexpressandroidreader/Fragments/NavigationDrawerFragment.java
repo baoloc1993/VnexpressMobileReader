@@ -110,20 +110,22 @@ public class NavigationDrawerFragment extends Fragment {
         
         //Create ArrayList for Item in menu
         ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
-        listItem.add(new DrawerItem(getString(R.string.title_home_page), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_news), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_life), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_world), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_business), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_entertainment), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_sports), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_laws), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_travelling), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_science), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_digital), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_cars), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_social), R.drawable.vnexpress));
-        listItem.add(new DrawerItem(getString(R.string.title_funny), R.drawable.vnexpress));
+        listItem.add(new DrawerItem(getString(R.string.title_home_page), R.drawable.home));
+        listItem.add(new DrawerItem(getString(R.string.title_news), R.drawable.news));
+        listItem.add(new DrawerItem(getString(R.string.title_life), R.drawable.life));
+        listItem.add(new DrawerItem(getString(R.string.title_world), R.drawable.global));
+        listItem.add(new DrawerItem(getString(R.string.title_business), R.drawable.business));
+        listItem.add(new DrawerItem(getString(R.string.title_entertainment), R.drawable.entertainment));
+        listItem.add(new DrawerItem(getString(R.string.title_sports), R.drawable.sport));
+        listItem.add(new DrawerItem(getString(R.string.title_laws), R.drawable.law));
+        listItem.add(new DrawerItem(getString(R.string.title_travelling), R.drawable.travelling));
+        listItem.add(new DrawerItem(getString(R.string.title_science), R.drawable.science));
+        listItem.add(new DrawerItem(getString(R.string.title_digital), R.drawable.digital));
+        listItem.add(new DrawerItem(getString(R.string.title_cars), R.drawable.car));
+        listItem.add(new DrawerItem(getString(R.string.title_social), R.drawable.social));
+        listItem.add(new DrawerItem(getString(R.string.title_funny), R.drawable.funny));
+        listItem.add(new DrawerItem(getString(R.string.title_about), R.drawable.about));
+        
         
         
         

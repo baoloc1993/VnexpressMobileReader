@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BF1717"
+    android:background="#9f234f"
     android:choiceMode="singleChoice"
     android:divider="@android:color/black"
-    android:dividerHeight="5dp"
+    android:dividerHeight="2dp"
     tools:context="com.vnexpressandroidreader.Fragments.NavigationDrawerFragment" />
 

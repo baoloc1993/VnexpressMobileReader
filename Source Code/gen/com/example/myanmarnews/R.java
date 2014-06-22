@@ -197,15 +197,30 @@ containing a value of this type.
         public static final int spb_default_stroke_width=0x7f060001;
     }
     public static final class drawable {
-        public static final int drawer_shadow=0x7f020000;
-        public static final int facebook_icon=0x7f020001;
-        public static final int google_plus_icon=0x7f020002;
-        public static final int home_icon_grey=0x7f020003;
-        public static final int ic_drawer=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int image_not_found=0x7f020006;
-        public static final int twitter_icon=0x7f020007;
-        public static final int vnexpress=0x7f020008;
+        public static final int about=0x7f020000;
+        public static final int business=0x7f020001;
+        public static final int car=0x7f020002;
+        public static final int digital=0x7f020003;
+        public static final int drawer_shadow=0x7f020004;
+        public static final int entertainment=0x7f020005;
+        public static final int facebook_icon=0x7f020006;
+        public static final int funny=0x7f020007;
+        public static final int global=0x7f020008;
+        public static final int google_plus_icon=0x7f020009;
+        public static final int home=0x7f02000a;
+        public static final int home_icon_grey=0x7f02000b;
+        public static final int ic_drawer=0x7f02000c;
+        public static final int ic_launcher=0x7f02000d;
+        public static final int image_not_found=0x7f02000e;
+        public static final int law=0x7f02000f;
+        public static final int life=0x7f020010;
+        public static final int news=0x7f020011;
+        public static final int science=0x7f020012;
+        public static final int social=0x7f020013;
+        public static final int sport=0x7f020014;
+        public static final int travelling=0x7f020015;
+        public static final int twitter_icon=0x7f020016;
+        public static final int vnexpress=0x7f020017;
     }
     public static final class id {
         public static final int action_settings=0x7f040020;
@@ -215,10 +230,10 @@ containing a value of this type.
         public static final int content_layout=0x7f04000c;
         public static final int drawer_layout=0x7f040009;
         public static final int go_to_website_button=0x7f040012;
-        public static final int gridNews=0x7f040014;
-        public static final int icon=0x7f040018;
+        public static final int gridNews=0x7f040015;
+        public static final int icon=0x7f040013;
         public static final int inside=0x7f040004;
-        public static final int listNews=0x7f040015;
+        public static final int listNews=0x7f040016;
         public static final int navigation_drawer=0x7f04000b;
         public static final int outside=0x7f040005;
         public static final int page_content=0x7f040011;
@@ -230,17 +245,17 @@ containing a value of this type.
         public static final int ptr_content=0x7f040006;
         public static final int ptr_progress=0x7f040008;
         public static final int ptr_text=0x7f040007;
-        public static final int rss_url=0x7f040017;
+        public static final int rss_url=0x7f040018;
         public static final int single_web_view=0x7f04001b;
         public static final int socialNetworkHeader=0x7f04001e;
         public static final int spb_interpolator_accelerate=0x7f040000;
         public static final int spb_interpolator_acceleratedecelerate=0x7f040002;
         public static final int spb_interpolator_decelerate=0x7f040003;
         public static final int spb_interpolator_linear=0x7f040001;
-        public static final int sqlite_id=0x7f040016;
+        public static final int sqlite_id=0x7f040017;
         public static final int switch_layout=0x7f040021;
         public static final int timestamp=0x7f04001a;
-        public static final int title=0x7f040013;
+        public static final int title=0x7f040014;
         public static final int webView=0x7f04001f;
     }
     public static final class integer {
@@ -268,56 +283,53 @@ containing a value of this type.
         public static final int main=0x7f0b0001;
     }
     public static final class string {
-        public static final int action_settings=0x7f080009;
+        public static final int action_settings=0x7f080005;
         public static final int app_name=0x7f080001;
-        public static final int myanmar_test=0x7f08000a;
-        public static final int navigation_drawer_close=0x7f080007;
-        public static final int navigation_drawer_open=0x7f080006;
-        public static final int pull_to_refresh_pull_label=0x7f08000c;
-        public static final int pull_to_refresh_refreshing_label=0x7f08000e;
-        public static final int pull_to_refresh_release_label=0x7f08000d;
-        public static final int rss_business=0x7f080013;
-        public static final int rss_cars=0x7f08001a;
-        public static final int rss_chat=0x7f08001c;
-        public static final int rss_digital=0x7f080019;
-        public static final int rss_entertainment=0x7f080014;
-        public static final int rss_funny=0x7f08001d;
+        public static final int myanmar_test=0x7f080006;
+        public static final int navigation_drawer_close=0x7f080003;
+        public static final int navigation_drawer_open=0x7f080002;
+        public static final int pull_to_refresh_pull_label=0x7f080008;
+        public static final int pull_to_refresh_refreshing_label=0x7f08000a;
+        public static final int pull_to_refresh_release_label=0x7f080009;
+        public static final int rss_business=0x7f08000f;
+        public static final int rss_cars=0x7f080016;
+        public static final int rss_chat=0x7f080018;
+        public static final int rss_digital=0x7f080015;
+        public static final int rss_entertainment=0x7f080010;
+        public static final int rss_funny=0x7f080019;
         /**  RSS LINK 
          */
-        public static final int rss_home_page=0x7f08000f;
-        public static final int rss_laws=0x7f080016;
-        public static final int rss_life=0x7f080011;
-        public static final int rss_link=0x7f08000b;
-        public static final int rss_news=0x7f080010;
-        public static final int rss_science=0x7f080018;
-        public static final int rss_social=0x7f08001b;
-        public static final int rss_sports=0x7f080015;
-        public static final int rss_travelling=0x7f080017;
-        public static final int rss_world=0x7f080012;
+        public static final int rss_home_page=0x7f08000b;
+        public static final int rss_laws=0x7f080012;
+        public static final int rss_life=0x7f08000d;
+        public static final int rss_link=0x7f080007;
+        public static final int rss_news=0x7f08000c;
+        public static final int rss_science=0x7f080014;
+        public static final int rss_social=0x7f080017;
+        public static final int rss_sports=0x7f080011;
+        public static final int rss_travelling=0x7f080013;
+        public static final int rss_world=0x7f08000e;
         public static final int spb_default_speed=0x7f080000;
-        public static final int switch_layout=0x7f080008;
-        public static final int title_business=0x7f080022;
-        public static final int title_cars=0x7f080029;
-        public static final int title_chat=0x7f08002b;
-        public static final int title_digital=0x7f080028;
-        public static final int title_entertainment=0x7f080023;
-        public static final int title_funny=0x7f08002c;
+        public static final int switch_layout=0x7f080004;
+        public static final int title_about=0x7f080029;
+        public static final int title_business=0x7f08001e;
+        public static final int title_cars=0x7f080025;
+        public static final int title_chat=0x7f080027;
+        public static final int title_digital=0x7f080024;
+        public static final int title_entertainment=0x7f08001f;
+        public static final int title_funny=0x7f080028;
         /**  END RSS LINK 
  SECTION NAME 
          */
-        public static final int title_home_page=0x7f08001e;
-        public static final int title_laws=0x7f080025;
-        public static final int title_life=0x7f080020;
-        public static final int title_news=0x7f08001f;
-        public static final int title_science=0x7f080027;
-        public static final int title_section1=0x7f080002;
-        public static final int title_section2=0x7f080003;
-        public static final int title_section3=0x7f080004;
-        public static final int title_section4=0x7f080005;
-        public static final int title_social=0x7f08002a;
-        public static final int title_sports=0x7f080024;
-        public static final int title_travelling=0x7f080026;
-        public static final int title_world=0x7f080021;
+        public static final int title_home_page=0x7f08001a;
+        public static final int title_laws=0x7f080021;
+        public static final int title_life=0x7f08001c;
+        public static final int title_news=0x7f08001b;
+        public static final int title_science=0x7f080023;
+        public static final int title_social=0x7f080026;
+        public static final int title_sports=0x7f080020;
+        public static final int title_travelling=0x7f080022;
+        public static final int title_world=0x7f08001d;
     }
     public static final class style {
         /** 

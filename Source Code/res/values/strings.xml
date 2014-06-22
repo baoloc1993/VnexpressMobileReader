@@ -2,10 +2,6 @@
 <resources>
 
     <string name="app_name">VnexpressReader</string>
-    <string name="title_section1">News Live</string>
-    <string name="title_section2">Breaking News</string>
-    <string name="title_section3">Selected News</string>
-    <string name="title_section4">Social Network</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="switch_layout">Switch Layout</string>
@@ -50,6 +46,7 @@
      <string name="title_social">Cộng đồng</string>
      <string name="title_chat">Tâm sự</string>
      <string name="title_funny">Cười</string>
+     <string name="title_about">About Us</string>
      <!-- END SECTION NAME -->
     
 </resources>
