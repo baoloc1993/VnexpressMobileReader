@@ -3,6 +3,7 @@ package com.vnexpressandroidreader.Adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,8 @@ public class ListDrawerItemAdapter extends ArrayAdapter<DrawerItem> {
 				// if not, assign some text!
 				if (title != null){
 					title.setText( i.getTitle());
+					
+					
 				}
 				if (icon != null){
 					icon.setImageResource(i.getImageID());

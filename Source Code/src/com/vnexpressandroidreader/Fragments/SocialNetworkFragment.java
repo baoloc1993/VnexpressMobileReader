@@ -3,8 +3,11 @@ package com.vnexpressandroidreader.Fragments;
 import java.util.ArrayList;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.myanmarnews.R;
+import com.vnexpressandroidreader.Constant;
+import com.vnexpressandroidreader.MainActivity;
 import com.vnexpressandroidreader.Adapters.SocialNetworkItemAdapter;
 import com.vnexpressandroidreader.Items.SocialNetworkItem;
 
@@ -45,7 +51,6 @@ public class SocialNetworkFragment extends Fragment {
 		webView.setPadding(0, 0, 0, 0);
 		webView.setWebChromeClient(new MyWebViewClient());
 		webView.setWebViewClient(new WebViewClient());
-
 		webView.getSettings().setJavaScriptEnabled(true);
 		// OR, you can also load from an HTML string:
 
@@ -57,18 +62,18 @@ public class SocialNetworkFragment extends Fragment {
 		 * 
 		 * FACEBOOK
 		 */
-		socialNetworkItems.add(new SocialNetworkItem("http://m.facebook.com",
+		socialNetworkItems.add(new SocialNetworkItem("http://m.facebook.com/fabio.ngo1403",
 				R.drawable.facebook_icon, Color.rgb(70, 110, 169)));
 		/**
 		 * GOOGLE+
 		 */
 		socialNetworkItems.add(new SocialNetworkItem(
-				"http://plus.google.com/app/basic",
+				"http://plus.google.com/app/basic/101859850684563902610",
 				R.drawable.google_plus_icon, Color.rgb(228, 96, 68)));
 		/**
 		 * TWITTER
 		 */
-		socialNetworkItems.add(new SocialNetworkItem("http://twitter.com",
+		socialNetworkItems.add(new SocialNetworkItem("https://twitter.com/FabioNgo1403",
 				R.drawable.twitter_icon, Color.rgb(0, 172, 237)));
 
 		/**
@@ -97,6 +102,8 @@ public class SocialNetworkFragment extends Fragment {
 		// default url
 		socialNetworkHeader.performItemClick(socialNetworkHeader, 0,
 				socialNetworkHeader.getItemIdAtPosition(0));
+		
+		
 		return rootView;
 	}
 

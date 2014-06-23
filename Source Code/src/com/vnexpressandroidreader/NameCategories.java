@@ -15,5 +15,6 @@ public enum NameCategories {
 	Car,
 	Social,
 	Chat,
-	Funny
+	Funny,
+	About
 }

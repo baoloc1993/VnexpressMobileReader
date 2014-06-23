@@ -123,6 +123,7 @@ public class NavigationDrawerFragment extends Fragment {
         listItem.add(new DrawerItem(getString(R.string.title_digital), R.drawable.digital));
         listItem.add(new DrawerItem(getString(R.string.title_cars), R.drawable.car));
         listItem.add(new DrawerItem(getString(R.string.title_social), R.drawable.social));
+        listItem.add(new DrawerItem(getString(R.string.title_chat), R.drawable.chat));
         listItem.add(new DrawerItem(getString(R.string.title_funny), R.drawable.funny));
         listItem.add(new DrawerItem(getString(R.string.title_about), R.drawable.about));
         

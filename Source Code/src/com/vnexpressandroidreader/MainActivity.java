@@ -21,10 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.myanmarnews.R;
-import com.vnexpressandroidreader.Fragments.BreakingNewsFragment;
 import com.vnexpressandroidreader.Fragments.ListViewNewsLiveFragment;
 import com.vnexpressandroidreader.Fragments.NavigationDrawerFragment;
-import com.vnexpressandroidreader.Fragments.SelectedNewsFragment;
 import com.vnexpressandroidreader.Fragments.SocialNetworkFragment;
 import com.vnexpressandroidreader.RSS.RSSItem;
 
@@ -135,13 +133,21 @@ public class MainActivity extends FragmentActivity implements
 		case 14:
 			nameCategory = NameCategories.Funny;
 			break;	
+		case 15:
+			nameCategory = NameCategories.About;
+			break;
 		default:
 			nameCategory = NameCategories.Homepage;
 			break;
 			
 		}
+		
 		curViewGroup = Constant.List;
-		fragmentManager.beginTransaction().replace(R.id.container, new ListViewNewsLiveFragment()).commit();
+		if(nameCategory!=NameCategories.About){
+			fragmentManager.beginTransaction().replace(R.id.container, new ListViewNewsLiveFragment()).commit();
+		} else{
+			fragmentManager.beginTransaction().replace(R.id.container, new SocialNetworkFragment()).commit();
+		}
 
 	}
 
