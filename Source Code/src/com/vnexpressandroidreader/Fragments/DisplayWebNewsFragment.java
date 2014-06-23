@@ -3,11 +3,7 @@ package com.vnexpressandroidreader.Fragments;
 import com.example.myanmarnews.R;
 import com.vnexpressandroidreader.Constant;
 import com.vnexpressandroidreader.MainActivity;
-import com.vnexpressandroidreader.RSS.RSSDatabaseHandler;
-import com.vnexpressandroidreader.RSS.WebSite;
-
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;

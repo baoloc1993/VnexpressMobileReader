@@ -1,21 +1,14 @@
 package com.vnexpressandroidreader.Fragments;
 
-import java.util.List;
-
 import com.example.myanmarnews.R;
 //import com.example.myanmarnews.RSS.HomePageDatabaseHandler;
 
 
-import com.vnexpressandroidreader.Constant;
 import com.vnexpressandroidreader.MainActivity;
 import com.vnexpressandroidreader.RSS.RSSDatabaseHandler;
-import com.vnexpressandroidreader.RSS.RSSItem;
 import com.vnexpressandroidreader.RSS.WebSite;
-import com.vnexpressandroidreader.imageloader.ImageLoader;
-
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -23,15 +16,10 @@ import android.support.v4.view.PagerAdapter;
 //import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class DisplayFullNewsFragment extends Fragment {
 	
@@ -113,9 +101,6 @@ public class DisplayFullNewsFragment extends Fragment {
 			// automatically handle clicks on the Home/Up button, so long
 			// as you specify a parent activity in AndroidManifest.xml.
 			int id = item.getItemId();
-			if (id == R.id.action_settings) {
-				return true;
-			}
 			return super.onOptionsItemSelected(item);
 		}
 

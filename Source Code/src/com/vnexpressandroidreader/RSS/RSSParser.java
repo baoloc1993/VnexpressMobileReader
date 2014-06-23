@@ -37,7 +37,6 @@ import org.xml.sax.SAXException;
 
 import com.vnexpressandroidreader.BasicFunctions.BasicFunctions;
 
-import android.text.Html;
 import android.util.Log;
 	 
 public class RSSParser {

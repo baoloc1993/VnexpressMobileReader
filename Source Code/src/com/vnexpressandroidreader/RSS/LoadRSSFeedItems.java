@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.myanmarnews.R;
-import com.vnexpressandroidreader.Constant;
 import com.vnexpressandroidreader.MainActivity;
 import com.vnexpressandroidreader.Adapters.GridNewsItemAdapter;
 import com.vnexpressandroidreader.Adapters.ListNewsItemAdapter;

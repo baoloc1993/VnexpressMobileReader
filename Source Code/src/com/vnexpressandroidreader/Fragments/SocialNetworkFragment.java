@@ -3,11 +3,8 @@ package com.vnexpressandroidreader.Fragments;
 import java.util.ArrayList;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.example.myanmarnews.R;
-import com.vnexpressandroidreader.Constant;
-import com.vnexpressandroidreader.MainActivity;
 import com.vnexpressandroidreader.Adapters.SocialNetworkItemAdapter;
 import com.vnexpressandroidreader.Items.SocialNetworkItem;
 

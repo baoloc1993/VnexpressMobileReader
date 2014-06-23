@@ -41,3 +41,6 @@ Icon
 *.cache
 *.apk
 *.ap_
+*.apk
+*.dex
+*.ap_

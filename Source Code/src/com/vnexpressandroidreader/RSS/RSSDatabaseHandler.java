@@ -12,7 +12,6 @@ package com.vnexpressandroidreader.RSS;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.myanmarnews.R;
 import com.vnexpressandroidreader.MainActivity;
 
 import android.content.ContentValues;
@@ -20,7 +19,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 

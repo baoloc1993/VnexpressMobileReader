@@ -19,6 +19,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.myanmarnews.R;
 import com.vnexpressandroidreader.Fragments.ListViewNewsLiveFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends FragmentActivity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
+	private int mIconId;
 	/**
 	 * Screen's Size
 	 */
@@ -90,54 +92,88 @@ public class MainActivity extends FragmentActivity implements
 		switch (position) {
 		case 0:
 			nameCategory = NameCategories.Homepage;
+			mTitle = getString(R.string.title_home_page);
+			mIconId = R.drawable.home;
 			break;
 		case 1:
 			nameCategory = NameCategories.News;
+			mTitle = getString(R.string.title_news);
+			mIconId = R.drawable.news;
 			break;
 		case 2:
 			nameCategory = NameCategories.Life;
+			mTitle = getString(R.string.title_life);
+			mIconId = R.drawable.life;
 			break;
 		case 3:
 			nameCategory = NameCategories.World;
+			mTitle = getString(R.string.title_world);
+			mIconId = R.drawable.global;
 			break;
 		case 4:
 			nameCategory = NameCategories.Business;
+			mTitle = getString(R.string.title_business);
+			mIconId = R.drawable.business;
 			break;
 		case 5:
 			nameCategory = NameCategories.Entertainment;
+			mTitle = getString(R.string.title_entertainment);
+			mIconId = R.drawable.entertainment;
 			break;
 		case 6:
 			nameCategory = NameCategories.Sports;
+			mTitle = getString(R.string.title_sports);
+			mIconId = R.drawable.sport;
 			break;
 		case 7:
 			nameCategory = NameCategories.Laws;
+			mTitle = getString(R.string.title_laws);
+			mIconId = R.drawable.law;
 			break;
 		case 8:
 			nameCategory = NameCategories.Travelling;
+			mTitle = getString(R.string.title_travelling);
+			mIconId = R.drawable.travelling;
 			break;
 		case 9:
 			nameCategory = NameCategories.Science;
+			mTitle = getString(R.string.title_science);
+			mIconId = R.drawable.science;
 			break;
 		case 10:
 			nameCategory = NameCategories.Digital;
+			mTitle = getString(R.string.title_digital);
+			mIconId = R.drawable.digital;
 			break;
 		case 11:
 			nameCategory = NameCategories.Car;
+			mTitle = getString(R.string.title_cars);
+			mIconId = R.drawable.car;
 			break;
 		case 12:
 			nameCategory = NameCategories.Social;
+			mTitle = getString(R.string.title_social);
+			mIconId = R.drawable.social;
 			break;
 		case 13:
 			nameCategory = NameCategories.Chat;
+			mTitle = getString(R.string.title_chat);
+			mIconId = R.drawable.chat;
 			break;
 		case 14:
 			nameCategory = NameCategories.Funny;
+			mTitle = getString(R.string.title_funny);
+			mIconId = R.drawable.funny;
 			break;	
 		case 15:
 			nameCategory = NameCategories.About;
+			mTitle = getString(R.string.title_about);
+			mIconId = R.drawable.about;
 			break;
 		default:
 			nameCategory = NameCategories.Homepage;
+			mTitle = getString(R.string.title_home_page);
+			mIconId = R.drawable.home;
 			break;
 			
 		}
@@ -151,58 +187,11 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-	public void onSectionAttached(int number) {
-		switch (number) {
-		case 1:
-			mTitle = getString(R.string.title_home_page);
-			break;
-		case 2:
-			mTitle = getString(R.string.title_news);
-			break;
-		case 3:
-			mTitle = getString(R.string.title_life);
-			break;
-		case 4:
-			mTitle = getString(R.string.title_world);
-			break;
-		case 5:
-			mTitle = getString(R.string.title_business);
-			break;
-		case 6:
-			mTitle = getString(R.string.title_entertainment);
-			break;
-		case 7:
-			mTitle = getString(R.string.title_sports);
-			break;
-		case 8:
-			mTitle = getString(R.string.title_laws);
-			break;
-		case 9:
-			mTitle = getString(R.string.title_travelling);
-			break;
-		case 10:
-			mTitle = getString(R.string.title_science);
-			break;
-		case 11:
-			mTitle = getString(R.string.title_digital);
-			break;
-		case 12:
-			mTitle = getString(R.string.title_cars);
-			break;
-		case 13:
-			mTitle = getString(R.string.title_social);
-			break;
-		case 14:
-			mTitle = getString(R.string.title_chat);
-			break;
-		case 15:
-			mTitle = getString(R.string.title_funny);
-			break;
-		}
-	}
+	
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
+		actionBar.setIcon(mIconId);
 		 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		 actionBar.setDisplayShowTitleEnabled(true);
 		 actionBar.setTitle(mTitle);
@@ -227,9 +216,6 @@ public class MainActivity extends FragmentActivity implements
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
 		return super.onOptionsItemSelected(item);
 	}
 
