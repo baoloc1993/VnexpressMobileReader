@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="5dp"
-    tools:context="com.vnexpressandroidreader.Fragments.ListViewNewsLiveFragment" >
+    tools:context="ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment" >
 
     <ListView
         android:id="@+id/listNews"
