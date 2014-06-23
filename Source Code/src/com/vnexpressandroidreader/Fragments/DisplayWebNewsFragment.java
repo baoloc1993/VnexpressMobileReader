@@ -18,8 +18,6 @@ import android.webkit.WebViewClient;
 public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 	public static String KEY_SITE_LINK = "";
-	private MainActivity myContext;
-
 	public DisplayWebNewsFragment() {
 		super();
 	}
@@ -58,9 +56,6 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 				Log.i(getTag(), "keyCode: " + keyCode);
 				if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-					Bundle args = new Bundle();
-					// String fragment_type = args.getString(ARG_TYPE_FRAGMENT);
-
 					FragmentManager fragmentManager = getActivity()
 							.getFragmentManager();
 
@@ -93,7 +88,6 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 	@Override
 	public void onAttach(Activity activity) {
-		myContext = (MainActivity) activity;
 		super.onAttach(activity);
 	}
 

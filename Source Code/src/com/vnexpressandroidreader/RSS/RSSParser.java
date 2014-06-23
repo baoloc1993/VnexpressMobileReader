@@ -35,7 +35,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.vnexpressandroidreader.BasicFunctions.BasicFunctions;
 
 import android.util.Log;
 	 
@@ -49,9 +48,6 @@ public class RSSParser {
     private static String TAG_LANGUAGE = "language";
     private static String TAG_ITEM = "item";
     private static String TAG_PUB_DATE = "pubDate";
-    private static String TAG_GUID = "guid";
-    private static String IMG = "img";
-    
     private static int DEFAULT_ID = 0;
     
     // constructor
@@ -170,7 +166,6 @@ public class RSSParser {
                     
                     //description =Html.fromHtml(description).toString();
                     description = Jsoup.parse(description).text();
-                    String result = BasicFunctions.removeHTMLTag("a", description);
                    
                    if (url_img != null){
                 	   RSSItem rssItem = new RSSItem(DEFAULT_ID,title, link, description, pubdate, url_img);

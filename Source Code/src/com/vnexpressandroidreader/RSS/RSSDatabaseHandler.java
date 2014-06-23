@@ -41,8 +41,6 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_IMG_LINK = "img_link";
     private static final String KEY_PUBLIC_DATE = "public_date";
     
-    private Context myContext;
-    
     //String of table-name
     private String table_name_array[] = {
     		"home_page",
@@ -69,11 +67,6 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
     public RSSDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         TABLE_RSS = getTableName();
-        
-        this.myContext = context;
-        //this.getWritableDatabase();
-       // SQLiteDatabase sqlite;
-       // sqlite = this.getWritableDatabase();
         
     }
  
@@ -121,15 +114,11 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_IMG_LINK, site.getImageLink()); // rss img 
         values.put(KEY_DESCRIPTION, site.getDescription()); // site description
         
-        values.put(KEY_PUBLIC_DATE, site.getPubDate());   //pulic date
-        //Log.d("DATABASE", "TABLE = " + site.getTitle());
+        values.put(KEY_PUBLIC_DATE, site.getPubDate());   //public date
         // Check if row already existed in database
-       // Log.d("IMAGE LINK", site.getImageLink());
         if (!isSiteExists(db, site.getImageLink())) {
             // site not existed, create a new row
             db.insert(TABLE_RSS, null, values);
-        
-           // Log.d("DATABASE", "INSERT SUCCESSFULLY");
             db.close();
         } else {
             // site already existed update the row

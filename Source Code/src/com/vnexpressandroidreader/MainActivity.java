@@ -1,25 +1,17 @@
 package com.vnexpressandroidreader;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.myanmarnews.R;
 import com.vnexpressandroidreader.Fragments.ListViewNewsLiveFragment;
@@ -215,7 +207,7 @@ public class MainActivity extends FragmentActivity implements
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
+		
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -225,39 +217,6 @@ public class MainActivity extends FragmentActivity implements
 	public static int getStandardSize() {
 		return Math.min(screenWidth, screenHeight);
 	}
-	private void copyAssets() {
-	    AssetManager assetManager = getAssets();
-	    String[] files = null;
-	    try {
-	        files = assetManager.list("");
-	    } catch (IOException e) {
-	        Log.e("tag", "Failed to get asset file list.", e);
-	    }
-	    for(String filename : files) {
-	        InputStream in = null;
-	        OutputStream out = null;
-	        try {
-	          in = assetManager.open(filename);
-	          File outFile = new File(getExternalFilesDir(getApplicationContext().ACCESSIBILITY_SERVICE).toString()
-	        		  , filename);
-	          out = new FileOutputStream(outFile);
-	          copyFile(in, out);
-	          in.close();
-	          in = null;
-	          out.flush();
-	          out.close();
-	          out = null;
-	        } catch(IOException e) {
-	            Log.e("tag", "Failed to copy asset file: " + filename, e);
-	        }       
-	    }
-	}
-	private void copyFile(InputStream in, OutputStream out) throws IOException {
-	    byte[] buffer = new byte[1024];
-	    int read;
-	    while((read = in.read(buffer)) != -1){
-	      out.write(buffer, 0, read);
-	    }
-	}
+	
 
 }

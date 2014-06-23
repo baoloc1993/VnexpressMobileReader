@@ -303,6 +303,7 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 		mReleaseLabel = releaseText;
 	}
 
+	@SuppressWarnings("deprecation")
 	private void setupViewsFromStyles(Activity activity, View headerView) {
 		final TypedArray styleAttrs = obtainStyledAttrsFromThemeAttr(activity,
 				R.attr.ptrHeaderStyle, R.styleable.PullToRefreshHeader);
