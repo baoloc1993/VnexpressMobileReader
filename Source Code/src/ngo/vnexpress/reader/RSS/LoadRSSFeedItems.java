@@ -1,6 +1,7 @@
 package ngo.vnexpress.reader.RSS;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ngo.vnexpress.reader.MainActivity;
@@ -61,6 +62,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		if (BasicFunctions.isConnectingToInternet(MainActivity.activity.getApplicationContext())) {
 			//Log.d("DEBUG", "CATE = " + getRssUrl());
 			rssItems = rssParser.getRSSFeedItems(getRssUrl());
+			Collections.reverse(rssItems);
 		}
 
 		// updating UI from Background Thread
@@ -81,11 +83,14 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 				List<RSSItem> rssItemsDataBase = new ArrayList<RSSItem>();
 				// NO INTERNET -> RSSITEMS is emtpy
 					for (RSSItem item : rssItems) {
-
+						
 						// ADD EACH ITEM INTO DATABASE
-						WebSite site = new WebSite(item.getTitle(), item
-								.getLink(), item.getDescription(), item
-								.getPubdate(), item.getImgUrl());
+						WebSite site = new WebSite(
+								item.getTitle(), 
+								item.getLink(), 
+								item.getDescription(), 
+								item.getPubdate(), 
+								item.getImgUrl());
 						rssDb.addSite(site);
 						// Log.d("LINK",item.getLink());
 					}
@@ -95,11 +100,13 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 				//Get All Website for Database
 				List<WebSite> websites = rssDb.getAllSitesByID();
 				for (WebSite website : websites) {
-					RSSItem newItem = new RSSItem(website.getId(),
-							website.getTitle(), website.getLink(),
-							website.getDescription(), website
-									.getPubDate(), website
-									.getImageLink());
+					RSSItem newItem = new RSSItem(
+							website.getId(),
+							website.getTitle(), 
+							website.getLink(),
+							website.getDescription(), 
+							website.getPubDate(),
+							website.getImageLink());
 
 					// Add RSSItem to RSSItems
 					rssItemsDataBase.add(newItem);
