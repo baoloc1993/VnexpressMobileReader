@@ -32,12 +32,9 @@
             </intent-filter>
         </activity>
         
-         <!-- Add New Site Activity -->
-        <activity android:name="ngo.vnexpress.reader.AddNewSiteActivity" />
+        
          
-        <!-- List rss items Activity -->
-        <activity android:name="ngo.vnexpress.reader.ListRSSItemsActivity"
-            android:configChanges="keyboardHidden|orientation"/>
+      
          
         
        
