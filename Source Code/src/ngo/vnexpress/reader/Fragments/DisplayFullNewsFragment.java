@@ -1,5 +1,11 @@
 package ngo.vnexpress.reader.Fragments;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 //import com.example.myanmarnews.RSS.HomePageDatabaseHandler;
@@ -9,8 +15,13 @@ import ngo.vnexpress.reader.R;
 
 import ngo.vnexpress.reader.RSS.RSSDatabaseHandler;
 import ngo.vnexpress.reader.RSS.WebSite;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,6 +30,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,13 +110,7 @@ public class DisplayFullNewsFragment extends Fragment {
 			return rootView;
 	        
 	 }
-	 @Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			// Handle action bar item clicks here. The action bar will
-			// automatically handle clicks on the Home/Up button, so long
-			// as you specify a parent activity in AndroidManifest.xml.
-			return super.onOptionsItemSelected(item);
-		}
+	 
 
 		/**
 		 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

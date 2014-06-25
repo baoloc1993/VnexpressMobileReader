@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TimerTask;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -85,6 +88,6 @@ public class GridViewNewsLiveFragment extends Fragment {
 		// We can now setup the PullToRefreshLayout
 		BasicFunctions.IniPullToRefresh(getActivity(), (ViewGroup) view, (View)gridNews, timerTask,mPullToRefreshLayout);
     }
-	 
+//	
 	
 }

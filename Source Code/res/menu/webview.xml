@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.myanmarnews.MainActivity" >
+
+    <item
+        android:id="@+id/share"
+        android:showAsAction="ifRoom"
+        android:title="@string/share"/>
+    
+
+</menu>

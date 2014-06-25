@@ -2,10 +2,13 @@ package ngo.vnexpress.reader.Fragments;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -15,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Adapters.SocialNetworkItemAdapter;
 import ngo.vnexpress.reader.Items.SocialNetworkItem;
@@ -128,5 +132,21 @@ public class SocialNetworkFragment extends Fragment {
 		}
 
 	}
+	@Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // If the drawer is open, show the global app actions in the action bar. See also
+        // showGlobalContextActionBar, which controls the top-left area of the action bar.
+        //if (mDrawerLayout != null && isDrawerOpen()) {
+            inflater.inflate(R.menu.global, menu);
+            showGlobalContextActionBar();
+        //}
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+	private void showGlobalContextActionBar() {
+        ActionBar actionBar = MainActivity.activity.getActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setTitle(R.string.app_name);
+    }
 
 }

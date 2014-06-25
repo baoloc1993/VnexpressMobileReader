@@ -3,12 +3,15 @@ package ngo.vnexpress.reader.Fragments;
 import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -21,7 +24,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 	public DisplayWebNewsFragment() {
 		super();
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -65,15 +68,19 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 					// Log.d("DEBUG", "LIST = " + fragment_type);
 					// Back to ListFragment
 					if (MainActivity.curViewGroup == Constant.List) {
+						list.setHasOptionsMenu(true);
 						fragmentManager.beginTransaction()
 								.replace(R.id.container, list).commit();
+						MainActivity.currentFragment = Constant.List;
 					}
 
 					// Back to GridFragment
 					if (MainActivity.curViewGroup == Constant.Grid) {
 						Log.d("aaaa", "GRID");
+						grid.setHasOptionsMenu(true);
 						fragmentManager.beginTransaction()
 								.replace(R.id.container, grid).commit();
+						MainActivity.currentFragment = Constant.Grid;
 					}
 					// getFragmentManager().popBackStack(null,
 					// FragmentManager.POP_BACK_STACK_INCLUSIVE);

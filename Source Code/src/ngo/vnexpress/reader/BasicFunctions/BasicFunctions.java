@@ -3,6 +3,7 @@ package ngo.vnexpress.reader.BasicFunctions;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.DisplayFullNewsFragment;
@@ -162,7 +163,9 @@ public class BasicFunctions {
 	            displayFullNewsFragment.setArguments(args);
 	            
 	            //Go to DisplayFullNewsFragment
+	            displayFullNewsFragment.setHasOptionsMenu(true);
 		        fragmentManager.beginTransaction().replace(R.id.container, displayFullNewsFragment).commit();
+		        MainActivity.currentFragment = Constant.Web;
 	            //Log.d("SET ON ITEM CLICK LISTENER", String.valueOf(rss_item.getId()));
 		};
 	};

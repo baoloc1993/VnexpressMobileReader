@@ -23,13 +23,12 @@ public class MainActivity extends FragmentActivity implements
 
 	public static boolean FirstOpen;
 	public static Constant currentFragment = Constant.List;
-	public static Constant curViewGroup;
-	public static Activity activity;
+	public static Constant curViewGroup = null;
+	public static Activity activity = null;
 	public static List<RSSItem> rssItems = new ArrayList<RSSItem>();
 	public static int LIMITED_NUMBER = 100;
-	public static NameCategories nameCategory;
-	
-	
+	public static NameCategories nameCategory = null;
+
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
@@ -71,9 +70,9 @@ public class MainActivity extends FragmentActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		
-		//COPY FILE FROM ASSET FOLDER TO MEMORY
-		//copyAssets();
+
+		// COPY FILE FROM ASSET FOLDER TO MEMORY
+		// copyAssets();
 	}
 
 	@Override
@@ -155,7 +154,7 @@ public class MainActivity extends FragmentActivity implements
 			nameCategory = NameCategories.Funny;
 			mTitle = getString(R.string.title_funny);
 			mIconId = R.drawable.funny;
-			break;	
+			break;
 		case 15:
 			nameCategory = NameCategories.About;
 			mTitle = getString(R.string.title_about);
@@ -166,26 +165,29 @@ public class MainActivity extends FragmentActivity implements
 			mTitle = getString(R.string.title_home_page);
 			mIconId = R.drawable.home;
 			break;
-			
+
 		}
-		
+
 		curViewGroup = Constant.List;
-		if(nameCategory!=NameCategories.About){
-			fragmentManager.beginTransaction().replace(R.id.container, new ListViewNewsLiveFragment()).commit();
-		} else{
-			fragmentManager.beginTransaction().replace(R.id.container, new SocialNetworkFragment()).commit();
+		if (nameCategory != NameCategories.About) {
+			fragmentManager.beginTransaction()
+					.replace(R.id.container, new ListViewNewsLiveFragment())
+					.commit();
+		} else {
+			fragmentManager.beginTransaction()
+					.replace(R.id.container, new SocialNetworkFragment())
+					.commit();
 		}
 
 	}
 
-	
-
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
 		actionBar.setIcon(mIconId);
-		 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		 actionBar.setDisplayShowTitleEnabled(true);
-		 actionBar.setTitle(mTitle);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setDisplayShowTitleEnabled(true);
+		
+		actionBar.setTitle(mTitle);
 	}
 
 	@Override
@@ -194,7 +196,13 @@ public class MainActivity extends FragmentActivity implements
 			// Only show items in the action bar relevant to this screen
 			// if the drawer is not showing. Otherwise, let the drawer
 			// decide what to show in the action bar.
-			getMenuInflater().inflate(R.menu.main, menu);
+			if (currentFragment == Constant.Grid
+					|| currentFragment == Constant.List) {
+				getMenuInflater().inflate(R.menu.news, menu);
+			}
+			if(currentFragment == Constant.Web){
+				getMenuInflater().inflate(R.menu.webview, menu);
+			}
 			restoreActionBar();
 			return true;
 		}
@@ -206,7 +214,7 @@ public class MainActivity extends FragmentActivity implements
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -216,6 +224,5 @@ public class MainActivity extends FragmentActivity implements
 	public static int getStandardSize() {
 		return Math.min(screenWidth, screenHeight);
 	}
-	
 
 }
