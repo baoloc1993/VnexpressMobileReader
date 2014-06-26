@@ -113,10 +113,10 @@ public class RSSParser {
     public List<RSSItem> getRSSFeedItems(String rss_url){
         List<RSSItem> itemsList = new ArrayList<RSSItem>();
         String rss_feed_xml;
-         
+        
         // get RSS XML from rss url
         rss_feed_xml = this.getXmlFromUrl(rss_url);
-         
+        
         // check if RSS XML fetched or not
         if(rss_feed_xml != null){
         	
@@ -137,6 +137,7 @@ public class RSSParser {
                     Element e1 = (Element) items.item(i);
                     
                     String title = this.getValue(e1, TAG_TITLE);
+                    
                     String link = this.getValue(e1, TAG_LINK);
                     String description = this.getValue(e1, TAG_DESRIPTION);
                     String pubdate = this.getValue(e1, TAG_PUB_DATE);
@@ -182,6 +183,7 @@ public class RSSParser {
         }
          
         // return item list
+        
         return itemsList;
     }
  

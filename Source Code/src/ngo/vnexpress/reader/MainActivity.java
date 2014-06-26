@@ -3,20 +3,34 @@ package ngo.vnexpress.reader;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+
+import backgroundnotification.NotificationDisplay;
+import backgroundnotification.NotificationService;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
 import ngo.vnexpress.reader.Fragments.NavigationDrawerFragment;
 import ngo.vnexpress.reader.Fragments.SocialNetworkFragment;
 import ngo.vnexpress.reader.RSS.RSSItem;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 public class MainActivity extends FragmentActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -28,6 +42,7 @@ public class MainActivity extends FragmentActivity implements
 	public static List<RSSItem> rssItems = new ArrayList<RSSItem>();
 	public static int LIMITED_NUMBER = 100;
 	public static NameCategories nameCategory = null;
+	public static int numberNewPost = 0;
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -41,6 +56,7 @@ public class MainActivity extends FragmentActivity implements
 	 */
 	private CharSequence mTitle;
 	private int mIconId;
+	private int notificationIdOne;
 	/**
 	 * Screen's Size
 	 */
@@ -224,5 +240,57 @@ public class MainActivity extends FragmentActivity implements
 	public static int getStandardSize() {
 		return Math.min(screenWidth, screenHeight);
 	}
+	
+	
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		Intent i=new Intent(this, NotificationService.class);
+	    
+	    //i.putExtra(PlayerService.EXTRA_PLAYLIST, "main");
+	    //i.putExtra(PlayerService.EXTRA_SHUFFLE, true);
+	    
+	    startService(i);
+		super.onDestroy();
+	}
+
+	protected void displayNotificationOne() {
+
+	      // Invoking the default notification service
+	      NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(this);	
+	 
+	      mBuilder.setContentTitle("New Message with explicit intent");
+	      mBuilder.setContentText("New message from javacodegeeks received");
+	      mBuilder.setTicker("Explicit: New Message Received!");
+	      mBuilder.setSmallIcon(R.drawable.ic_launcher);
+
+	      // Increase notification number every time a new notification arrives 
+	      //mBuilder.setNumber(++numMessagesOne);
+	      
+	      // Creates an explicit intent for an Activity in your app 
+	      Intent resultIntent = new Intent(this, NotificationDisplay.class);
+	      resultIntent.putExtra("notificationId", notificationIdOne);
+
+	      //This ensures that navigating backward from the Activity leads out of the app to Home page
+	      TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+	      // Adds the back stack for the Intent
+	      stackBuilder.addParentStack(NotificationDisplay.class);
+
+	      // Adds the Intent that starts the Activity to the top of the stack
+	      stackBuilder.addNextIntent(resultIntent);
+	      PendingIntent resultPendingIntent =
+	         stackBuilder.getPendingIntent(
+	            0,
+	            PendingIntent.FLAG_ONE_SHOT //can only be used once
+	         );
+	      // start the activity when the user clicks the notification text
+	      mBuilder.setContentIntent(resultPendingIntent);
+
+	      NotificationManager myNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+	      // pass the Notification object to the system 
+	      myNotificationManager.notify(notificationIdOne, mBuilder.build());
+	   }
 
 }

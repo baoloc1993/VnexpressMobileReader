@@ -12,8 +12,10 @@
     <string name="pull_to_refresh_pull_label">Pull to refresh…</string>
     <string name="pull_to_refresh_release_label">Release to refresh…</string>
     <string name="pull_to_refresh_refreshing_label">Loading…</string>
+    <string name = "articles">bài mới</string>
     
     <!-- RSS LINK -->
+   
     <string name="rss_home_page">http://vnexpress.net/rss/tin-moi-nhat.rss</string>
     <string name="rss_news">http://vnexpress.net/rss/thoi-su.rss</string>
     <string name="rss_life">http://vnexpress.net/rss/doi-song.rss</string>
@@ -29,6 +31,7 @@
     <string name="rss_social">http://vnexpress.net/rss/cong-dong.rss</string>
     <string name="rss_chat">http://vnexpress.net/rss/tam-su.rss</string>
     <string name="rss_funny">http://vnexpress.net/rss/cuoi.rss</string>
+    
     <!-- END RSS LINK -->
     
     <!-- SECTION NAME -->

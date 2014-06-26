@@ -105,7 +105,7 @@ public class DisplayFullNewsFragment extends Fragment {
 			mViewPager.setAdapter(mSectionsPagerAdapter);
 			
 			//id start from 0. Position start from 1
-			 Log.d("Value of ID", "TEST = " + String.valueOf(id));
+			 //Log.d("Value of ID", "TEST = " + String.valueOf(id));
 			mViewPager.setCurrentItem(id-1);
 			return rootView;
 	        

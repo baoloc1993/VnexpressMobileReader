@@ -32,23 +32,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		this.pullToRefreshLayout = pullToRefreshLayout;
 
 	}
-	/**
-	 * Before starting background thread Show Progress Dialog
-	 * */
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		if (MainActivity.FirstOpen) {
-			pDialog = new ProgressDialog(MainActivity.activity);
-			pDialog.setMessage("Loading recent articles...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.show();
-			MainActivity.FirstOpen = false;
-		} else {
-		}
-
-	}
+	
 
 	/**
 	 * getting all recent articles and showing them in listview
@@ -113,7 +97,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 					//Log.d("DATABASE", "TABLE = " + rssItemsDataBase.get(0).getTitle());
 				}
 				if(viewGroup instanceof ListView){
-					Log.d("DATABASE", "TABLE = " + rssItemsDataBase.size());
+					
 					ListNewsItemAdapter adapter = new ListNewsItemAdapter(
 							MainActivity.activity,
 							R.layout.preview_single_news_list_layout,
@@ -153,7 +137,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 	}
 	
-	private String getRssUrl(){
+	protected String getRssUrl(){
 		String url_name;
 		switch(MainActivity.nameCategory){
 		
@@ -185,7 +169,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 			url_name = MainActivity.activity.getString(R.string.rss_laws);
 			break;
 		case Life:
-			url_name = MainActivity.activity.getString(R.string.rss_home_page);
+			url_name = MainActivity.activity.getString(R.string.rss_life);
 			break;
 		case News:
 			url_name = MainActivity.activity.getString(R.string.rss_news);
