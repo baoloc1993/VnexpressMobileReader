@@ -2,12 +2,21 @@ package ngo.vnexpress.reader.Fragments;
 /**
  * Display the detail webview of the articles
  */
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -45,6 +55,8 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		webView.getSettings().setBuiltInZoomControls(true);
 		webView.getSettings().setDomStorageEnabled(true);
+		webView.getSettings().setAppCacheEnabled(true);
+		webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
 		webView.setWebChromeClient(new WebChromeClient() {
 		});
@@ -101,6 +113,46 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+	}
+	
+	//Share button
+	
+	public static void Share() throws IOException {
+
+		/**
+		 * Take screenshot
+		 */
+		Bitmap bitmap;
+		View v = MainActivity.activity.getWindow().getDecorView();
+		v.setDrawingCacheEnabled(true);
+		bitmap = Bitmap.createBitmap(v.getDrawingCache());
+		v.setDrawingCacheEnabled(false);
+
+		OutputStream fout;
+		File imageFile = new File(
+				MainActivity.activity
+						.getExternalFilesDir(Context.ACCESSIBILITY_SERVICE),
+				"share.png");
+
+		fout = new FileOutputStream(imageFile);
+		bitmap.compress(Bitmap.CompressFormat.PNG, 90, fout);
+		fout.flush();
+		fout.close();
+
+		/**
+		 * Share
+		 */
+		File filePath = new File(
+				MainActivity.activity
+						.getExternalFilesDir(Context.ACCESSIBILITY_SERVICE),
+				"share.png");
+		Intent shareIntent = new Intent();
+		shareIntent.setAction(Intent.ACTION_SEND);
+		shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePath)); // optional//use													// image
+		shareIntent.setType("image/jpeg");
+		shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		MainActivity.activity.startActivity(Intent.createChooser(shareIntent,
+				MainActivity.activity.getString(R.string.shareText)));
 	}
 
 }
