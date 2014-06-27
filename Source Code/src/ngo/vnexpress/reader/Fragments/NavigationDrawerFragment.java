@@ -1,20 +1,16 @@
 package ngo.vnexpress.reader.Fragments;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
+import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -325,9 +321,7 @@ public class NavigationDrawerFragment extends Fragment {
 			case Grid:
 				ListViewNewsLiveFragment fl = new ListViewNewsLiveFragment();
 				fl.setHasOptionsMenu(true);
-				fragmentManager
-						.beginTransaction()
-						.replace(R.id.container,fl)
+				fragmentManager.beginTransaction().replace(R.id.container, fl)
 						.commit();
 				MainActivity.currentFragment = Constant.List;
 				MainActivity.curViewGroup = Constant.List;
@@ -336,9 +330,7 @@ public class NavigationDrawerFragment extends Fragment {
 			case List:
 				GridViewNewsLiveFragment fg = new GridViewNewsLiveFragment();
 				fg.setHasOptionsMenu(true);
-				fragmentManager
-						.beginTransaction()
-						.replace(R.id.container, fg)
+				fragmentManager.beginTransaction().replace(R.id.container, fg)
 						.commit();
 				MainActivity.currentFragment = Constant.Grid;
 				MainActivity.curViewGroup = Constant.Grid;
@@ -347,53 +339,35 @@ public class NavigationDrawerFragment extends Fragment {
 			default:
 				break;
 			}
-			// getActivity().getFragmentManager().beginTransaction().replace(R.id.container,
-			// new GridViewNewsLiveFragment()).commit();
 			return true;
 		}
 		if (item.getItemId() == R.id.share) {
-			try {
-				Share();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+			final Fragment f = new AdFragment();
+			final FragmentManager fm = getActivity().getFragmentManager();
+			fm.beginTransaction().add(R.id.adContainer, f, "ad").commit();
+
+			TimerTask timerTask = new TimerTask() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						DisplayWebNewsFragment.Share();
+						fm.beginTransaction().detach(f).commit();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			};
+			Timer timer = new Timer();
+			timer.schedule(timerTask, 0);
+
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	private void Share () throws IOException {
-        /**
-         * Take screenshot
-         */
-        Bitmap bitmap;
-        View v = MainActivity.activity.getWindow().getDecorView();
-        v.setDrawingCacheEnabled(true);
-        bitmap = Bitmap.createBitmap(v.getDrawingCache());
-        v.setDrawingCacheEnabled(false);
-
-        OutputStream fout;
-        File imageFile = new File(MainActivity.activity.getExternalFilesDir(Context.ACCESSIBILITY_SERVICE), "share.png");
-
-
-        fout = new FileOutputStream(imageFile);
-        bitmap.compress(Bitmap.CompressFormat.PNG, 90, fout);
-        fout.flush();
-        fout.close();
-
-
-        /**
-         * Share
-         */
-        File filePath = new File(MainActivity.activity.getExternalFilesDir(Context.ACCESSIBILITY_SERVICE), "share.png");
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "My score");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePath));  //optional//use this when you want to send an image
-        shareIntent.setType("image/jpeg");
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.shareText)));
-    }
 
 	/**
 	 * Per the navigation drawer design guidelines, updates the action bar to

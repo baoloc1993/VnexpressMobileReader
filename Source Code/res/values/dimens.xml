@@ -10,6 +10,6 @@
     -->
     <dimen name="navigation_drawer_width">240dp</dimen>
      <dimen name="ptr_progress_bar_stroke_width">4dp</dimen>
-     <dimen name="com_facebook_picker_divider_width">1px</dimen>
+    
 
 </resources>
