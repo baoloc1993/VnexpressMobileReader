@@ -45,3 +45,6 @@ Icon
 *.dex
 *.ap_
 Source Code/project.properties
+*.apk
+*.dex
+*.ap_
