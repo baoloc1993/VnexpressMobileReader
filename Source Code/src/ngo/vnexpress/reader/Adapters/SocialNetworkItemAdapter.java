@@ -1,5 +1,7 @@
 package ngo.vnexpress.reader.Adapters;
-
+/**
+ * Adatper for Social Fragment
+ */
 import java.util.ArrayList;
 
 import android.content.Context;

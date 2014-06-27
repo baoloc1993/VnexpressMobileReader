@@ -2,6 +2,7 @@ package backgroundnotification;
 
 
 
+import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -34,17 +35,17 @@ public class NotificationActivity extends Activity {
 	      mBuilder.setSmallIcon(R.drawable.ic_launcher);
 
 	      // Increase notification number every time a new notification arrives 
-	    //  mBuilder.setNumber(++numMessagesOne);
+	    
 	      
 	      // Creates an explicit intent for an Activity in your app 
-	      Intent resultIntent = new Intent(this, NotificationDisplay.class);
+	      Intent resultIntent = new Intent(this, MainActivity.class);
 	      int notificationIdOne = 0;
 		resultIntent.putExtra("notificationId", notificationIdOne);
 
 	      //This ensures that navigating backward from the Activity leads out of the app to Home page
 	      TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 	      // Adds the back stack for the Intent
-	      //stackBuilder.addParentStack(NotificationDisplay.class);
+	      
 
 	      // Adds the Intent that starts the Activity to the top of the stack
 	      stackBuilder.addNextIntent(resultIntent);

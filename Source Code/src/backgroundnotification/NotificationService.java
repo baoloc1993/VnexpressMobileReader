@@ -1,5 +1,7 @@
 package backgroundnotification;
-
+/**
+ * Background Service
+ */
 import java.security.PublicKey;
 
 
@@ -27,7 +29,7 @@ import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.NameCategories;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
-import ngo.vnexpress.reader.Fragments.DisplayFullNewsFragment;
+import ngo.vnexpress.reader.Fragments.DisplaySwipeViewNewsFragment;
 import ngo.vnexpress.reader.RSS.LoadRSSFeedItems;
 import ngo.vnexpress.reader.RSS.LoadRSSFeedItemsService;
 import ngo.vnexpress.reader.RSS.RSSDatabaseHandler;
@@ -52,7 +54,7 @@ import android.widget.Toast;
 public class NotificationService extends Service {
 
 	
-	
+	private static final int TIME_PERIOD_HOUR  = 1;
 	private CountDownTimer countDownTimer;
 	private static final String TAG = "MyService";
 	private int notificationIdOne;
@@ -69,7 +71,7 @@ public class NotificationService extends Service {
 		
 		//Toast.makeText(this, "Congrats! MyService Created", Toast.LENGTH_LONG).show();
 		//Log.d(TAG, "onCreate");
-			countDownTimer = new CountDownTimer(3600*6*1000,1000) {			
+			countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR*3600*1000,1000) {			
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
@@ -90,15 +92,7 @@ public class NotificationService extends Service {
 	public int onStartCommand(Intent intent,int flags, int startId) {
 		//String playlist=intent.getStringExtra(EXTRA_PLAYLIST);
 	    //boolean useShuffle=intent.getBooleanExtra(EXTRA_SHUFFLE, false);
-//		while(true){
-//			play();
-//			try {
-//				Thread.sleep(15000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
+
 		 startTimer();
 	         
 	    
@@ -109,8 +103,8 @@ public class NotificationService extends Service {
 	}
 	@Override
 	public void onDestroy() {
-		Toast.makeText(this, "MyService Stopped", Toast.LENGTH_LONG).show();
-		Log.d(TAG, "onDestroy");
+	//	Toast.makeText(this, "MyService Stopped", Toast.LENGTH_LONG).show();
+		//Log.d(TAG, "onDestroy");
 	}
 
 	
@@ -122,7 +116,7 @@ public class NotificationService extends Service {
 			//  count_news_post += MainActivity.numberNewPost;
 			 
 			  int count_news_post = MainActivity.numberNewPost;	
-			  Log.d("DEBUG", "CATE + " + String.valueOf(count_news_post));
+			//  Log.d("DEBUG", "CATE + " + String.valueOf(count_news_post));
 		//  }
 		//  MainActivity.nameCategory = NameCategories.Homepage;
 
@@ -131,7 +125,7 @@ public class NotificationService extends Service {
 	 
 	     
 	      String time = getCurrentTime();
-	      Log.d("DEBUG", "DATE  = " + time);
+	    //  Log.d("DEBUG", "DATE  = " + time);
 	      mBuilder.setContentTitle("Vnexpress Reader");
 	      mBuilder.setContentText( String.valueOf(count_news_post) + " "+ getString(R.string.articles) +  " " + time);
 	      mBuilder.setTicker(String.valueOf(count_news_post) + " " +  getString(R.string.articles) +  " " + time);

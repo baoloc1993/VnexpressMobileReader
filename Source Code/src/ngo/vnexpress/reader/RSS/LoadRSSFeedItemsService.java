@@ -1,5 +1,9 @@
 package ngo.vnexpress.reader.RSS;
 
+/**
+ * Load RSSITEM from RSS link.
+ * Run on background service
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,9 +60,9 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 			MainActivity.nameCategory = name;
 			
 			if (BasicFunctions.isConnectingToInternet(MainActivity.activity.getApplicationContext())) {
-				//Log.d("DEBUG", "CATE = " + getRssUrl());
+				
 				rssItems = rssParser.getRSSFeedItems(getRssUrl());
-				//Log.d("DEBUG", "CATE + " + String.valueOf(MainActivity.numberNewPost) + " " + getRssUrl());	
+				
 				Collections.reverse(rssItems);
 			}
 	

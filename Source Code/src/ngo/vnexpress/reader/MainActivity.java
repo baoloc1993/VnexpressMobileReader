@@ -7,7 +7,7 @@ import java.util.List;
 
 
 
-import backgroundnotification.NotificationDisplay;
+
 import backgroundnotification.NotificationService;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
@@ -70,6 +70,12 @@ public class MainActivity extends FragmentActivity implements
 		/**
 		 * get screen's size;
 		 */
+		//Start background Service
+		Intent i=new Intent(this, NotificationService.class);
+	    
+		startService(i);
+		
+		//Get the width and length of the screen
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		screenHeight = displayMetrics.heightPixels;
@@ -93,7 +99,7 @@ public class MainActivity extends FragmentActivity implements
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
-		// update the main content by replacing fragments
+		//Action when one of items in drawer fragment clicked
 		FragmentManager fragmentManager = getFragmentManager();
 		switch (position) {
 		case 0:
@@ -184,6 +190,7 @@ public class MainActivity extends FragmentActivity implements
 
 		}
 
+		//Go to conresponding fragment
 		curViewGroup = Constant.List;
 		if (nameCategory != NameCategories.About) {
 			fragmentManager.beginTransaction()
@@ -197,6 +204,7 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
+	//Set title on ActionBar
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
 		actionBar.setIcon(mIconId);
@@ -206,6 +214,13 @@ public class MainActivity extends FragmentActivity implements
 		actionBar.setTitle(mTitle);
 	}
 
+	/**
+	 * Create Menu in Action Bar
+	 * 1: Switch layout
+	 * 2: Share on Facebook
+	 */
+	
+	//Create menu
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -241,56 +256,15 @@ public class MainActivity extends FragmentActivity implements
 		return Math.min(screenWidth, screenHeight);
 	}
 	
-	
-	
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		Intent i=new Intent(this, NotificationService.class);
+	
 	    
-	    //i.putExtra(PlayerService.EXTRA_PLAYLIST, "main");
-	    //i.putExtra(PlayerService.EXTRA_SHUFFLE, true);
 	    
-	    startService(i);
 		super.onDestroy();
 	}
 
-	protected void displayNotificationOne() {
-
-	      // Invoking the default notification service
-	      NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(this);	
-	 
-	      mBuilder.setContentTitle("New Message with explicit intent");
-	      mBuilder.setContentText("New message from javacodegeeks received");
-	      mBuilder.setTicker("Explicit: New Message Received!");
-	      mBuilder.setSmallIcon(R.drawable.ic_launcher);
-
-	      // Increase notification number every time a new notification arrives 
-	      //mBuilder.setNumber(++numMessagesOne);
-	      
-	      // Creates an explicit intent for an Activity in your app 
-	      Intent resultIntent = new Intent(this, NotificationDisplay.class);
-	      resultIntent.putExtra("notificationId", notificationIdOne);
-
-	      //This ensures that navigating backward from the Activity leads out of the app to Home page
-	      TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-	      // Adds the back stack for the Intent
-	      stackBuilder.addParentStack(NotificationDisplay.class);
-
-	      // Adds the Intent that starts the Activity to the top of the stack
-	      stackBuilder.addNextIntent(resultIntent);
-	      PendingIntent resultPendingIntent =
-	         stackBuilder.getPendingIntent(
-	            0,
-	            PendingIntent.FLAG_ONE_SHOT //can only be used once
-	         );
-	      // start the activity when the user clicks the notification text
-	      mBuilder.setContentIntent(resultPendingIntent);
-
-	      NotificationManager myNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-	      // pass the Notification object to the system 
-	      myNotificationManager.notify(notificationIdOne, mBuilder.build());
-	   }
-
+	
 }

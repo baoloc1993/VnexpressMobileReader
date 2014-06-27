@@ -1,5 +1,8 @@
 package ngo.vnexpress.reader.RSS;
-
+/**
+ * Load RSSITEM from RSS link.
+ * Run on foreground service
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

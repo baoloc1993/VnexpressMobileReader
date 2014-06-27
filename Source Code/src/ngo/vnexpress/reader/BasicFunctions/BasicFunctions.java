@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
-import ngo.vnexpress.reader.Fragments.DisplayFullNewsFragment;
+import ngo.vnexpress.reader.Fragments.DisplaySwipeViewNewsFragment;
 import ngo.vnexpress.reader.RSS.RSSDatabaseHandler;
 import ngo.vnexpress.reader.RSS.RSSItem;
 import ngo.vnexpress.reader.RSS.WebSite;
@@ -153,18 +153,18 @@ public class BasicFunctions {
 	        	
 	        	//transfer link of current Item to other fragment
 	            Bundle args = new Bundle();
-	            args.putInt(DisplayFullNewsFragment.ARG_ID, website.getId());
+	            args.putInt(DisplaySwipeViewNewsFragment.ARG_ID, website.getId());
 	          //  args.putString(DisplayFullNewsFragment.ARG_TYPE_FRAGMENT, getClass().toString());
 	           // args.putInt(DisplayFullNewsFragment.ARG_SIZE, websites.size());
 	            //Log.d("SET ON ITEM CLICK LISTENER", String.valueOf(website.getId()));
 
 	            android.app.FragmentManager fragmentManager = MainActivity.activity.getFragmentManager();
-	            DisplayFullNewsFragment displayFullNewsFragment = new DisplayFullNewsFragment();
-	            displayFullNewsFragment.setArguments(args);
+	            DisplaySwipeViewNewsFragment displaySwipeViewNewsFragment = new DisplaySwipeViewNewsFragment();
+	            displaySwipeViewNewsFragment.setArguments(args);
 	            
 	            //Go to DisplayFullNewsFragment
-	            displayFullNewsFragment.setHasOptionsMenu(true);
-		        fragmentManager.beginTransaction().replace(R.id.container, displayFullNewsFragment).commit();
+	            displaySwipeViewNewsFragment.setHasOptionsMenu(true);
+		        fragmentManager.beginTransaction().replace(R.id.container, displaySwipeViewNewsFragment).commit();
 		        MainActivity.currentFragment = Constant.Web;
 	            //Log.d("SET ON ITEM CLICK LISTENER", String.valueOf(rss_item.getId()));
 		};

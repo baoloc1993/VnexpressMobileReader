@@ -1,5 +1,7 @@
 package ngo.vnexpress.reader.Adapters;
-
+/**
+ * Adapter of List Fragment
+ */
 import java.util.ArrayList;
 
 import android.content.Context;

@@ -1,5 +1,7 @@
 package ngo.vnexpress.reader.Fragments;
-
+/**
+ * Display the social webview
+ */
 import java.util.ArrayList;
 
 import android.app.ActionBar;

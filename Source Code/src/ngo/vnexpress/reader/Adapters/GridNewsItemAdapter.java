@@ -1,5 +1,8 @@
 package ngo.vnexpress.reader.Adapters;
 
+/**
+ * Adapter of GridView
+ */
 import java.util.ArrayList;
 
 import ngo.vnexpress.reader.MainActivity;
@@ -13,12 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
-
-
-
-
 
 public class GridNewsItemAdapter extends ArrayAdapter<RSSItem> {
 	public GridNewsItemAdapter(Context context, int resource) {

@@ -1,5 +1,13 @@
 package ngo.vnexpress.reader.Fragments;
 
+/**
+ * Display the ListView of articles
+ * Each article has:
+ *****	Title
+ *		Description
+ *		Image
+ *		PublicDate
+ */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,17 +45,12 @@ public class ListViewNewsLiveFragment extends Fragment {
 
 	RSSParser rssParser = new RSSParser();
 
-	// List<RSSItem> rssItems = MainActivity.rssItems;
+	
 	List<RSSItem> rssItems = new ArrayList<RSSItem>();
 
 	RSSFeed rssFeed;
 
-	// private static String TAG_TITLE = "title";
-	// private static String TAG_LINK = "link";
-	// private static String TAG_DESRIPTION = "description";
-	// private static String TAG_PUB_DATE = "pubDate";
-	// private static String TAG_GUID = "guid"; // not used
-	// private static String TAG_IMAGE = "image";
+	
 
 	byte[] img;
 
@@ -64,9 +67,7 @@ public class ListViewNewsLiveFragment extends Fragment {
 
 		listNews = (ListView) rootView.findViewById(R.id.listNews);
 		MainActivity.FirstOpen = true;
-		// gridNews = (GridView)rootView.findViewById(R.id.gridNews);
-		// get fragment data
-		// Fragment fragment = getActivity();
+		
 
 		
 		/**

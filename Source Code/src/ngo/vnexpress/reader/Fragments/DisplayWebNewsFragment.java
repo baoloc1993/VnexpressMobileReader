@@ -1,5 +1,7 @@
 package ngo.vnexpress.reader.Fragments;
-
+/**
+ * Display the detail webview of the articles
+ */
 import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
@@ -37,6 +39,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 		// Log.d("DEBUG", "LINK = " + link);
 		WebView webView = (WebView) rootView.findViewById(R.id.single_web_view);
 
+		//Set parameter of webview
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setGeolocationEnabled(true);
 		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
@@ -51,6 +54,8 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 		rootView.setFocusableInTouchMode(true);
 		rootView.requestFocus();
+		
+		//Set the back button
 		rootView.setOnKeyListener(new View.OnKeyListener() {
 
 			@Override

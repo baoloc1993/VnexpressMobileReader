@@ -1,5 +1,10 @@
 package ngo.vnexpress.reader.Fragments;
-
+/**
+ * GridView display all articles
+ * Each article has:
+ * 		Title
+ * 		Image
+ */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,10 +54,6 @@ public class GridViewNewsLiveFragment extends Fragment {
         
         gridNews = (GridView)rootView.findViewById(R.id.gridNews);
         
-     
- 
-        
-        
         /**
          * Calling a backgroung thread will loads recent articles of a website
          * @param rss url of website
@@ -71,8 +72,6 @@ public class GridViewNewsLiveFragment extends Fragment {
     	
     	gridNews = (GridView)view.findViewById(R.id.gridNews);
     	
-    	
-
 		// We need to create a PullToRefreshLayout manually
 		
 		
