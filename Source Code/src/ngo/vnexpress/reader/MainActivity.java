@@ -5,6 +5,9 @@ import java.util.List;
 
 
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 
 
@@ -34,7 +37,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends FragmentActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+	private AdView adView;
+	private static final String AD_UNIT_ID = "ca-app-pub-9919394378512649/7852974411";
 	public static boolean FirstOpen;
 	public static Constant currentFragment = Constant.List;
 	public static Constant curViewGroup = null;
@@ -67,20 +71,43 @@ public class MainActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		/**
+		 * create Admob
+		 */
+		// Create an ad.
+	    adView = (AdView) findViewById(R.id.adView);
+	    
+	    
+	    // Add the AdView to the view hierarchy. The view will have no size
+	    // until the ad is loaded.
+	    
+	    
+	 // Create an ad request. Check logcat output for the hashed device ID to
+	    // get test ads on a physical device.
+	    AdRequest adRequest = new AdRequest.Builder().build();
+
+	    // Start loading the ad in the background.
+	    adView.loadAd(adRequest);
+	    
+	    /**
+	     * Background service
+	     */
+		//Start background Service
+				Intent i=new Intent(this, NotificationService.class);
+			    
+				startService(i);
+				
 		/**
 		 * get screen's size;
 		 */
-		//Start background Service
-		Intent i=new Intent(this, NotificationService.class);
-	    
-		startService(i);
-		
 		//Get the width and length of the screen
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		screenHeight = displayMetrics.heightPixels;
 		screenWidth = displayMetrics.widthPixels;
 		activity = this;
+		
 		/**
 		 * Navigation Drawer
 		 */
@@ -258,13 +285,29 @@ public class MainActivity extends FragmentActivity implements
 	
 
 	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-	
-	    
-	    
-		super.onDestroy();
-	}
+	  public void onResume() {
+	    super.onResume();
+	    if (adView != null) {
+	      adView.resume();
+	    }
+	  }
 
+	  @Override
+	  public void onPause() {
+	    if (adView != null) {
+	      adView.pause();
+	    }
+	    super.onPause();
+	  }
+
+	  /** Called before the activity is destroyed. */
+	  @Override
+	  public void onDestroy() {
+	    // Destroy the AdView.
+	    if (adView != null) {
+	      adView.destroy();
+	    }
+	    super.onDestroy();
+	  }
 	
 }
