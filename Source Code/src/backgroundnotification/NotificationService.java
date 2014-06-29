@@ -71,10 +71,15 @@ public class NotificationService extends Service {
 		
 		//Toast.makeText(this, "Congrats! MyService Created", Toast.LENGTH_LONG).show();
 		//Log.d(TAG, "onCreate");
-			countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR*3600*1000,1000) {			
+			countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR*3600*1000,2900 *1000) {			
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
+				Log.d("DEBUG", "CATE new "  + String.valueOf(MainActivity.numberNewPost) );
+				if (MainActivity.numberNewPost > 0){
+					displayNotification();
+				}
+				MainActivity.numberNewPost = 0;
 				
 			}
 			
@@ -110,25 +115,37 @@ public class NotificationService extends Service {
 	
 	
 	private void play() {
-		
-		
 			  new LoadRSSFeedItemsService().execute();
-			//  count_news_post += MainActivity.numberNewPost;
-			 
-			  int count_news_post = MainActivity.numberNewPost;	
-			//  Log.d("DEBUG", "CATE + " + String.valueOf(count_news_post));
-		//  }
-		//  MainActivity.nameCategory = NameCategories.Homepage;
-
-	      // Invoking the default notification service
-	      NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(this);	
-	 
+			
+	}
+	
+	private String getCurrentTime(){
+		String time = "";
+		 Calendar c = Calendar.getInstance(); 
+	      int seconds = c.get(Calendar.SECOND);
+	      int mins = c.get(Calendar.MINUTE);
+	      int hours = c.get(Calendar.HOUR_OF_DAY);
+	      int days = c.get(Calendar.DAY_OF_MONTH);
+	      int months = c.get(Calendar.MONTH);
+	      int years = c.get(Calendar.YEAR);
+	      time = String.valueOf(hours) + ":"
+	    		  + String.valueOf(mins) + ":"
+	    		  + String.valueOf(seconds) + " "
+	    		  + String.valueOf(days) + " / "
+	    		  + String.valueOf(months) + " / "
+	    		  + String.valueOf(years);
+	      return time;
+	}
+	
+	void displayNotification(){
+		 NotificationCompat.Builder  mBuilder = new NotificationCompat.Builder(this);	
+		 
 	     
 	      String time = getCurrentTime();
 	    //  Log.d("DEBUG", "DATE  = " + time);
 	      mBuilder.setContentTitle("Vnexpress Reader");
-	      mBuilder.setContentText( String.valueOf(count_news_post) + " "+ getString(R.string.articles) +  " " + time);
-	      mBuilder.setTicker(String.valueOf(count_news_post) + " " +  getString(R.string.articles) +  " " + time);
+	      mBuilder.setContentText( String.valueOf(MainActivity.numberNewPost) + " "+ getString(R.string.articles) +  " " + time);
+	      mBuilder.setTicker(String.valueOf(MainActivity.numberNewPost) + " " +  getString(R.string.articles) +  " " + time);
 	      mBuilder.setSmallIcon(R.drawable.ic_launcher);
 	      
 	      Intent i = new Intent(this,MainActivity.class);
@@ -158,25 +175,6 @@ public class NotificationService extends Service {
 	      //note.
 	      stopForeground(true);
 	}
-	
-	private String getCurrentTime(){
-		String time = "";
-		 Calendar c = Calendar.getInstance(); 
-	      int seconds = c.get(Calendar.SECOND);
-	      int mins = c.get(Calendar.MINUTE);
-	      int hours = c.get(Calendar.HOUR_OF_DAY);
-	      int days = c.get(Calendar.DAY_OF_MONTH);
-	      int months = c.get(Calendar.MONTH);
-	      int years = c.get(Calendar.YEAR);
-	      time = String.valueOf(hours) + ":"
-	    		  + String.valueOf(mins) + ":"
-	    		  + String.valueOf(seconds) + " "
-	    		  + String.valueOf(days) + " / "
-	    		  + String.valueOf(months) + " / "
-	    		  + String.valueOf(years);
-	      return time;
-	}
-	
 	
 
 }

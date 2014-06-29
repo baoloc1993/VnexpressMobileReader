@@ -70,10 +70,7 @@ public class MainActivity extends FragmentActivity implements
 		/**
 		 * get screen's size;
 		 */
-		//Start background Service
-		Intent i=new Intent(this, NotificationService.class);
-	    
-		startService(i);
+		
 		
 		//Get the width and length of the screen
 		DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -260,7 +257,10 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-	
+		//Start background Service
+		Intent i=new Intent(this, NotificationService.class);
+	    
+		startService(i);
 	    
 	    
 		super.onDestroy();

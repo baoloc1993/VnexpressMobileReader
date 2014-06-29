@@ -53,16 +53,24 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 		// list of rss items
 		
 		//Reset number of new post
-		MainActivity.numberNewPost = 0;
+		//MainActivity.numberNewPost = 0;
 		
 		//Go through all categories inside an Asyntask
 		for (NameCategories name : NameCategories.values()){
+			
+			//Delay 1s to synchronize 2 threads
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			MainActivity.nameCategory = name;
+			//Log.d("CATE", "CATE = " + MainActivity.nameCategory);
 			
 			if (BasicFunctions.isConnectingToInternet(MainActivity.activity.getApplicationContext())) {
 				
 				rssItems = rssParser.getRSSFeedItems(getRssUrl());
-				
 				Collections.reverse(rssItems);
 			}
 	
