@@ -3,11 +3,6 @@ package ngo.vnexpress.reader;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
 import backgroundnotification.NotificationService;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
@@ -62,6 +57,8 @@ public class MainActivity extends FragmentActivity implements
 	 */
 	private static int screenHeight;
 	private static int screenWidth;
+	public static boolean FLAG = false;
+	public static boolean check;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +67,6 @@ public class MainActivity extends FragmentActivity implements
 		/**
 		 * get screen's size;
 		 */
-		//Start background Service
-		Intent i=new Intent(this, NotificationService.class);
-	    
-		startService(i);
 		
 		//Get the width and length of the screen
 		DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -261,7 +254,11 @@ public class MainActivity extends FragmentActivity implements
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 	
+		//Start background Service
+		Intent i=new Intent(this, NotificationService.class);
 	    
+		startService(i);
+				
 	    
 		super.onDestroy();
 	}

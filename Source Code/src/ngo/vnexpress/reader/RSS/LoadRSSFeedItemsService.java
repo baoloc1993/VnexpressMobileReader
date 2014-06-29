@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import backgroundnotification.NotificationService;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.NameCategories;
 import ngo.vnexpress.reader.R;
@@ -16,12 +17,15 @@ import ngo.vnexpress.reader.Adapters.ListNewsItemAdapter;
 import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.PullToRefreshLayout;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
 
-public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
+public class LoadRSSFeedItemsService extends LoadRSSFeedItems implements ServiceConnection{
 
 	public LoadRSSFeedItemsService(ViewGroup viewGroup,
 			PullToRefreshLayout pullToRefreshLayout) {
@@ -30,7 +34,10 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	}
 	
 	public LoadRSSFeedItemsService() {
+		
 		super(null, null);
+		//MainActivity.numberNewPost= 0;
+		//MainActivity.check = false;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -53,12 +60,18 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 		// list of rss items
 		
 		//Reset number of new post
-		MainActivity.numberNewPost = 0;
+		
 		
 		//Go through all categories inside an Asyntask
 		for (NameCategories name : NameCategories.values()){
+			 try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			MainActivity.nameCategory = name;
-			
+		//	Log.d("DEBUG", "CATE + " + MainActivity.nameCategory.toString());
 			if (BasicFunctions.isConnectingToInternet(MainActivity.activity.getApplicationContext())) {
 				
 				rssItems = rssParser.getRSSFeedItems(getRssUrl());
@@ -103,9 +116,10 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 					
 					//The number of new post
 					MainActivity.numberNewPost += newSizeDatabase - oldSizeDatabase; 
-					Log.d("DEBUG", "CATE + " + MainActivity.nameCategory.toString() + "  " 
-							+ String.valueOf(newSizeDatabase) + " - " + String.valueOf(oldSizeDatabase));
+//					Log.d("DEBUG", "CATE + " + MainActivity.nameCategory.toString() + "  " 
+//							+ String.valueOf(newSizeDatabase) + " " + String.valueOf(oldSizeDatabase) + " " +  String.valueOf(MainActivity.numberNewPost));
 					// MainActivity.rssItems = rssItems;
+					
 				}
 			});
 		}
@@ -118,12 +132,25 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	@Override
 	protected void onPostExecute(String args) {
 		// dismiss the dialog after getting all products
-		
-
+		//MainActivity.check = true;
+		//Log.d ("DEBUG", "POST");
+	//	NotificationService.
 	}
 	
 	public String getRssUrl(){
 		return super.getRssUrl();
+		
+	}
+
+	@Override
+	public void onServiceConnected(ComponentName name, IBinder service) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onServiceDisconnected(ComponentName name) {
+		// TODO Auto-generated method stub
 		
 	}
 	
