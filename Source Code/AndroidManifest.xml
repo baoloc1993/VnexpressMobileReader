@@ -29,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="backgroundnotification.NotificationService" />
-        <activity android:name="backgroundnotification.NotificationActivity"></activity>
+        <service android:name="ngo.vnexpress.reader.backgroundnotification.NotificationService" />
+        <activity android:name="ngo.vnexpress.reader.backgroundnotification.NotificationActivity"></activity>
         
         
          

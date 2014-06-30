@@ -47,13 +47,7 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	 * */
 	@Override
 	protected String doInBackground(String... args) {
-		// rss link url
-		// String rss_url = args[0];
-		// IF INTERNET CONNECTING, RETRIVE DATA FROM RSS LINK
-		// list of rss items
 		
-		//Reset number of new post
-		//MainActivity.numberNewPost = 0;
 		
 		//Go through all categories inside an Asyntask
 		for (NameCategories name : NameCategories.values()){
@@ -80,13 +74,12 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	
 				@Override
 				public void run() {
-					int oldSizeDatabase = 0;
-					int newSizeDatabase = 0;
+					
 					RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
 							MainActivity.activity);
 					
 					//Size of database before add new post
-					oldSizeDatabase = rssDb.getDatabaseSize();
+					int oldSizeDatabase = rssDb.getDatabaseSize();
 	
 					/**
 					 * Updating parsed items into listview
@@ -107,7 +100,7 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 						}
 				
 					//Size of database after add new post
-					newSizeDatabase = rssDb.getDatabaseSize();
+					int newSizeDatabase = rssDb.getDatabaseSize();
 					
 					//The number of new post
 					MainActivity.numberNewPost += newSizeDatabase - oldSizeDatabase; 

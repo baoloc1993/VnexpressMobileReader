@@ -8,12 +8,13 @@ import java.util.List;
 
 
 
-import backgroundnotification.NotificationService;
+
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
 import ngo.vnexpress.reader.Fragments.NavigationDrawerFragment;
 import ngo.vnexpress.reader.Fragments.SocialNetworkFragment;
 import ngo.vnexpress.reader.RSS.RSSItem;
+import ngo.vnexpress.reader.backgroundnotification.NotificationService;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
