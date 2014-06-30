@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
+import ngo.vnexpress.reader.NameCategories;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Adapters.ListDrawerItemAdapter;
 import ngo.vnexpress.reader.Items.DrawerItem;
@@ -115,37 +117,38 @@ public class NavigationDrawerFragment extends Fragment {
 				});
 
 		// Create ArrayList for Item in menu
+		Log.d("DEBUG", "CATE MAP " + MainActivity.newArticlePerCate.get(NameCategories.Homepage));
 		ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
 		listItem.add(new DrawerItem(getString(R.string.title_home_page),
-				R.drawable.home));
+				R.drawable.home,MainActivity.newArticlePerCate.get(NameCategories.Homepage)));
 		listItem.add(new DrawerItem(getString(R.string.title_news),
-				R.drawable.news));
+				R.drawable.news,MainActivity.newArticlePerCate.get(NameCategories.News)));
 		listItem.add(new DrawerItem(getString(R.string.title_life),
-				R.drawable.life));
+				R.drawable.life,MainActivity.newArticlePerCate.get(NameCategories.Life)));
 		listItem.add(new DrawerItem(getString(R.string.title_world),
-				R.drawable.global));
+				R.drawable.world,MainActivity.newArticlePerCate.get(NameCategories.World)));
 		listItem.add(new DrawerItem(getString(R.string.title_business),
-				R.drawable.business));
+				R.drawable.business,MainActivity.newArticlePerCate.get(NameCategories.Business)));
 		listItem.add(new DrawerItem(getString(R.string.title_entertainment),
-				R.drawable.entertainment));
+				R.drawable.entertainment,MainActivity.newArticlePerCate.get(NameCategories.Entertainment)));
 		listItem.add(new DrawerItem(getString(R.string.title_sports),
-				R.drawable.sport));
+				R.drawable.sport,MainActivity.newArticlePerCate.get(NameCategories.Sports)));
 		listItem.add(new DrawerItem(getString(R.string.title_laws),
-				R.drawable.law));
+				R.drawable.law,MainActivity.newArticlePerCate.get(NameCategories.Laws)));
 		listItem.add(new DrawerItem(getString(R.string.title_travelling),
-				R.drawable.travelling));
+				R.drawable.travelling,MainActivity.newArticlePerCate.get(NameCategories.Travelling)));
 		listItem.add(new DrawerItem(getString(R.string.title_science),
-				R.drawable.science));
+				R.drawable.science,MainActivity.newArticlePerCate.get(NameCategories.Science)));
 		listItem.add(new DrawerItem(getString(R.string.title_digital),
-				R.drawable.digital));
+				R.drawable.digital,MainActivity.newArticlePerCate.get(NameCategories.Digital)));
 		listItem.add(new DrawerItem(getString(R.string.title_cars),
-				R.drawable.car));
+				R.drawable.car,MainActivity.newArticlePerCate.get(NameCategories.Car)));
 		listItem.add(new DrawerItem(getString(R.string.title_social),
-				R.drawable.social));
+				R.drawable.social,MainActivity.newArticlePerCate.get(NameCategories.Social)));
 		listItem.add(new DrawerItem(getString(R.string.title_chat),
-				R.drawable.chat));
+				R.drawable.chat,MainActivity.newArticlePerCate.get(NameCategories.Chat)));
 		listItem.add(new DrawerItem(getString(R.string.title_funny),
-				R.drawable.funny));
+				R.drawable.funny,MainActivity.newArticlePerCate.get(NameCategories.Funny)));
 		listItem.add(new DrawerItem(getString(R.string.title_about),
 				R.drawable.about));
 
@@ -312,12 +315,13 @@ public class NavigationDrawerFragment extends Fragment {
 			return true;
 		}
 
+		//Button Switch layout
 		if (item.getItemId() == R.id.switch_layout) {
-			// Toast.makeText(getActivity(), "Layout Change.",
-			// Toast.LENGTH_SHORT).show();
+			
 			android.app.FragmentManager fragmentManager = getActivity()
 					.getFragmentManager();
 			switch (MainActivity.currentFragment) {
+			//Change from Grid to List
 			case Grid:
 				ListViewNewsLiveFragment fl = new ListViewNewsLiveFragment();
 				fl.setHasOptionsMenu(true);
@@ -325,8 +329,8 @@ public class NavigationDrawerFragment extends Fragment {
 						.commit();
 				MainActivity.currentFragment = Constant.List;
 				MainActivity.curViewGroup = Constant.List;
-
 				break;
+			//Change from List to Grid
 			case List:
 				GridViewNewsLiveFragment fg = new GridViewNewsLiveFragment();
 				fg.setHasOptionsMenu(true);

@@ -30,17 +30,7 @@ import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.PullToRefreshLay
 
 public class GridViewNewsLiveFragment extends Fragment {
 	public static GridView gridNews;
-	 
-    // Array list for list view
-    ArrayList<HashMap<String, String>> rssItemList = new ArrayList<HashMap<String,String>>();
- 
-    RSSParser rssParser = new RSSParser();
-     
-    List<RSSItem> rssItems = MainActivity.rssItems;
- //
-    RSSFeed rssFeed;
-
-
+	
 	private PullToRefreshLayout mPullToRefreshLayout;
      
 

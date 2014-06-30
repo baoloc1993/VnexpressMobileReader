@@ -38,22 +38,6 @@ public class ListViewNewsLiveFragment extends Fragment {
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
-	
-
-	// Array list for list view
-	ArrayList<HashMap<String, String>> rssItemList = new ArrayList<HashMap<String, String>>();
-
-	RSSParser rssParser = new RSSParser();
-
-	
-	List<RSSItem> rssItems = new ArrayList<RSSItem>();
-
-	RSSFeed rssFeed;
-
-	
-
-	byte[] img;
-
 
 	public ListViewNewsLiveFragment() {
 	}

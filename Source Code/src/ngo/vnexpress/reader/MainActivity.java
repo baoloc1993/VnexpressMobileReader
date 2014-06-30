@@ -1,13 +1,11 @@
 package ngo.vnexpress.reader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
-
-
-
-
+import java.util.Map;
 
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
@@ -15,20 +13,15 @@ import ngo.vnexpress.reader.Fragments.NavigationDrawerFragment;
 import ngo.vnexpress.reader.Fragments.SocialNetworkFragment;
 import ngo.vnexpress.reader.RSS.RSSItem;
 import ngo.vnexpress.reader.backgroundnotification.NotificationService;
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -44,7 +37,8 @@ public class MainActivity extends FragmentActivity implements
 	public static int LIMITED_NUMBER = 100;
 	public static NameCategories nameCategory = null;
 	public static int numberNewPost = 0;
-
+	public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories,Integer>();
+	
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
@@ -57,7 +51,7 @@ public class MainActivity extends FragmentActivity implements
 	 */
 	private CharSequence mTitle;
 	private int mIconId;
-	private int notificationIdOne;
+	
 	/**
 	 * Screen's Size
 	 */
@@ -67,6 +61,13 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//Initialize Map
+		if (newArticlePerCate.isEmpty()){
+			Log.d("DEBUG", "INITIAL MAP");
+			initializeMap();
+		}
+		
 		setContentView(R.layout.activity_main);
 		/**
 		 * get screen's size;
@@ -93,6 +94,7 @@ public class MainActivity extends FragmentActivity implements
 
 		// COPY FILE FROM ASSET FOLDER TO MEMORY
 		// copyAssets();
+		
 	}
 
 	@Override
@@ -118,7 +120,7 @@ public class MainActivity extends FragmentActivity implements
 		case 3:
 			nameCategory = NameCategories.World;
 			mTitle = getString(R.string.title_world);
-			mIconId = R.drawable.global;
+			mIconId = R.drawable.world;
 			break;
 		case 4:
 			nameCategory = NameCategories.Business;
@@ -260,11 +262,15 @@ public class MainActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 		//Start background Service
 		Intent i=new Intent(this, NotificationService.class);
-	    
 		startService(i);
-	    
-	    
 		super.onDestroy();
+	}
+	
+	public void initializeMap(){
+		Log.d("DEBUG", "MAP INI");
+		for (NameCategories name : NameCategories.values()){
+			newArticlePerCate.put(name, 0);
+		}
 	}
 
 	

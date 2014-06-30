@@ -68,7 +68,7 @@ public class ListDrawerItemAdapter extends ArrayAdapter<DrawerItem> {
 				//Get Ids of element from layout
 				TextView title = (TextView) v.findViewById(R.id.title);
 				ImageView icon = (ImageView) v.findViewById(R.id.icon);
-				//TextView notification = (TextView)v.findViewById(R.id.notification);
+				TextView notification = (TextView)v.findViewById(R.id.notification);
 				
 				// check to see if each individual textview is null.
 				// if not, assign some text!
@@ -81,9 +81,12 @@ public class ListDrawerItemAdapter extends ArrayAdapter<DrawerItem> {
 					icon.setImageResource(i.getImageID());
 					BasicFunctions.ResizeImageView((int) title.getTextSize(), icon);
 				}
-//				if (notification != null){
-//					notification.setText(String.valueOf(i.getNotification()));
-//				}
+				if (notification != null){
+					notification.setText(String.valueOf(i.getNotification()));
+					if (i.getNotification() >= 0){
+						notification.setVisibility(View.VISIBLE);
+					}
+				}
 				
 			}
 

@@ -1,11 +1,8 @@
 package ngo.vnexpress.reader.RSS;
 
-/**
- * Load RSSITEM from RSS link.
- * Run on background service
- */
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import ngo.vnexpress.reader.MainActivity;
@@ -23,6 +20,7 @@ import android.widget.ListView;
 
 public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 
+	
 	public LoadRSSFeedItemsService(ViewGroup viewGroup,
 			PullToRefreshLayout pullToRefreshLayout) {
 		super(viewGroup, pullToRefreshLayout);
@@ -47,20 +45,21 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	 * */
 	@Override
 	protected String doInBackground(String... args) {
+		MainActivity.newArticlePerCate.clear();
 		
-		
+		 //newArticlePerCate 
 		//Go through all categories inside an Asyntask
-		for (NameCategories name : NameCategories.values()){
+		for (final NameCategories name : NameCategories.values()){
 			
 			//Delay 1s to synchronize 2 threads
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			MainActivity.nameCategory = name;
-			//Log.d("CATE", "CATE = " + MainActivity.nameCategory);
+			
 			
 			if (BasicFunctions.isConnectingToInternet(MainActivity.activity.getApplicationContext())) {
 				
@@ -102,8 +101,14 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 					//Size of database after add new post
 					int newSizeDatabase = rssDb.getDatabaseSize();
 					
-					//The number of new post
-					MainActivity.numberNewPost += newSizeDatabase - oldSizeDatabase; 
+					//The number of new article
+					int newArticle = 0;
+					MainActivity.numberNewPost += newSizeDatabase - oldSizeDatabase;
+					newArticle = newSizeDatabase-oldSizeDatabase;
+					
+
+					MainActivity.newArticlePerCate.put(name, newArticle);
+					
 					Log.d("DEBUG", "CATE + " + MainActivity.nameCategory.toString() + "  " 
 							+ String.valueOf(newSizeDatabase) + " - " + String.valueOf(oldSizeDatabase));
 					// MainActivity.rssItems = rssItems;

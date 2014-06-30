@@ -72,7 +72,7 @@ public class NotificationService extends Service {
 		//Toast.makeText(this, "Congrats! MyService Created", Toast.LENGTH_LONG).show();
 		
 			//Set timer for update notification
-			countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR*3600*1000,TIME_PERIOD_HOUR*3700 *1000) {			
+			countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR*360*1000,TIME_PERIOD_HOUR*339 *1000) {			
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
@@ -81,6 +81,7 @@ public class NotificationService extends Service {
 				Log.d("DEBUG", "CATE new "  + String.valueOf(MainActivity.numberNewPost) );
 				if (MainActivity.numberNewPost > 0){
 					displayNotification();
+					
 				}
 				MainActivity.numberNewPost = 0;
 				

@@ -15,6 +15,13 @@ public class DrawerItem {
 		notification = 0;
 		
 	}
+	public DrawerItem(String content, int imageID, int notification){
+		this.title = content;
+		this.imageID = imageID;
+		
+		this.notification = notification;
+		
+	}
 
 	public String getTitle() {
 		return title;

@@ -1,5 +1,7 @@
 package ngo.vnexpress.reader.Fragments;
-
+/**
+ * Display the advertise text when print screen to share
+ */
 import ngo.vnexpress.reader.R;
 import android.app.Fragment;
 import android.os.Bundle;
