@@ -77,13 +77,16 @@ public class ListDrawerItemAdapter extends ArrayAdapter<DrawerItem> {
 					
 					
 				}
+				//Display Icon
 				if (icon != null){
 					icon.setImageResource(i.getImageID());
 					BasicFunctions.ResizeImageView((int) title.getTextSize(), icon);
 				}
+				//Display number of new post. 
+				//Only display if number > 0
 				if (notification != null){
 					notification.setText(String.valueOf(i.getNotification()));
-					if (i.getNotification() >= 0){
+					if (i.getNotification() > 0){
 						notification.setVisibility(View.VISIBLE);
 					}
 				}

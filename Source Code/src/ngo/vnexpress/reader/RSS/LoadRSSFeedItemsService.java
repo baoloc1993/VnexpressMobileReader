@@ -45,13 +45,13 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	 * */
 	@Override
 	protected String doInBackground(String... args) {
-		MainActivity.newArticlePerCate.clear();
+		//MainActivity.newArticlePerCate.clear();
 		
 		 //newArticlePerCate 
 		//Go through all categories inside an Asyntask
 		for (final NameCategories name : NameCategories.values()){
 			
-			//Delay 1s to synchronize 2 threads
+			//Delay 2s to synchronize 2 threads
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {

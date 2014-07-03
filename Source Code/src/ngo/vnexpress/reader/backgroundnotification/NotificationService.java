@@ -69,10 +69,10 @@ public class NotificationService extends Service {
 	public void onCreate() {
 
 		
-		//Toast.makeText(this, "Congrats! MyService Created", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Congrats! MyService Created", Toast.LENGTH_LONG).show();
 		
 			//Set timer for update notification
-			countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR*360*1000,TIME_PERIOD_HOUR*339 *1000) {			
+			countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR*3600*1000,TIME_PERIOD_HOUR*3500 *1000) {			
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
@@ -168,6 +168,7 @@ public class NotificationService extends Service {
 	      myNotificationManager.notify(notificationIdOne, mBuilder.build());
 	     
 	      Notification fakeNotification = new Notification();
+	      fakeNotification.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
 	      startForeground(1, fakeNotification);
 	      //note.
 	      stopForeground(true);

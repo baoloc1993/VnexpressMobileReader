@@ -117,7 +117,10 @@ public class NavigationDrawerFragment extends Fragment {
 				});
 
 		// Create ArrayList for Item in menu
-		Log.d("DEBUG", "CATE MAP " + MainActivity.newArticlePerCate.get(NameCategories.Homepage));
+//		for (NameCategories name : NameCategories.values()){
+//			Log.d(name.toString(), "CATE MAP " + MainActivity.newArticlePerCate.get(name));
+//		}
+		
 		ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
 		listItem.add(new DrawerItem(getString(R.string.title_home_page),
 				R.drawable.home,MainActivity.newArticlePerCate.get(NameCategories.Homepage)));

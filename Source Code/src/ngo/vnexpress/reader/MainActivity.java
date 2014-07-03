@@ -76,20 +76,20 @@ public class MainActivity extends FragmentActivity implements
 		 * get screen's size;
 		 */
 		//Start background Service
-		Intent i=new Intent(this, NotificationService.class);
+		//Intent i=new Intent(this, NotificationService.class);
 		// Create an ad.
-	    adView = (AdView) findViewById(R.id.adView);
+	   // adView = (AdView) findViewById(R.id.adView);
 	    // Add the AdView to the view hierarchy. The view will have no size
 	    // until the ad is loaded.
 	    
 	    
 	 // Create an ad request. Check logcat output for the hashed device ID to
 	    // get test ads on a physical device.
-	    AdRequest adRequest = new AdRequest.Builder().build();
+	  //  AdRequest adRequest = new AdRequest.Builder().build();
 
 	    // Start loading the ad in the background.
-	    adView.loadAd(adRequest);
-	    
+	   // adView.loadAd(adRequest);
+	
 	  
 				
 		/**
@@ -283,23 +283,27 @@ public class MainActivity extends FragmentActivity implements
 	
 	
 	public void initializeMap(){
-		Log.d("DEBUG", "MAP INI");
+		//Log.d("DEBUG", "MAP INI");
+		
 		for (NameCategories name : NameCategories.values()){
-			newArticlePerCate.put(name, 0);
+			if (!newArticlePerCate.containsKey(name)){
+				//Log.d("MAIN ACTIVITY", "CATE ");
+				newArticlePerCate.put(name, 0);
+			}
 		}
 	}
 	  public void onResume() {
 		    super.onResume();
-		    if (adView != null) {
-		      adView.resume();
-		    }
+		  //  if (adView != null) {
+		  //    adView.resume();
+		 //   }
 		  }
 
 		  @Override
 		  public void onPause() {
-		    if (adView != null) {
-		      adView.pause();
-		    }
+		 //   if (adView != null) {
+		 //     adView.pause();
+		 //   }
 		    super.onPause();
 		  }
 
@@ -309,9 +313,9 @@ public class MainActivity extends FragmentActivity implements
 		    // Destroy the AdView.
 			  Intent i=new Intent(this, NotificationService.class);
 				startService(i);
-		    if (adView != null) {
-		      adView.destroy();
-		    }
+		   // if (adView != null) {
+		  //    adView.destroy();
+		  //  }
 		    super.onDestroy();
 		  }
 		
