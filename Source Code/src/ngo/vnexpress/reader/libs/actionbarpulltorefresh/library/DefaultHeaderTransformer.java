@@ -71,9 +71,10 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	protected DefaultHeaderTransformer(Options options) {
 		final int min = getMinimumApiLevel();
 		if (Build.VERSION.SDK_INT < min) {
-			throw new IllegalStateException("This HeaderTransformer is designed to run on SDK "
-					+ min
-					+ "+. If using ActionBarSherlock or ActionBarCompat you should use the appropriate provided extra.");
+			throw new IllegalStateException(
+					"This HeaderTransformer is designed to run on SDK "
+							+ min
+							+ "+. If using ActionBarSherlock or ActionBarCompat you should use the appropriate provided extra.");
 		}
 		mRefreshingLabel = options.refreshingText;
 		mPullRefreshLabel = options.pullText;
@@ -88,29 +89,39 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 		mHeaderView = headerView;
 
 		// Get ProgressBar and TextView
-		mHeaderProgressBar = (SmoothProgressBar) headerView.findViewById(R.id.ptr_progress);
+		mHeaderProgressBar = (SmoothProgressBar) headerView
+				.findViewById(R.id.ptr_progress);
 		mHeaderTextView = (TextView) headerView.findViewById(R.id.ptr_text);
 		mContentLayout = (ViewGroup) headerView.findViewById(R.id.ptr_content);
 
 		// Default Labels to display
-		if (mPullRefreshLabel == null)
-			mPullRefreshLabel = activity.getString(R.string.pull_to_refresh_pull_label);
-		if (mRefreshingLabel == null)
-			mRefreshingLabel = activity.getString(R.string.pull_to_refresh_refreshing_label);
-		if (mReleaseLabel == null)
-			mReleaseLabel = activity.getString(R.string.pull_to_refresh_release_label);
+		if (mPullRefreshLabel == null) {
+			mPullRefreshLabel = activity
+					.getString(R.string.pull_to_refresh_pull_label);
+		}
+		if (mRefreshingLabel == null) {
+			mRefreshingLabel = activity
+					.getString(R.string.pull_to_refresh_refreshing_label);
+		}
+		if (mReleaseLabel == null) {
+			mReleaseLabel = activity
+					.getString(R.string.pull_to_refresh_release_label);
+		}
 
-		mAnimationDuration = activity.getResources()
-				.getInteger(android.R.integer.config_shortAnimTime);
+		mAnimationDuration = activity.getResources().getInteger(
+				android.R.integer.config_shortAnimTime);
 
-		if (options.progressBarColor == 0)
-			mProgressDrawableColor = activity.getResources()
-			.getColor(R.color.default_progress_bar_color);
-		else
-			mProgressDrawableColor = activity.getResources().getColor(options.progressBarColor);
+		if (options.progressBarColor == 0) {
+			mProgressDrawableColor = activity.getResources().getColor(
+					R.color.default_progress_bar_color);
+		} else {
+			mProgressDrawableColor = activity.getResources().getColor(
+					options.progressBarColor);
+		}
 
-		if (options.headerBackgroundColor != 0)
+		if (options.headerBackgroundColor != 0) {
 			mHeaderView.setBackgroundColor(options.headerBackgroundColor);
+		}
 
 		// Setup the View styles
 		setupViewsFromStyles(activity, headerView);
@@ -125,7 +136,8 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	}
 
 	@Override
-	public void onConfigurationChanged(Activity activity, Configuration newConfig) {
+	public void onConfigurationChanged(Activity activity,
+			Configuration newConfig) {
 		setupViewsFromStyles(activity, getHeaderView());
 	}
 
@@ -155,8 +167,10 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	public void onPulled(float percentagePulled) {
 		if (mHeaderProgressBar != null) {
 			mHeaderProgressBar.setVisibility(View.VISIBLE);
-			final float progress = mInterpolator.getInterpolation(percentagePulled);
-			mHeaderProgressBar.setProgress(Math.round(mHeaderProgressBar.getMax() * progress));
+			final float progress = mInterpolator
+					.getInterpolation(percentagePulled);
+			mHeaderProgressBar.setProgress(Math.round(mHeaderProgressBar
+					.getMax() * progress));
 		}
 	}
 
@@ -200,9 +214,10 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 		if (changeVis) {
 			mHeaderView.setVisibility(View.VISIBLE);
 			AnimatorSet animSet = new AnimatorSet();
-			ObjectAnimator transAnim = ObjectAnimator.ofFloat(mContentLayout, "translationY",
-					-mContentLayout.getHeight(), 0f);
-			ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(mHeaderView, "alpha", 0f, 1f);
+			ObjectAnimator transAnim = ObjectAnimator.ofFloat(mContentLayout,
+					"translationY", -mContentLayout.getHeight(), 0f);
+			ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(mHeaderView,
+					"alpha", 0f, 1f);
 			animSet.playTogether(transAnim, alphaAnim);
 			animSet.setDuration(mAnimationDuration);
 			animSet.start();
@@ -220,12 +235,15 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 			if (mContentLayout.getAlpha() >= 0.5f) {
 				// If the content layout is showing, translate and fade out
 				animator = new AnimatorSet();
-				ObjectAnimator transAnim = ObjectAnimator.ofFloat(mContentLayout, "translationY",
-						0f, -mContentLayout.getHeight());
-				ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(mHeaderView, "alpha", 1f, 0f);
+				ObjectAnimator transAnim = ObjectAnimator.ofFloat(
+						mContentLayout, "translationY", 0f,
+						-mContentLayout.getHeight());
+				ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(mHeaderView,
+						"alpha", 1f, 0f);
 				((AnimatorSet) animator).playTogether(transAnim, alphaAnim);
 			} else {
-				// If the content layout isn't showing (minimized), just fade out
+				// If the content layout isn't showing (minimized), just fade
+				// out
 				animator = ObjectAnimator.ofFloat(mHeaderView, "alpha", 1f, 0f);
 			}
 			animator.setDuration(mAnimationDuration);
@@ -239,10 +257,11 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	/**
 	 * Set color to apply to the progress bar.
 	 * <p/>
-	 * The best way to apply a color is to load the color from resources: {@code
-	 * setProgressBarColor(getResources().getColor(R.color.your_color_name))}.
+	 * The best way to apply a color is to load the color from resources:
+	 * {@code setProgressBarColor(getResources().getColor(R.color.your_color_name))}.
 	 *
-	 * @param color The color to use.
+	 * @param color
+	 *            The color to use.
 	 */
 	public void setProgressBarColor(int color) {
 		if (color != mProgressDrawableColor) {
@@ -252,8 +271,9 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	}
 
 	/**
-	 * Set the progress bar style. {@code style} must be one of {@link #PROGRESS_BAR_STYLE_OUTSIDE}
-	 * or {@link #PROGRESS_BAR_STYLE_INSIDE}.
+	 * Set the progress bar style. {@code style} must be one of
+	 * {@link #PROGRESS_BAR_STYLE_OUTSIDE} or {@link #PROGRESS_BAR_STYLE_INSIDE}
+	 * .
 	 */
 	public void setProgressBarStyle(int style) {
 		if (mProgressBarStyle != style) {
@@ -275,7 +295,8 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	/**
 	 * Set Text to show to prompt the user is pull (or keep pulling).
 	 *
-	 * @param pullText - Text to display.
+	 * @param pullText
+	 *            - Text to display.
 	 */
 	public void setPullText(CharSequence pullText) {
 		mPullRefreshLabel = pullText;
@@ -285,9 +306,11 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	}
 
 	/**
-	 * Set Text to show to tell the user that a refresh is currently in progress.
+	 * Set Text to show to tell the user that a refresh is currently in
+	 * progress.
 	 *
-	 * @param refreshingText - Text to display.
+	 * @param refreshingText
+	 *            - Text to display.
 	 */
 	public void setRefreshingText(CharSequence refreshingText) {
 		mRefreshingLabel = refreshingText;
@@ -296,7 +319,8 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	/**
 	 * Set Text to show to tell the user has scrolled enough to refresh.
 	 *
-	 * @param releaseText - Text to display.
+	 * @param releaseText
+	 *            - Text to display.
 	 */
 	public void setReleaseText(CharSequence releaseText) {
 		mReleaseLabel = releaseText;
@@ -307,69 +331,85 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 		final TypedArray styleAttrs = obtainStyledAttrsFromThemeAttr(activity,
 				R.attr.ptrHeaderStyle, R.styleable.PullToRefreshHeader);
 
-		// Retrieve the Action Bar size from the app theme or the Action Bar's style
+		// Retrieve the Action Bar size from the app theme or the Action Bar's
+		// style
 		if (mContentLayout != null) {
 			final int height = styleAttrs.getDimensionPixelSize(
-					R.styleable.PullToRefreshHeader_ptrHeaderHeight, getActionBarSize(activity));
+					R.styleable.PullToRefreshHeader_ptrHeaderHeight,
+					getActionBarSize(activity));
 			mContentLayout.getLayoutParams().height = height;
 			mContentLayout.requestLayout();
 		}
 
 		Drawable bg;
 		if (options.headerBackgroundColor == 0) {
-			// Retrieve the Action Bar background from the app theme or the Action Bar's style (see #93)
-			bg = styleAttrs.hasValue(R.styleable.PullToRefreshHeader_ptrHeaderBackground)
-					? styleAttrs.getDrawable(R.styleable.PullToRefreshHeader_ptrHeaderBackground)
+			// Retrieve the Action Bar background from the app theme or the
+			// Action Bar's style (see #93)
+			bg = styleAttrs
+					.hasValue(R.styleable.PullToRefreshHeader_ptrHeaderBackground) ? styleAttrs
+							.getDrawable(R.styleable.PullToRefreshHeader_ptrHeaderBackground)
 							: getActionBarBackground(activity);
-		}
-		else {
-			bg = activity.getResources().getDrawable(options.headerBackgroundColor);
+		} else {
+			bg = activity.getResources().getDrawable(
+					options.headerBackgroundColor);
 		}
 		if (bg != null) {
 			mHeaderTextView.setBackgroundDrawable(bg);
 
-			// If we have an opaque background we can remove the background from the content layout
+			// If we have an opaque background we can remove the background from
+			// the content layout
 			if (mContentLayout != null && bg.getOpacity() == PixelFormat.OPAQUE) {
 				mContentLayout.setBackgroundResource(0);
 			}
 		}
 
-		// Retrieve the Action Bar Title Style from the app theme or the Action Bar's style
+		// Retrieve the Action Bar Title Style from the app theme or the Action
+		// Bar's style
 		Context abContext = headerView.getContext();
-		final int titleTextStyle = styleAttrs
-				.getResourceId(R.styleable.PullToRefreshHeader_ptrHeaderTitleTextAppearance,
-						getActionBarTitleStyle(abContext));
+		final int titleTextStyle = styleAttrs.getResourceId(
+				R.styleable.PullToRefreshHeader_ptrHeaderTitleTextAppearance,
+				getActionBarTitleStyle(abContext));
 		if (titleTextStyle != 0) {
 			mHeaderTextView.setTextAppearance(abContext, titleTextStyle);
 		}
-		
-		if (options.titleTextColor != 0)
-			mHeaderTextView.setTextColor(activity.getResources().getColor(options.titleTextColor));
-		
+
+		if (options.titleTextColor != 0) {
+			mHeaderTextView.setTextColor(activity.getResources().getColor(
+					options.titleTextColor));
+		}
+
 		// Retrieve the Progress Bar Color the style
-		if (styleAttrs.hasValue(R.styleable.PullToRefreshHeader_ptrProgressBarColor)) {
+		if (styleAttrs
+				.hasValue(R.styleable.PullToRefreshHeader_ptrProgressBarColor)) {
 			mProgressDrawableColor = styleAttrs.getColor(
-					R.styleable.PullToRefreshHeader_ptrProgressBarColor, mProgressDrawableColor);
+					R.styleable.PullToRefreshHeader_ptrProgressBarColor,
+					mProgressDrawableColor);
 		}
 
 		mProgressBarStyle = styleAttrs.getInt(
-				R.styleable.PullToRefreshHeader_ptrProgressBarStyle, PROGRESS_BAR_STYLE_OUTSIDE);
+				R.styleable.PullToRefreshHeader_ptrProgressBarStyle,
+				PROGRESS_BAR_STYLE_OUTSIDE);
 
-		if(styleAttrs.hasValue(R.styleable.PullToRefreshHeader_ptrProgressBarHeight)) {
+		if (styleAttrs
+				.hasValue(R.styleable.PullToRefreshHeader_ptrProgressBarHeight)) {
 			mProgressBarHeight = styleAttrs.getDimensionPixelSize(
-					R.styleable.PullToRefreshHeader_ptrProgressBarHeight, mProgressBarHeight);
+					R.styleable.PullToRefreshHeader_ptrProgressBarHeight,
+					mProgressBarHeight);
 		}
 
 		// Retrieve the text strings from the style (if they're set)
 		if (styleAttrs.hasValue(R.styleable.PullToRefreshHeader_ptrPullText)) {
-			mPullRefreshLabel = styleAttrs.getString(R.styleable.PullToRefreshHeader_ptrPullText);
+			mPullRefreshLabel = styleAttrs
+					.getString(R.styleable.PullToRefreshHeader_ptrPullText);
 		}
-		if (styleAttrs.hasValue(R.styleable.PullToRefreshHeader_ptrRefreshingText)) {
+		if (styleAttrs
+				.hasValue(R.styleable.PullToRefreshHeader_ptrRefreshingText)) {
 			mRefreshingLabel = styleAttrs
 					.getString(R.styleable.PullToRefreshHeader_ptrRefreshingText);
 		}
 		if (styleAttrs.hasValue(R.styleable.PullToRefreshHeader_ptrReleaseText)) {
-			mReleaseLabel = styleAttrs.getString(R.styleable.PullToRefreshHeader_ptrReleaseText);
+			mReleaseLabel = styleAttrs
+					.getString(R.styleable.PullToRefreshHeader_ptrReleaseText);
 		}
 
 		styleAttrs.recycle();
@@ -394,31 +434,34 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	private void applyProgressBarSettings() {
 		if (mHeaderProgressBar != null) {
 			final int strokeWidth = mHeaderProgressBar.getResources()
-					.getDimensionPixelSize(R.dimen.ptr_progress_bar_stroke_width);
+					.getDimensionPixelSize(
+							R.dimen.ptr_progress_bar_stroke_width);
 
-			mHeaderProgressBar.setIndeterminateDrawable(
-					new SmoothProgressDrawable.Builder(mHeaderProgressBar.getContext())
-					.color(mProgressDrawableColor)
-					.strokeWidth(strokeWidth)
-					.build());
+			mHeaderProgressBar
+			.setIndeterminateDrawable(new SmoothProgressDrawable.Builder(
+					mHeaderProgressBar.getContext())
+			.color(mProgressDrawableColor)
+			.strokeWidth(strokeWidth).build());
 
 			ShapeDrawable shape = new ShapeDrawable();
 			shape.setShape(new RectShape());
 			shape.getPaint().setColor(mProgressDrawableColor);
-			ClipDrawable clipDrawable = new ClipDrawable(shape, Gravity.CENTER, ClipDrawable.HORIZONTAL);
+			ClipDrawable clipDrawable = new ClipDrawable(shape, Gravity.CENTER,
+					ClipDrawable.HORIZONTAL);
 
 			mHeaderProgressBar.setProgressDrawable(clipDrawable);
 		}
 	}
 
 	protected Drawable getActionBarBackground(Context context) {
-		int[] android_styleable_ActionBar = {android.R.attr.background};
+		int[] android_styleable_ActionBar = { android.R.attr.background };
 
 		// Now get the action bar style values...
-		TypedArray abStyle = obtainStyledAttrsFromThemeAttr(context, android.R.attr.actionBarStyle,
-				android_styleable_ActionBar);
+		TypedArray abStyle = obtainStyledAttrsFromThemeAttr(context,
+				android.R.attr.actionBarStyle, android_styleable_ActionBar);
 		try {
-			// background is the first attr in the array above so it's index is 0.
+			// background is the first attr in the array above so it's index is
+			// 0.
 			return abStyle.getDrawable(0);
 		} finally {
 			abStyle.recycle();
@@ -426,7 +469,7 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	}
 
 	protected int getActionBarSize(Context context) {
-		int[] attrs = {android.R.attr.actionBarSize};
+		int[] attrs = { android.R.attr.actionBarSize };
 		TypedArray values = context.getTheme().obtainStyledAttributes(attrs);
 		try {
 			return values.getDimensionPixelSize(0, 0);
@@ -436,13 +479,14 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 	}
 
 	protected int getActionBarTitleStyle(Context context) {
-		int[] android_styleable_ActionBar = {android.R.attr.titleTextStyle};
+		int[] android_styleable_ActionBar = { android.R.attr.titleTextStyle };
 
 		// Now get the action bar style values...
-		TypedArray abStyle = obtainStyledAttrsFromThemeAttr(context, android.R.attr.actionBarStyle,
-				android_styleable_ActionBar);
+		TypedArray abStyle = obtainStyledAttrsFromThemeAttr(context,
+				android.R.attr.actionBarStyle, android_styleable_ActionBar);
 		try {
-			// titleTextStyle is the first attr in the array above so it's index is 0.
+			// titleTextStyle is the first attr in the array above so it's index
+			// is 0.
 			return abStyle.getResourceId(0, 0);
 		} finally {
 			abStyle.recycle();
@@ -464,12 +508,12 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 		}
 	}
 
-	protected static TypedArray obtainStyledAttrsFromThemeAttr(Context context, int themeAttr,
-			int[] styleAttrs) {
+	protected static TypedArray obtainStyledAttrsFromThemeAttr(Context context,
+			int themeAttr, int[] styleAttrs) {
 		// Need to get resource id of style pointed to from the theme attr
 		TypedValue outValue = new TypedValue();
 		context.getTheme().resolveAttribute(themeAttr, outValue, true);
-		final int styleResId =  outValue.resourceId;
+		final int styleResId = outValue.resourceId;
 
 		// Now return the values (from styleAttrs) from the style
 		return context.obtainStyledAttributes(styleResId, styleAttrs);

@@ -1,47 +1,59 @@
 package ngo.vnexpress.reader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 
-import java.util.Map;
-
-import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
 import ngo.vnexpress.reader.Fragments.NavigationDrawerFragment;
 import ngo.vnexpress.reader.Fragments.SocialNetworkFragment;
 import ngo.vnexpress.reader.RSS.RSSItem;
+import ngo.vnexpress.reader.RSS.WebSite;
 import ngo.vnexpress.reader.backgroundnotification.NotificationService;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends FragmentActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
+	/**
+	 * Facebook
+	 */
+	public static WebSite currentWeb = null;
 
+	public static UiLifecycleHelper uiHelper;
+	public static final List<String> PERMISSIONS = Arrays
+			.asList("publish_actions");
+	public static final String PENDING_PUBLISH_KEY = "pendingPublishReauthorization";
+	public static boolean pendingPublishReauthorization = false;
+	/**
+	 * Static variables
+	 */
 	public static boolean FirstOpen;
 	public static Constant currentFragment = Constant.List;
 	public static Constant curViewGroup = null;
-	public static Activity activity = null;
+	public static FragmentActivity activity = null;
 	public static List<RSSItem> rssItems = new ArrayList<RSSItem>();
 	public static int LIMITED_NUMBER = 100;
 	public static NameCategories nameCategory = null;
 	public static int numberNewPost = 0;
-	public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories,Integer>();
+	public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
+	/**
+	 * Google Admob
+	 */
 	private AdView adView;
-	private static final String AD_UNIT_ID = "ca-app-pub-9919394378512649/7852974411";
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
@@ -54,7 +66,7 @@ public class MainActivity extends FragmentActivity implements
 	 */
 	private CharSequence mTitle;
 	private int mIconId;
-	
+
 	/**
 	 * Screen's Size
 	 */
@@ -64,40 +76,60 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		//Initialize Map
-		if (newArticlePerCate.isEmpty()){
-			Log.d("DEBUG", "INITIAL MAP");
+
+		// Initialize Map
+		if (newArticlePerCate.isEmpty()) {
+			// Log.d("DEBUG", "INITIAL MAP");
 			initializeMap();
 		}
-		
-		setContentView(R.layout.activity_main);
-		/**
-		 * get screen's size;
-		 */
-		//Start background Service
-		//Intent i=new Intent(this, NotificationService.class);
-		// Create an ad.
-	   // adView = (AdView) findViewById(R.id.adView);
-	    // Add the AdView to the view hierarchy. The view will have no size
-	    // until the ad is loaded.
-	    
-	    
-	 // Create an ad request. Check logcat output for the hashed device ID to
-	    // get test ads on a physical device.
-	  //  AdRequest adRequest = new AdRequest.Builder().build();
 
-	    // Start loading the ad in the background.
-	   // adView.loadAd(adRequest);
-	
-	  
-				
+		setContentView(R.layout.activity_main);
+		// try {
+		//
+		// PackageInfo info =
+		// getPackageManager().getPackageInfo(getPackageName(),
+		// PackageManager.GET_SIGNATURES);
+		//
+		// for (Signature signature : info.signatures)
+		// {
+		// MessageDigest md = MessageDigest.getInstance("SHA");
+		// md.update(signature.toByteArray());
+		// Log.d("KeyHash:", Base64.encodeToString(md.digest(),
+		// Base64.DEFAULT));
+		// }
+		//
+		// } catch (NameNotFoundException e) {
+		// Log.e("name not found", e.toString());
+		// } catch (NoSuchAlgorithmException e) {
+		// Log.e("no such an algorithm", e.toString());
+		// }
+		/**
+		 * for FB sharing
+		 */
+		uiHelper = new UiLifecycleHelper(this, null);
+		uiHelper.onCreate(savedInstanceState);
 		/**
 		 * get screen's size;
 		 */
-		
-		
-		//Get the width and length of the screen
+		// Start background Service
+		// Intent i=new Intent(this, NotificationService.class);
+		// Create an ad.
+		adView = (AdView) findViewById(R.id.adView);
+		// Add the AdView to the view hierarchy. The view will have no size
+		// until the ad is loaded.
+
+		// Create an ad request. Check logcat output for the hashed device ID to
+		// get test ads on a physical device.
+		AdRequest adRequest = new AdRequest.Builder().build();
+
+		// Start loading the ad in the background.
+		adView.loadAd(adRequest);
+
+		/**
+		 * get screen's size;
+		 */
+
+		// Get the width and length of the screen
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		screenHeight = displayMetrics.heightPixels;
@@ -117,12 +149,12 @@ public class MainActivity extends FragmentActivity implements
 
 		// COPY FILE FROM ASSET FOLDER TO MEMORY
 		// copyAssets();
-		
+
 	}
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
-		//Action when one of items in drawer fragment clicked
+		// Action when one of items in drawer fragment clicked
 		FragmentManager fragmentManager = getFragmentManager();
 		switch (position) {
 		case 0:
@@ -213,7 +245,7 @@ public class MainActivity extends FragmentActivity implements
 
 		}
 
-		//Go to conresponding fragment
+		// Go to conresponding fragment
 		curViewGroup = Constant.List;
 		if (nameCategory != NameCategories.About) {
 			fragmentManager.beginTransaction()
@@ -227,23 +259,21 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-	//Set title on ActionBar
+	// Set title on ActionBar
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
 		actionBar.setIcon(mIconId);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayShowTitleEnabled(true);
-		
+
 		actionBar.setTitle(mTitle);
 	}
 
 	/**
-	 * Create Menu in Action Bar
-	 * 1: Switch layout
-	 * 2: Share on Facebook
+	 * Create Menu in Action Bar 1: Switch layout 2: Share on Facebook
 	 */
-	
-	//Create menu
+
+	// Create menu
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -254,7 +284,7 @@ public class MainActivity extends FragmentActivity implements
 					|| currentFragment == Constant.List) {
 				getMenuInflater().inflate(R.menu.news, menu);
 			}
-			if(currentFragment == Constant.Web){
+			if (currentFragment == Constant.Web) {
 				getMenuInflater().inflate(R.menu.webview, menu);
 			}
 			restoreActionBar();
@@ -278,46 +308,77 @@ public class MainActivity extends FragmentActivity implements
 	public static int getStandardSize() {
 		return Math.min(screenWidth, screenHeight);
 	}
-	
 
-	
-	
-	public void initializeMap(){
-		//Log.d("DEBUG", "MAP INI");
-		
-		for (NameCategories name : NameCategories.values()){
-			if (!newArticlePerCate.containsKey(name)){
-				//Log.d("MAIN ACTIVITY", "CATE ");
+	public void initializeMap() {
+		// Log.d("DEBUG", "MAP INI");
+
+		for (NameCategories name : NameCategories.values()) {
+			if (!newArticlePerCate.containsKey(name)) {
+				// Log.d("MAIN ACTIVITY", "CATE ");
 				newArticlePerCate.put(name, 0);
 			}
 		}
 	}
-	  public void onResume() {
-		    super.onResume();
-		  //  if (adView != null) {
-		  //    adView.resume();
-		 //   }
-		  }
 
-		  @Override
-		  public void onPause() {
-		 //   if (adView != null) {
-		 //     adView.pause();
-		 //   }
-		    super.onPause();
-		  }
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (adView != null) {
+			adView.resume();
+			uiHelper.onResume();
+		}
+	}
 
-		  /** Called before the activity is destroyed. */
-		  @Override
-		  public void onDestroy() {
-		    // Destroy the AdView.
-			  Intent i=new Intent(this, NotificationService.class);
-				startService(i);
-		   // if (adView != null) {
-		  //    adView.destroy();
-		  //  }
-		    super.onDestroy();
-		  }
-		
-	
+	@Override
+	public void onPause() {
+		if (adView != null) {
+			adView.pause();
+			uiHelper.onPause();
+		}
+		super.onPause();
+	}
+
+	/** Called before the activity is destroyed. */
+	@Override
+	public void onDestroy() {
+		// Destroy the AdView.
+		Intent i = new Intent(this, NotificationService.class);
+		startService(i);
+		if (adView != null) {
+			adView.destroy();
+			uiHelper.onDestroy();
+		}
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
+	}
+
+	/**
+	 * for Facebook sharing
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		uiHelper.onActivityResult(requestCode, resultCode, data,
+				new FacebookDialog.Callback() {
+			@Override
+			public void onError(FacebookDialog.PendingCall pendingCall,
+					Exception error, Bundle data) {
+				// Log.e("Activity", String.format("Error: %s",
+				// error.toString()));
+			}
+
+			@Override
+			public void onComplete(
+					FacebookDialog.PendingCall pendingCall, Bundle data) {
+				// Log.i("Activity", "Success!");
+			}
+		});
+	}
+
 }

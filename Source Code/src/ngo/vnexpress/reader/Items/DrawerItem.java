@@ -5,22 +5,24 @@ public class DrawerItem {
 	private String title;
 	private int imageID;
 	private int notification;
-	
+
 	public DrawerItem() {
 		// TODO Auto-generated constructor stub
 	}
-	public DrawerItem(String content, int imageID){
+
+	public DrawerItem(String content, int imageID) {
 		this.title = content;
 		this.imageID = imageID;
 		notification = 0;
-		
+
 	}
-	public DrawerItem(String content, int imageID, int notification){
+
+	public DrawerItem(String content, int imageID, int notification) {
 		this.title = content;
 		this.imageID = imageID;
-		
+
 		this.notification = notification;
-		
+
 	}
 
 	public String getTitle() {
@@ -38,9 +40,11 @@ public class DrawerItem {
 	public void setImageID(int imageID) {
 		this.imageID = imageID;
 	}
+
 	public int getNotification() {
 		return notification;
 	}
+
 	public void setNotification(int notification) {
 		this.notification = notification;
 	}

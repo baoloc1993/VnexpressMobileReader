@@ -1,9 +1,14 @@
 package ngo.vnexpress.reader.Fragments;
+
 /**
  * Display the social webview
  */
 import java.util.ArrayList;
 
+import ngo.vnexpress.reader.MainActivity;
+import ngo.vnexpress.reader.R;
+import ngo.vnexpress.reader.Adapters.SocialNetworkItemAdapter;
+import ngo.vnexpress.reader.Items.SocialNetworkItem;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.graphics.Color;
@@ -20,10 +25,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ProgressBar;
-import ngo.vnexpress.reader.MainActivity;
-import ngo.vnexpress.reader.R;
-import ngo.vnexpress.reader.Adapters.SocialNetworkItemAdapter;
-import ngo.vnexpress.reader.Items.SocialNetworkItem;
 
 public class SocialNetworkFragment extends Fragment {
 	static Bundle savedInstanceState;
@@ -44,7 +45,7 @@ public class SocialNetworkFragment extends Fragment {
 
 		/**
 		 * Webview to show webpage
-		 * 
+		 *
 		 */
 		webView = (WebView) rootView.findViewById(R.id.webView);
 		webView.setPadding(0, 0, 0, 0);
@@ -58,10 +59,11 @@ public class SocialNetworkFragment extends Fragment {
 		 */
 		socialNetworkItems = new ArrayList<SocialNetworkItem>();
 		/**
-		 * 
+		 *
 		 * FACEBOOK
 		 */
-		socialNetworkItems.add(new SocialNetworkItem("http://m.facebook.com/fabio.ngo1403",
+		socialNetworkItems.add(new SocialNetworkItem(
+				"http://m.facebook.com/fabio.ngo1403",
 				R.drawable.facebook_icon, Color.rgb(70, 110, 169)));
 		/**
 		 * GOOGLE+
@@ -72,8 +74,9 @@ public class SocialNetworkFragment extends Fragment {
 		/**
 		 * TWITTER
 		 */
-		socialNetworkItems.add(new SocialNetworkItem("https://twitter.com/FabioNgo1403",
-				R.drawable.twitter_icon, Color.rgb(0, 172, 237)));
+		socialNetworkItems.add(new SocialNetworkItem(
+				"https://twitter.com/FabioNgo1403", R.drawable.twitter_icon,
+				Color.rgb(0, 172, 237)));
 
 		/**
 		 * Show social network header in gridview
@@ -101,8 +104,7 @@ public class SocialNetworkFragment extends Fragment {
 		// default url
 		socialNetworkHeader.performItemClick(socialNetworkHeader, 0,
 				socialNetworkHeader.getItemIdAtPosition(0));
-		
-		
+
 		return rootView;
 	}
 
@@ -134,21 +136,25 @@ public class SocialNetworkFragment extends Fragment {
 		}
 
 	}
+
 	@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // If the drawer is open, show the global app actions in the action bar. See also
-        // showGlobalContextActionBar, which controls the top-left area of the action bar.
-        //if (mDrawerLayout != null && isDrawerOpen()) {
-            inflater.inflate(R.menu.global, menu);
-            showGlobalContextActionBar();
-        //}
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// If the drawer is open, show the global app actions in the action bar.
+		// See also
+		// showGlobalContextActionBar, which controls the top-left area of the
+		// action bar.
+		// if (mDrawerLayout != null && isDrawerOpen()) {
+		inflater.inflate(R.menu.global, menu);
+		showGlobalContextActionBar();
+		// }
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
 	private void showGlobalContextActionBar() {
-        ActionBar actionBar = MainActivity.activity.getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle(R.string.app_name);
-    }
+		ActionBar actionBar = MainActivity.activity.getActionBar();
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setTitle(R.string.app_name);
+	}
 
 }

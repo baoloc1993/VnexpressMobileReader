@@ -1,14 +1,16 @@
 package ngo.vnexpress.reader.Fragments;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import ngo.vnexpress.reader.Constant;
+import ngo.vnexpress.reader.MainActivity;
+import ngo.vnexpress.reader.NameCategories;
+import ngo.vnexpress.reader.R;
+import ngo.vnexpress.reader.Adapters.ListDrawerItemAdapter;
+import ngo.vnexpress.reader.Items.DrawerItem;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -16,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,12 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import ngo.vnexpress.reader.Constant;
-import ngo.vnexpress.reader.MainActivity;
-import ngo.vnexpress.reader.NameCategories;
-import ngo.vnexpress.reader.R;
-import ngo.vnexpress.reader.Adapters.ListDrawerItemAdapter;
-import ngo.vnexpress.reader.Items.DrawerItem;
+
+import com.facebook.widget.FacebookDialog;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -77,6 +74,9 @@ public class NavigationDrawerFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		/**
+		 * Auto generated code
+		 */
 		// Read in the flag indicating whether or not the user has demonstrated
 		// awareness of the
 		// drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -117,41 +117,57 @@ public class NavigationDrawerFragment extends Fragment {
 				});
 
 		// Create ArrayList for Item in menu
-//		for (NameCategories name : NameCategories.values()){
-//			Log.d(name.toString(), "CATE MAP " + MainActivity.newArticlePerCate.get(name));
-//		}
-		
+		// for (NameCategories name : NameCategories.values()){
+		// Log.d(name.toString(), "CATE MAP " +
+		// MainActivity.newArticlePerCate.get(name));
+		// }
+
 		ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
 		listItem.add(new DrawerItem(getString(R.string.title_home_page),
-				R.drawable.home,MainActivity.newArticlePerCate.get(NameCategories.Homepage)));
+				R.drawable.home, MainActivity.newArticlePerCate
+				.get(NameCategories.Homepage)));
 		listItem.add(new DrawerItem(getString(R.string.title_news),
-				R.drawable.news,MainActivity.newArticlePerCate.get(NameCategories.News)));
+				R.drawable.news, MainActivity.newArticlePerCate
+				.get(NameCategories.News)));
 		listItem.add(new DrawerItem(getString(R.string.title_life),
-				R.drawable.life,MainActivity.newArticlePerCate.get(NameCategories.Life)));
+				R.drawable.life, MainActivity.newArticlePerCate
+				.get(NameCategories.Life)));
 		listItem.add(new DrawerItem(getString(R.string.title_world),
-				R.drawable.world,MainActivity.newArticlePerCate.get(NameCategories.World)));
+				R.drawable.world, MainActivity.newArticlePerCate
+				.get(NameCategories.World)));
 		listItem.add(new DrawerItem(getString(R.string.title_business),
-				R.drawable.business,MainActivity.newArticlePerCate.get(NameCategories.Business)));
+				R.drawable.business, MainActivity.newArticlePerCate
+				.get(NameCategories.Business)));
 		listItem.add(new DrawerItem(getString(R.string.title_entertainment),
-				R.drawable.entertainment,MainActivity.newArticlePerCate.get(NameCategories.Entertainment)));
+				R.drawable.entertainment, MainActivity.newArticlePerCate
+				.get(NameCategories.Entertainment)));
 		listItem.add(new DrawerItem(getString(R.string.title_sports),
-				R.drawable.sport,MainActivity.newArticlePerCate.get(NameCategories.Sports)));
+				R.drawable.sport, MainActivity.newArticlePerCate
+				.get(NameCategories.Sports)));
 		listItem.add(new DrawerItem(getString(R.string.title_laws),
-				R.drawable.law,MainActivity.newArticlePerCate.get(NameCategories.Laws)));
+				R.drawable.law, MainActivity.newArticlePerCate
+				.get(NameCategories.Laws)));
 		listItem.add(new DrawerItem(getString(R.string.title_travelling),
-				R.drawable.travelling,MainActivity.newArticlePerCate.get(NameCategories.Travelling)));
+				R.drawable.travelling, MainActivity.newArticlePerCate
+				.get(NameCategories.Travelling)));
 		listItem.add(new DrawerItem(getString(R.string.title_science),
-				R.drawable.science,MainActivity.newArticlePerCate.get(NameCategories.Science)));
+				R.drawable.science, MainActivity.newArticlePerCate
+				.get(NameCategories.Science)));
 		listItem.add(new DrawerItem(getString(R.string.title_digital),
-				R.drawable.digital,MainActivity.newArticlePerCate.get(NameCategories.Digital)));
+				R.drawable.digital, MainActivity.newArticlePerCate
+				.get(NameCategories.Digital)));
 		listItem.add(new DrawerItem(getString(R.string.title_cars),
-				R.drawable.car,MainActivity.newArticlePerCate.get(NameCategories.Car)));
+				R.drawable.car, MainActivity.newArticlePerCate
+				.get(NameCategories.Car)));
 		listItem.add(new DrawerItem(getString(R.string.title_social),
-				R.drawable.social,MainActivity.newArticlePerCate.get(NameCategories.Social)));
+				R.drawable.social, MainActivity.newArticlePerCate
+				.get(NameCategories.Social)));
 		listItem.add(new DrawerItem(getString(R.string.title_chat),
-				R.drawable.chat,MainActivity.newArticlePerCate.get(NameCategories.Chat)));
+				R.drawable.chat, MainActivity.newArticlePerCate
+				.get(NameCategories.Chat)));
 		listItem.add(new DrawerItem(getString(R.string.title_funny),
-				R.drawable.funny,MainActivity.newArticlePerCate.get(NameCategories.Funny)));
+				R.drawable.funny, MainActivity.newArticlePerCate
+				.get(NameCategories.Funny)));
 		listItem.add(new DrawerItem(getString(R.string.title_about),
 				R.drawable.about));
 
@@ -212,7 +228,7 @@ public class NavigationDrawerFragment extends Fragment {
 				}
 
 				getActivity().invalidateOptionsMenu(); // calls
-														// onPrepareOptionsMenu()
+				// onPrepareOptionsMenu()
 			}
 
 			@Override
@@ -234,7 +250,7 @@ public class NavigationDrawerFragment extends Fragment {
 				}
 
 				getActivity().invalidateOptionsMenu(); // calls
-														// onPrepareOptionsMenu()
+				// onPrepareOptionsMenu()
 			}
 		};
 
@@ -289,6 +305,7 @@ public class NavigationDrawerFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+
 		outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
 	}
 
@@ -318,13 +335,13 @@ public class NavigationDrawerFragment extends Fragment {
 			return true;
 		}
 
-		//Button Switch layout
+		// Button Switch layout
 		if (item.getItemId() == R.id.switch_layout) {
-			
+
 			android.app.FragmentManager fragmentManager = getActivity()
 					.getFragmentManager();
 			switch (MainActivity.currentFragment) {
-			//Change from Grid to List
+			// Change from Grid to List
 			case Grid:
 				ListViewNewsLiveFragment fl = new ListViewNewsLiveFragment();
 				fl.setHasOptionsMenu(true);
@@ -333,7 +350,7 @@ public class NavigationDrawerFragment extends Fragment {
 				MainActivity.currentFragment = Constant.List;
 				MainActivity.curViewGroup = Constant.List;
 				break;
-			//Change from List to Grid
+			// Change from List to Grid
 			case List:
 				GridViewNewsLiveFragment fg = new GridViewNewsLiveFragment();
 				fg.setHasOptionsMenu(true);
@@ -350,27 +367,13 @@ public class NavigationDrawerFragment extends Fragment {
 		}
 		if (item.getItemId() == R.id.share) {
 
-			final Fragment f = new AdFragment();
-			final FragmentManager fm = getActivity().getFragmentManager();
-			fm.beginTransaction().add(R.id.adContainer, f, "ad").commit();
-
-			TimerTask timerTask = new TimerTask() {
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					try {
-						DisplayWebNewsFragment.Share();
-						fm.beginTransaction().detach(f).commit();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-				}
-			};
-			Timer timer = new Timer();
-			timer.schedule(timerTask, 0);
+			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
+					getActivity()).setLink(MainActivity.currentWeb.getLink())
+					.setCaption("Find us on Google Play")
+					.setName(MainActivity.currentWeb.getTitle())
+					.setDescription(MainActivity.currentWeb.getDescription())
+					.build();
+			MainActivity.uiHelper.trackPendingDialogCall(shareDialog.present());
 
 		}
 		return super.onOptionsItemSelected(item);
@@ -402,4 +405,23 @@ public class NavigationDrawerFragment extends Fragment {
 		 */
 		void onNavigationDrawerItemSelected(int position);
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+	}
+
 }

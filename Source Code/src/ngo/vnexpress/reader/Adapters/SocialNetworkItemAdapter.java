@@ -1,9 +1,14 @@
 package ngo.vnexpress.reader.Adapters;
+
 /**
  * Adatper for Social Fragment
  */
 import java.util.ArrayList;
 
+import ngo.vnexpress.reader.MainActivity;
+import ngo.vnexpress.reader.R;
+import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
+import ngo.vnexpress.reader.Items.SocialNetworkItem;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
@@ -14,13 +19,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import ngo.vnexpress.reader.MainActivity;
-import ngo.vnexpress.reader.R;
-import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
-import ngo.vnexpress.reader.Items.SocialNetworkItem;
 
 public class SocialNetworkItemAdapter extends ArrayAdapter<SocialNetworkItem> {
-	
+
 	public ProgressBar progressBar;
 
 	public SocialNetworkItemAdapter(Context context, int resource) {
@@ -86,9 +87,9 @@ public class SocialNetworkItemAdapter extends ArrayAdapter<SocialNetworkItem> {
 				/**
 				 * get suitable size to scale image
 				 */
-				int size = MainActivity.getStandardSize()/objects.size()/3;
+				int size = MainActivity.getStandardSize() / objects.size() / 3;
 				BasicFunctions.ResizeImageView(size, icon);
-				
+
 			}
 			/**
 			 * Set background's color
@@ -96,9 +97,9 @@ public class SocialNetworkItemAdapter extends ArrayAdapter<SocialNetworkItem> {
 			RelativeLayout relativeLayout = (RelativeLayout) v
 					.findViewById(R.id.background);
 			relativeLayout.setBackgroundColor(i.getBackground());
-			
+
 			/**
-			 * 
+			 *
 			 * Progress Bar
 			 */
 			progressBar = (ProgressBar) v.findViewById(R.id.progressBar);

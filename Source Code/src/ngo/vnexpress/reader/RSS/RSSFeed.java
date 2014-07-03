@@ -1,7 +1,7 @@
 /**
- * This class file used to create an object for rss feed 
- * which handles website basic information 
- * like title, description, link, rss link, 
+ * This class file used to create an object for rss feed
+ * which handles website basic information
+ * like title, description, link, rss link,
  * language and an array of rss items.
  */
 package ngo.vnexpress.reader.RSS;
@@ -9,23 +9,23 @@ package ngo.vnexpress.reader.RSS;
 import java.util.List;
 
 public class RSSFeed {
-	
-	private String _title;
-    private String _description;
-    private String _link;
-    private String _rss_link;
-    private String _language;
-    List<RSSItem> _items;
 
- // constructor
-    public RSSFeed(String title, String description, String link,
-            String rss_link, String language) {
-        this.set_title(title);
-        this.set_description(description);
-        this.set_link(link);
-        this.set_rss_link(rss_link);
-        this.set_language(language);
-    }
+	private String _title;
+	private String _description;
+	private String _link;
+	private String _rss_link;
+	private String _language;
+	List<RSSItem> _items;
+
+	// constructor
+	public RSSFeed(String title, String description, String link,
+			String rss_link, String language) {
+		this.set_title(title);
+		this.set_description(description);
+		this.set_link(link);
+		this.set_rss_link(rss_link);
+		this.set_language(language);
+	}
 
 	public String get_title() {
 		return _title;

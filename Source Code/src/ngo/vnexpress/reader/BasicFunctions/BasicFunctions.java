@@ -25,12 +25,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * 
+ *
  * @author Fabio Ngo Class store basic functions ( most-used functions)
  */
 public class BasicFunctions {
@@ -68,11 +68,9 @@ public class BasicFunctions {
 			ViewGroup viewGroup, View view, final TimerTask timerTask,
 			final PullToRefreshLayout mPullToRefreshLayout) {
 
-		ActionBarPullToRefresh
-				.from(activity)
-				.insertLayoutInto(viewGroup)
-				// We need to insert the PullToRefreshLayout into the Fragment's
-				// ViewGroup
+		ActionBarPullToRefresh.from(activity).insertLayoutInto(viewGroup)
+		// We need to insert the PullToRefreshLayout into the Fragment's
+		// ViewGroup
 				.theseChildrenArePullable(view)
 				// We need to mark the ListView and it's Empty View as pullable
 				// This is because they are not direct children of the
@@ -90,33 +88,32 @@ public class BasicFunctions {
 								.progressBarStyle(
 										Options.PROGRESS_BAR_STYLE_OUTSIDE)
 								.build()).listener(new OnRefreshListener() {
-							@Override
-							public void onRefreshStarted(View view) {
-								if (isConnectingToInternet(activity
-										.getApplicationContext())) {
-									Timer timer = new Timer();
-									TimerTask task = new TimerTask() {
+											@Override
+											public void onRefreshStarted(View view) {
+												if (isConnectingToInternet(activity
+														.getApplicationContext())) {
+													Timer timer = new Timer();
+													TimerTask task = new TimerTask() {
 
-										@Override
-										public void run() {
-											// TODO Auto-generated method stub
-											timerTask.run();
-										}
-									};
+														@Override
+														public void run() {
+															// TODO Auto-generated method stub
+															timerTask.run();
+														}
+													};
 
-									timer.schedule(task, 1000);
-								} else {
-									
-									Toast.makeText(activity.getApplicationContext(),
-											"INTERNET IS NOT AVAILABLE. THE OLD DATA WILL BE USED ",
-											Toast.LENGTH_LONG).show();
-									
+													timer.schedule(task, 1000);
+												} else {
 
-									
-									mPullToRefreshLayout.setRefreshComplete();
-								}
-							}
-						}).setup(mPullToRefreshLayout);
+													Toast.makeText(
+															activity.getApplicationContext(),
+															"INTERNET IS NOT AVAILABLE. THE OLD DATA WILL BE USED ",
+															Toast.LENGTH_LONG).show();
+
+													mPullToRefreshLayout.setRefreshComplete();
+												}
+											}
+										}).setup(mPullToRefreshLayout);
 	}
 
 	// CHECK IF IS CONNECTION TO INTERNET OR NOT
@@ -126,52 +123,62 @@ public class BasicFunctions {
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (connectivity != null) {
 			NetworkInfo[] info = connectivity.getAllNetworkInfo();
-			if (info != null)
-				for (int i = 0; i < info.length; i++)
-					if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+			if (info != null) {
+				for (NetworkInfo element : info) {
+					if (element.getState() == NetworkInfo.State.CONNECTED) {
 						return true;
 					}
+				}
+			}
 
 		}
 		return false;
 	}
+
 	/**
 	 * Return OnItemClickListener which lead to detailed articles after clicking
 	 */
-	public static OnItemClickListener createOnItemClickListener(){
+	public static OnItemClickListener createOnItemClickListener() {
 		OnItemClickListener onItemClickListener = new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-	                int position, long id) {
-//	          
-	        	//Get Item of current position in database
-	        	RSSDatabaseHandler rssDb = new RSSDatabaseHandler(MainActivity.activity);
-	        	RSSItem rss_item = (RSSItem) parent.getItemAtPosition(position);
-	        	WebSite website = rssDb.getSiteByLink(rss_item.getLink());
-	        	//List<WebSite> websites = rssDb.getAllSitesByID();
-	        	
-	        	
-	        	//transfer link of current Item to other fragment
-	            Bundle args = new Bundle();
-	            args.putInt(DisplaySwipeViewNewsFragment.ARG_ID, website.getId());
-	          //  args.putString(DisplayFullNewsFragment.ARG_TYPE_FRAGMENT, getClass().toString());
-	           // args.putInt(DisplayFullNewsFragment.ARG_SIZE, websites.size());
-	            //Log.d("SET ON ITEM CLICK LISTENER", String.valueOf(website.getId()));
+					int position, long id) {
+				//
+				// Get Item of current position in database
+				RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
+						MainActivity.activity);
+				RSSItem rss_item = (RSSItem) parent.getItemAtPosition(position);
+				WebSite website = rssDb.getSiteByLink(rss_item.getLink());
+				// List<WebSite> websites = rssDb.getAllSitesByID();
 
-	            android.app.FragmentManager fragmentManager = MainActivity.activity.getFragmentManager();
-	            DisplaySwipeViewNewsFragment displaySwipeViewNewsFragment = new DisplaySwipeViewNewsFragment();
-	            displaySwipeViewNewsFragment.setArguments(args);
-	            
-	            //Go to DisplayFullNewsFragment
-	            displaySwipeViewNewsFragment.setHasOptionsMenu(true);
-		        fragmentManager.beginTransaction().replace(R.id.container, displaySwipeViewNewsFragment).commit();
-		        MainActivity.currentFragment = Constant.Web;
-	            //Log.d("SET ON ITEM CLICK LISTENER", String.valueOf(rss_item.getId()));
+				// transfer link of current Item to other fragment
+				Bundle args = new Bundle();
+				args.putInt(DisplaySwipeViewNewsFragment.ARG_ID,
+						website.getId());
+				// args.putString(DisplayFullNewsFragment.ARG_TYPE_FRAGMENT,
+				// getClass().toString());
+				// args.putInt(DisplayFullNewsFragment.ARG_SIZE,
+				// websites.size());
+				// Log.d("SET ON ITEM CLICK LISTENER",
+				// String.valueOf(website.getId()));
+
+				android.support.v4.app.FragmentManager fragmentManager = MainActivity.activity
+						.getSupportFragmentManager();
+				DisplaySwipeViewNewsFragment displaySwipeViewNewsFragment = new DisplaySwipeViewNewsFragment();
+
+				displaySwipeViewNewsFragment.setArguments(args);
+
+				// Go to DisplayFullNewsFragment
+				displaySwipeViewNewsFragment.setHasOptionsMenu(true);
+				fragmentManager.beginTransaction()
+				.replace(R.id.container, displaySwipeViewNewsFragment)
+				.commit();
+				MainActivity.currentFragment = Constant.Web;
+				// Log.d("SET ON ITEM CLICK LISTENER",
+				// String.valueOf(rss_item.getId()));
+			};
 		};
-	};
-	return onItemClickListener;
+		return onItemClickListener;
 	}
-	
-	
-	
+
 }

@@ -5,16 +5,16 @@ public class SocialNetworkItem {
 	private String url;
 	private int iconId;
 	private int background;
-	
+
 	public SocialNetworkItem() {
 		// TODO Auto-generated constructor stub
 	}
-	public SocialNetworkItem(String url, int iconId, int background){
+
+	public SocialNetworkItem(String url, int iconId, int background) {
 		this.url = url;
 		this.iconId = iconId;
 		this.background = background;
-		
-		
+
 	}
 
 	public String getUrl() {
@@ -32,18 +32,20 @@ public class SocialNetworkItem {
 	public void setImageID(int imageID) {
 		this.iconId = imageID;
 	}
+
 	/**
 	 * @return the background
 	 */
 	public int getBackground() {
 		return background;
 	}
+
 	/**
-	 * @param background the background to set
+	 * @param background
+	 *            the background to set
 	 */
 	public void setBackground(int background) {
 		this.background = background;
 	}
-	
 
 }

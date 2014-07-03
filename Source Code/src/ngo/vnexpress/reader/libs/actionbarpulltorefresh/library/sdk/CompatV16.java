@@ -5,9 +5,9 @@ import android.view.View;
 
 class CompatV16 {
 
-    @SuppressLint("NewApi")
+	@SuppressLint("NewApi")
 	static void postOnAnimation(View view, Runnable runnable) {
-        view.postOnAnimation(runnable);
-    }
+		view.postOnAnimation(runnable);
+	}
 
 }

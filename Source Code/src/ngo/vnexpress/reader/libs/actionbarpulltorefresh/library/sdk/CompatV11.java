@@ -21,12 +21,12 @@ import android.view.View;
 
 class CompatV11 {
 
-    static void setAlpha(View view, float alpha) {
-        view.setAlpha(alpha);
-    }
+	static void setAlpha(View view, float alpha) {
+		view.setAlpha(alpha);
+	}
 
-    static void postOnAnimation(View view, Runnable runnable) {
-        view.postDelayed(runnable, ValueAnimator.getFrameDelay());
-    }
+	static void postOnAnimation(View view, Runnable runnable) {
+		view.postDelayed(runnable, ValueAnimator.getFrameDelay());
+	}
 
 }
