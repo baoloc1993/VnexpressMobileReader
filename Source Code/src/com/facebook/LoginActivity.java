@@ -71,28 +71,28 @@ public class LoginActivity extends Activity {
 
 		authorizationClient.setContext(this);
 		authorizationClient
-		.setOnCompletedListener(new AuthorizationClient.OnCompletedListener() {
-			@Override
-			public void onCompleted(AuthorizationClient.Result outcome) {
-				onAuthClientCompleted(outcome);
-			}
-		});
+				.setOnCompletedListener(new AuthorizationClient.OnCompletedListener() {
+					@Override
+					public void onCompleted(AuthorizationClient.Result outcome) {
+						onAuthClientCompleted(outcome);
+					}
+				});
 		authorizationClient
-		.setBackgroundProcessingListener(new AuthorizationClient.BackgroundProcessingListener() {
-			@Override
-			public void onBackgroundProcessingStarted() {
-				findViewById(
-						R.id.com_facebook_login_activity_progress_bar)
-						.setVisibility(View.VISIBLE);
-			}
+				.setBackgroundProcessingListener(new AuthorizationClient.BackgroundProcessingListener() {
+					@Override
+					public void onBackgroundProcessingStarted() {
+						findViewById(
+								R.id.com_facebook_login_activity_progress_bar)
+								.setVisibility(View.VISIBLE);
+					}
 
-			@Override
-			public void onBackgroundProcessingStopped() {
-				findViewById(
-						R.id.com_facebook_login_activity_progress_bar)
-						.setVisibility(View.GONE);
-			}
-		});
+					@Override
+					public void onBackgroundProcessingStopped() {
+						findViewById(
+								R.id.com_facebook_login_activity_progress_bar)
+								.setVisibility(View.GONE);
+					}
+				});
 	}
 
 	private void onAuthClientCompleted(AuthorizationClient.Result outcome) {
@@ -136,7 +136,7 @@ public class LoginActivity extends Activity {
 
 		authorizationClient.cancelCurrentHandler();
 		findViewById(R.id.com_facebook_login_activity_progress_bar)
-		.setVisibility(View.GONE);
+				.setVisibility(View.GONE);
 	}
 
 	@Override

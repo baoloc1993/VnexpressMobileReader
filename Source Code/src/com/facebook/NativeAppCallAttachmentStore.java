@@ -53,7 +53,7 @@ import com.facebook.internal.Validate;
  * </p>
  **/
 public final class NativeAppCallAttachmentStore implements
-NativeAppCallContentProvider.AttachmentDataSource {
+		NativeAppCallContentProvider.AttachmentDataSource {
 	private static final String TAG = NativeAppCallAttachmentStore.class
 			.getName();
 	static final String ATTACHMENTS_DIR_NAME = "com.facebook.NativeAppCallAttachmentStore.files";
@@ -84,19 +84,19 @@ NativeAppCallContentProvider.AttachmentDataSource {
 
 		addAttachments(context, callId, imageAttachments,
 				new ProcessAttachment<Bitmap>() {
-			@Override
-			public void processAttachment(Bitmap attachment,
-					File outputFile) throws IOException {
-				FileOutputStream outputStream = new FileOutputStream(
-						outputFile);
-				try {
-					attachment.compress(Bitmap.CompressFormat.JPEG,
-							100, outputStream);
-				} finally {
-					Utility.closeQuietly(outputStream);
-				}
-			}
-		});
+					@Override
+					public void processAttachment(Bitmap attachment,
+							File outputFile) throws IOException {
+						FileOutputStream outputStream = new FileOutputStream(
+								outputFile);
+						try {
+							attachment.compress(Bitmap.CompressFormat.JPEG,
+									100, outputStream);
+						} finally {
+							Utility.closeQuietly(outputStream);
+						}
+					}
+				});
 	}
 
 	/**
@@ -125,26 +125,26 @@ NativeAppCallContentProvider.AttachmentDataSource {
 
 		addAttachments(context, callId, imageAttachmentFiles,
 				new ProcessAttachment<File>() {
-			@Override
-			public void processAttachment(File attachment,
-					File outputFile) throws IOException {
-				FileOutputStream outputStream = new FileOutputStream(
-						outputFile);
-				FileInputStream inputStream = null;
-				try {
-					inputStream = new FileInputStream(attachment);
+					@Override
+					public void processAttachment(File attachment,
+							File outputFile) throws IOException {
+						FileOutputStream outputStream = new FileOutputStream(
+								outputFile);
+						FileInputStream inputStream = null;
+						try {
+							inputStream = new FileInputStream(attachment);
 
-					byte[] buffer = new byte[1024];
-					int len;
-					while ((len = inputStream.read(buffer)) > 0) {
-						outputStream.write(buffer, 0, len);
+							byte[] buffer = new byte[1024];
+							int len;
+							while ((len = inputStream.read(buffer)) > 0) {
+								outputStream.write(buffer, 0, len);
+							}
+						} finally {
+							Utility.closeQuietly(outputStream);
+							Utility.closeQuietly(inputStream);
+						}
 					}
-				} finally {
-					Utility.closeQuietly(outputStream);
-					Utility.closeQuietly(inputStream);
-				}
-			}
-		});
+				});
 	}
 
 	private <T> void addAttachments(Context context, UUID callId,

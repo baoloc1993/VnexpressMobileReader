@@ -84,7 +84,7 @@ public class ImageRequest {
 		this.callback = builder.callback;
 		this.allowCachedRedirects = builder.allowCachedRedirects;
 		this.callerTag = builder.callerTag == null ? new Object()
-		: builder.callerTag;
+				: builder.callerTag;
 	}
 
 	public Context getContext() {

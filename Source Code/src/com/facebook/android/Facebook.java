@@ -86,7 +86,7 @@ public class Facebook {
 
 	@Deprecated
 	public static final Uri ATTRIBUTION_ID_CONTENT_URI = Uri
-	.parse("content://com.facebook.katana.provider.AttributionIdProvider");
+			.parse("content://com.facebook.katana.provider.AttributionIdProvider");
 	@Deprecated
 	public static final String ATTRIBUTION_ID_COLUMN_NAME = "aid";
 
@@ -317,8 +317,8 @@ public class Facebook {
 			final DialogListener listener) {
 		checkUserSession("authorize");
 		pendingOpeningSession = new Session.Builder(activity)
-		.setApplicationId(mAppId)
-		.setTokenCachingStrategy(getTokenCache()).build();
+				.setApplicationId(mAppId)
+				.setTokenCachingStrategy(getTokenCache()).build();
 		pendingAuthorizationActivity = activity;
 		pendingAuthorizationPermissions = (permissions != null) ? permissions
 				: new String[0];
@@ -333,9 +333,9 @@ public class Facebook {
 		};
 
 		Session.OpenRequest openRequest = new Session.OpenRequest(activity)
-		.setCallback(callback).setLoginBehavior(behavior)
-		.setRequestCode(activityCode)
-		.setPermissions(Arrays.asList(pendingAuthorizationPermissions));
+				.setCallback(callback).setLoginBehavior(behavior)
+				.setRequestCode(activityCode)
+				.setPermissions(Arrays.asList(pendingAuthorizationPermissions));
 		openSession(pendingOpeningSession, openRequest,
 				pendingAuthorizationPermissions.length > 0);
 	}
@@ -577,7 +577,7 @@ public class Facebook {
 			// We returned an error so there's no point in
 			// keeping the binding open.
 			applicationsContext
-			.unbindService(TokenRefreshServiceConnection.this);
+					.unbindService(TokenRefreshServiceConnection.this);
 		}
 
 		private void refreshToken() {
@@ -664,8 +664,8 @@ public class Facebook {
 				if (msg.getData().containsKey("error_code")) {
 					int errorCode = msg.getData().getInt("error_code");
 					connection.serviceListener
-					.onFacebookError(new FacebookError(error, null,
-							errorCode));
+							.onFacebookError(new FacebookError(error, null,
+									errorCode));
 				} else {
 					connection.serviceListener.onError(new Error(
 							error != null ? error : "Unknown service error"));
@@ -700,12 +700,12 @@ public class Facebook {
 	 */
 	@Deprecated
 	public String logout(Context context) throws MalformedURLException,
-	IOException {
+			IOException {
 		return logoutImpl(context);
 	}
 
 	String logoutImpl(Context context) throws MalformedURLException,
-	IOException {
+			IOException {
 		checkUserSession("logout");
 		Bundle b = new Bundle();
 		b.putString("method", "auth.expireSession");
@@ -763,7 +763,7 @@ public class Facebook {
 	 */
 	@Deprecated
 	public String request(Bundle parameters) throws MalformedURLException,
-	IOException {
+			IOException {
 		if (!parameters.containsKey("method")) {
 			throw new IllegalArgumentException("API method must be specified. "
 					+ "(parameters must contain key \"method\" and value). See"
@@ -793,7 +793,7 @@ public class Facebook {
 	 */
 	@Deprecated
 	public String request(String graphPath) throws MalformedURLException,
-	IOException {
+			IOException {
 		return requestImpl(graphPath, new Bundle(), "GET");
 	}
 

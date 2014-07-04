@@ -23,7 +23,7 @@ import java.util.Map;
 import android.os.Handler;
 
 class ProgressNoopOutputStream extends OutputStream implements
-RequestOutputStream {
+		RequestOutputStream {
 	private final Map<Request, RequestProgress> progressMap = new HashMap<Request, RequestProgress>();
 	private final Handler callbackHandler;
 

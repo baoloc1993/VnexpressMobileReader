@@ -326,7 +326,7 @@ public final class NativeProtocol {
 		for (NativeAppInfo appInfo : facebookAppInfoList) {
 			Intent intent = new Intent().setClassName(appInfo.getPackage(),
 					FACEBOOK_PROXY_AUTH_ACTIVITY).putExtra(
-							FACEBOOK_PROXY_AUTH_APP_ID_KEY, applicationId);
+					FACEBOOK_PROXY_AUTH_APP_ID_KEY, applicationId);
 
 			if (!Utility.isNullOrEmpty(permissions)) {
 				intent.putExtra(FACEBOOK_PROXY_AUTH_PERMISSIONS_KEY,
@@ -413,7 +413,7 @@ public final class NativeProtocol {
 		}
 
 		intent.putExtras(extras).putExtra(EXTRA_PROTOCOL_VERSION, version)
-		.putExtra(EXTRA_PROTOCOL_ACTION, action);
+				.putExtra(EXTRA_PROTOCOL_ACTION, action);
 
 		return intent;
 	}
@@ -421,8 +421,8 @@ public final class NativeProtocol {
 	public static Intent createPlatformServiceIntent(Context context) {
 		for (NativeAppInfo appInfo : facebookAppInfoList) {
 			Intent intent = new Intent(INTENT_ACTION_PLATFORM_SERVICE)
-			.setPackage(appInfo.getPackage()).addCategory(
-					Intent.CATEGORY_DEFAULT);
+					.setPackage(appInfo.getPackage()).addCategory(
+							Intent.CATEGORY_DEFAULT);
 			intent = validateServiceIntent(context, intent, appInfo);
 			if (intent != null) {
 				return intent;

@@ -152,9 +152,9 @@ public interface GraphObject {
 	final class Factory {
 		private static final HashSet<Class<?>> verifiedGraphObjectClasses = new HashSet<Class<?>>();
 		private static final SimpleDateFormat[] dateFormats = new SimpleDateFormat[] {
-			new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US),
-			new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US),
-			new SimpleDateFormat("yyyy-MM-dd", Locale.US), };
+				new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US),
+				new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US),
+				new SimpleDateFormat("yyyy-MM-dd", Locale.US), };
 
 		// No objects of this type should exist.
 		private Factory() {
@@ -311,8 +311,8 @@ public interface GraphObject {
 
 			@SuppressWarnings("unchecked")
 			Map<String, Object> graphObject = (Map<String, Object>) Proxy
-			.newProxyInstance(GraphObject.class.getClassLoader(),
-					interfaces, graphObjectProxy);
+					.newProxyInstance(GraphObject.class.getClassLoader(),
+							interfaces, graphObjectProxy);
 
 			return graphObject;
 		}
@@ -546,7 +546,7 @@ public interface GraphObject {
 		}
 
 		private abstract static class ProxyBase<STATE> implements
-		InvocationHandler {
+				InvocationHandler {
 			// Pre-loaded Method objects for the methods in java.lang.Object
 			private static final String EQUALS_METHOD = "equals";
 			private static final String TOSTRING_METHOD = "toString";
@@ -593,7 +593,7 @@ public interface GraphObject {
 		}
 
 		private final static class GraphObjectProxy extends
-		ProxyBase<JSONObject> {
+				ProxyBase<JSONObject> {
 			private static final String CLEAR_METHOD = "clear";
 			private static final String CONTAINSKEY_METHOD = "containsKey";
 			private static final String CONTAINSVALUE_METHOD = "containsValue";
@@ -701,7 +701,7 @@ public interface GraphObject {
 
 					if (graphObjectClass != null
 							&& graphObjectClass
-							.isAssignableFrom(this.graphObjectClass)) {
+									.isAssignableFrom(this.graphObjectClass)) {
 						return proxy;
 					}
 					return Factory.createGraphObjectProxy(graphObjectClass,
@@ -793,42 +793,42 @@ public interface GraphObject {
 						: convertCamelCaseToLowercaseWithUnderscores(methodName
 								.substring(3));
 
-						// If it's a get or a set on a GraphObject-derived class, we can
-						// handle it.
-						if (parameterCount == 0) {
-							// Has to be a getter. ASSUMPTION: The GraphObject-derived
-							// class has been verified
-							Object value = this.state.opt(key);
+				// If it's a get or a set on a GraphObject-derived class, we can
+				// handle it.
+				if (parameterCount == 0) {
+					// Has to be a getter. ASSUMPTION: The GraphObject-derived
+					// class has been verified
+					Object value = this.state.opt(key);
 
-							Class<?> expectedType = method.getReturnType();
+					Class<?> expectedType = method.getReturnType();
 
-							Type genericReturnType = method.getGenericReturnType();
-							ParameterizedType parameterizedReturnType = null;
-							if (genericReturnType instanceof ParameterizedType) {
-								parameterizedReturnType = (ParameterizedType) genericReturnType;
-							}
+					Type genericReturnType = method.getGenericReturnType();
+					ParameterizedType parameterizedReturnType = null;
+					if (genericReturnType instanceof ParameterizedType) {
+						parameterizedReturnType = (ParameterizedType) genericReturnType;
+					}
 
-							value = coerceValueToExpectedType(value, expectedType,
-									parameterizedReturnType);
+					value = coerceValueToExpectedType(value, expectedType,
+							parameterizedReturnType);
 
-							return value;
-						} else if (parameterCount == 1) {
-							// Has to be a setter. ASSUMPTION: The GraphObject-derived
-							// class has been verified
-							CreateGraphObject createGraphObjectAnnotation = method
-									.getAnnotation(CreateGraphObject.class);
-							Object value = createGraphObjectsFromParameters(
-									createGraphObjectAnnotation, args[0]);
+					return value;
+				} else if (parameterCount == 1) {
+					// Has to be a setter. ASSUMPTION: The GraphObject-derived
+					// class has been verified
+					CreateGraphObject createGraphObjectAnnotation = method
+							.getAnnotation(CreateGraphObject.class);
+					Object value = createGraphObjectsFromParameters(
+							createGraphObjectAnnotation, args[0]);
 
-							// If this is a wrapped object, store the underlying
-							// JSONObject instead, in order to serialize
-							// correctly.
-							value = getUnderlyingJSONObject(value);
-							this.state.putOpt(key, value);
-							return null;
-						}
+					// If this is a wrapped object, store the underlying
+					// JSONObject instead, in order to serialize
+					// correctly.
+					value = getUnderlyingJSONObject(value);
+					this.state.putOpt(key, value);
+					return null;
+				}
 
-						return throwUnexpectedMethodSignature(method);
+				return throwUnexpectedMethodSignature(method);
 			}
 
 			private Object setJSONProperty(Object[] args) {
@@ -845,7 +845,7 @@ public interface GraphObject {
 		}
 
 		private final static class GraphObjectListImpl<T> extends
-		AbstractList<T> implements GraphObjectList<T> {
+				AbstractList<T> implements GraphObjectList<T> {
 			private final JSONArray state;
 			private final Class<?> itemType;
 

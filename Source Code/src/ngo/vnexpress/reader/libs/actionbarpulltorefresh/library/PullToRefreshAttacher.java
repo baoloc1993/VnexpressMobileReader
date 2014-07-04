@@ -60,7 +60,7 @@ public class PullToRefreshAttacher {
 	private float mInitialMotionY, mLastMotionY, mPullBeginY;
 	private float mInitialMotionX;
 	private boolean mIsBeingDragged, mIsRefreshing,
-	mHandlingTouchEventFromDown;
+			mHandlingTouchEventFromDown;
 	private View mViewBeingDragged;
 
 	private final WeakHashMap<View, ViewDelegate> mRefreshableViews;
@@ -109,7 +109,7 @@ public class PullToRefreshAttacher {
 		// Create Header view and then add to Decor View
 		mHeaderView = LayoutInflater.from(
 				mEnvironmentDelegate.getContextForInflater(activity)).inflate(
-						options.headerLayout, decorView, false);
+				options.headerLayout, decorView, false);
 		if (mHeaderView == null) {
 			throw new IllegalArgumentException(
 					"Must supply valid layout id for header.");
@@ -621,7 +621,7 @@ public class PullToRefreshAttacher {
 	protected void addHeaderViewToActivity(View headerView) {
 		// Get the Display Rect of the Decor View
 		mActivity.getWindow().getDecorView()
-		.getWindowVisibleDisplayFrame(mRect);
+				.getWindowVisibleDisplayFrame(mRect);
 
 		// Honour the requested layout params
 		int width = LayoutParams.MATCH_PARENT;
@@ -636,7 +636,7 @@ public class PullToRefreshAttacher {
 		WindowManager.LayoutParams wlp = new WindowManager.LayoutParams(width,
 				height, WindowManager.LayoutParams.TYPE_APPLICATION_PANEL,
 				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-				| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+						| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 				PixelFormat.TRANSLUCENT);
 		wlp.x = 0;
 		wlp.y = mRect.top;
@@ -650,7 +650,7 @@ public class PullToRefreshAttacher {
 	protected void updateHeaderViewPosition(View headerView) {
 		// Refresh the Display Rect of the Decor View
 		mActivity.getWindow().getDecorView()
-		.getWindowVisibleDisplayFrame(mRect);
+				.getWindowVisibleDisplayFrame(mRect);
 
 		WindowManager.LayoutParams wlp = null;
 		if (headerView.getLayoutParams() instanceof WindowManager.LayoutParams) {

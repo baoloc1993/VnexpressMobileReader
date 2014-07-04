@@ -24,7 +24,7 @@ import java.util.Map;
 import android.os.Handler;
 
 class ProgressOutputStream extends FilterOutputStream implements
-RequestOutputStream {
+		RequestOutputStream {
 	private final Map<Request, RequestProgress> progressMap;
 	private final RequestBatch requests;
 	private final long threshold;

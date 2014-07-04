@@ -171,7 +171,7 @@ public class WebDialog extends Dialog {
 				REDIRECT_URI);
 
 		parameters
-		.putString(ServerProtocol.DIALOG_PARAM_DISPLAY, DISPLAY_TOUCH);
+				.putString(ServerProtocol.DIALOG_PARAM_DISPLAY, DISPLAY_TOUCH);
 
 		Uri uri = Utility.buildUri(ServerProtocol.getDialogAuthority(),
 				ServerProtocol.getAPIVersion() + "/"
@@ -304,7 +304,7 @@ public class WebDialog extends Dialog {
 		int dialogHeight = Math.min(
 				getScaledSize(height, metrics.density,
 						NO_PADDING_SCREEN_HEIGHT, MAX_PADDING_SCREEN_HEIGHT),
-						metrics.heightPixels);
+				metrics.heightPixels);
 
 		getWindow().setLayout(dialogWidth, dialogHeight);
 	}
@@ -719,7 +719,7 @@ public class WebDialog extends Dialog {
 	 * Dialog</a>.
 	 */
 	public static class FeedDialogBuilder extends
-	BuilderBase<FeedDialogBuilder> {
+			BuilderBase<FeedDialogBuilder> {
 		private static final String FEED_DIALOG = "feed";
 		private static final String FROM_PARAM = "from";
 		private static final String TO_PARAM = "to";
@@ -913,7 +913,7 @@ public class WebDialog extends Dialog {
 	 * >Requests Dialog</a>.
 	 */
 	public static class RequestsDialogBuilder extends
-	BuilderBase<RequestsDialogBuilder> {
+			BuilderBase<RequestsDialogBuilder> {
 		private static final String APPREQUESTS_DIALOG = "apprequests";
 		private static final String MESSAGE_PARAM = "message";
 		private static final String TO_PARAM = "to";

@@ -333,15 +333,15 @@ public class UiLifecycleHelper {
 
 			Intent cancelIntent = new Intent();
 			cancelIntent
-			.putExtra(
-					NativeProtocol.EXTRA_PROTOCOL_CALL_ID,
-					pendingIntent
-					.getStringExtra(NativeProtocol.EXTRA_PROTOCOL_CALL_ID));
+					.putExtra(
+							NativeProtocol.EXTRA_PROTOCOL_CALL_ID,
+							pendingIntent
+									.getStringExtra(NativeProtocol.EXTRA_PROTOCOL_CALL_ID));
 			cancelIntent
-			.putExtra(
-					NativeProtocol.EXTRA_PROTOCOL_ACTION,
-					pendingIntent
-					.getStringExtra(NativeProtocol.EXTRA_PROTOCOL_ACTION));
+					.putExtra(
+							NativeProtocol.EXTRA_PROTOCOL_ACTION,
+							pendingIntent
+									.getStringExtra(NativeProtocol.EXTRA_PROTOCOL_ACTION));
 			cancelIntent.putExtra(NativeProtocol.EXTRA_PROTOCOL_VERSION,
 					pendingIntent.getIntExtra(
 							NativeProtocol.EXTRA_PROTOCOL_VERSION, 0));

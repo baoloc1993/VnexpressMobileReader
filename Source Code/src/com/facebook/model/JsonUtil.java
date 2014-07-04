@@ -51,7 +51,7 @@ class JsonUtil {
 	}
 
 	private final static class JSONObjectEntry implements
-	Map.Entry<String, Object> {
+			Map.Entry<String, Object> {
 		private final String key;
 		private final Object value;
 

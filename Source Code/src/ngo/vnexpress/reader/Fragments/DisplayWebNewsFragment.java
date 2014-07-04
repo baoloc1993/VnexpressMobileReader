@@ -85,7 +85,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 					if (MainActivity.curViewGroup == Constant.List) {
 						list.setHasOptionsMenu(true);
 						fragmentManager.beginTransaction()
-								.replace(R.id.container, list).commit();
+						.replace(R.id.container, list).commit();
 						MainActivity.currentFragment = Constant.List;
 					}
 
@@ -94,7 +94,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 						// Log.d("aaaa", "GRID");
 						grid.setHasOptionsMenu(true);
 						fragmentManager.beginTransaction()
-								.replace(R.id.container, grid).commit();
+						.replace(R.id.container, grid).commit();
 						MainActivity.currentFragment = Constant.Grid;
 					}
 					// getFragmentManager().popBackStack(null,

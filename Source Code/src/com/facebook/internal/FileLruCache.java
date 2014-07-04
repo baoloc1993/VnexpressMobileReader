@@ -159,7 +159,7 @@ public final class FileLruCache {
 
 			if ((contentTag == null && headerContentTag != null)
 					|| (contentTag != null && !contentTag
-					.equals(headerContentTag))) {
+							.equals(headerContentTag))) {
 				return null;
 			}
 

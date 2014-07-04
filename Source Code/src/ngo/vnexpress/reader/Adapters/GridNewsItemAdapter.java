@@ -63,7 +63,7 @@ public class GridNewsItemAdapter extends ArrayAdapter<RSSItem> {
 		 * method. The variable simply refers to the position of the current
 		 * object in the list. (The ArrayAdapter iterates through the list we
 		 * sent it)
-		 *
+		 * 
 		 * Therefore, i refers to the current Item object.
 		 */
 		RSSItem i = objects.get(position);

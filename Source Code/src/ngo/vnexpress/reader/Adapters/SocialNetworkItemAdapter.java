@@ -37,7 +37,7 @@ public class SocialNetworkItemAdapter extends ArrayAdapter<SocialNetworkItem> {
 	 * here we must override the constructor for ArrayAdapter the only variable
 	 * we care about now is ArrayList<Item> objects, because it is the list of
 	 * objects we want to display.
-	 * 
+	 *
 	 * @params orientation to be used in setting up components' layout
 	 */
 	public SocialNetworkItemAdapter(Context context, int textViewResourceId,
@@ -71,7 +71,7 @@ public class SocialNetworkItemAdapter extends ArrayAdapter<SocialNetworkItem> {
 		 * method. The variable simply refers to the position of the current
 		 * object in the list. (The ArrayAdapter iterates through the list we
 		 * sent it)
-		 * 
+		 *
 		 * Therefore, i refers to the current Item object.
 		 */
 		SocialNetworkItem i = objects.get(position);

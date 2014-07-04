@@ -347,8 +347,8 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 			// Action Bar's style (see #93)
 			bg = styleAttrs
 					.hasValue(R.styleable.PullToRefreshHeader_ptrHeaderBackground) ? styleAttrs
-							.getDrawable(R.styleable.PullToRefreshHeader_ptrHeaderBackground)
-							: getActionBarBackground(activity);
+					.getDrawable(R.styleable.PullToRefreshHeader_ptrHeaderBackground)
+					: getActionBarBackground(activity);
 		} else {
 			bg = activity.getResources().getDrawable(
 					options.headerBackgroundColor);
@@ -438,10 +438,10 @@ public class DefaultHeaderTransformer extends HeaderTransformer {
 							R.dimen.ptr_progress_bar_stroke_width);
 
 			mHeaderProgressBar
-			.setIndeterminateDrawable(new SmoothProgressDrawable.Builder(
-					mHeaderProgressBar.getContext())
-			.color(mProgressDrawableColor)
-			.strokeWidth(strokeWidth).build());
+					.setIndeterminateDrawable(new SmoothProgressDrawable.Builder(
+							mHeaderProgressBar.getContext())
+							.color(mProgressDrawableColor)
+							.strokeWidth(strokeWidth).build());
 
 			ShapeDrawable shape = new ShapeDrawable();
 			shape.setShape(new RectShape());

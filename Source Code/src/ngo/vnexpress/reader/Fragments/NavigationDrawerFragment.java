@@ -108,13 +108,13 @@ public class NavigationDrawerFragment extends Fragment {
 		mDrawerListView = (ListView) inflater.inflate(
 				R.layout.fragment_navigation_drawer, container, false);
 		mDrawerListView
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						selectItem(position);
-					}
-				});
+		.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				selectItem(position);
+			}
+		});
 
 		// Create ArrayList for Item in menu
 		// for (NameCategories name : NameCategories.values()){
@@ -125,49 +125,49 @@ public class NavigationDrawerFragment extends Fragment {
 		ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
 		listItem.add(new DrawerItem(getString(R.string.title_home_page),
 				R.drawable.home, MainActivity.newArticlePerCate
-				.get(NameCategories.Homepage)));
+						.get(NameCategories.Homepage)));
 		listItem.add(new DrawerItem(getString(R.string.title_news),
 				R.drawable.news, MainActivity.newArticlePerCate
-				.get(NameCategories.News)));
+						.get(NameCategories.News)));
 		listItem.add(new DrawerItem(getString(R.string.title_life),
 				R.drawable.life, MainActivity.newArticlePerCate
-				.get(NameCategories.Life)));
+						.get(NameCategories.Life)));
 		listItem.add(new DrawerItem(getString(R.string.title_world),
 				R.drawable.world, MainActivity.newArticlePerCate
-				.get(NameCategories.World)));
+						.get(NameCategories.World)));
 		listItem.add(new DrawerItem(getString(R.string.title_business),
 				R.drawable.business, MainActivity.newArticlePerCate
-				.get(NameCategories.Business)));
+						.get(NameCategories.Business)));
 		listItem.add(new DrawerItem(getString(R.string.title_entertainment),
 				R.drawable.entertainment, MainActivity.newArticlePerCate
-				.get(NameCategories.Entertainment)));
+						.get(NameCategories.Entertainment)));
 		listItem.add(new DrawerItem(getString(R.string.title_sports),
 				R.drawable.sport, MainActivity.newArticlePerCate
-				.get(NameCategories.Sports)));
+						.get(NameCategories.Sports)));
 		listItem.add(new DrawerItem(getString(R.string.title_laws),
 				R.drawable.law, MainActivity.newArticlePerCate
-				.get(NameCategories.Laws)));
+						.get(NameCategories.Laws)));
 		listItem.add(new DrawerItem(getString(R.string.title_travelling),
 				R.drawable.travelling, MainActivity.newArticlePerCate
-				.get(NameCategories.Travelling)));
+						.get(NameCategories.Travelling)));
 		listItem.add(new DrawerItem(getString(R.string.title_science),
 				R.drawable.science, MainActivity.newArticlePerCate
-				.get(NameCategories.Science)));
+						.get(NameCategories.Science)));
 		listItem.add(new DrawerItem(getString(R.string.title_digital),
 				R.drawable.digital, MainActivity.newArticlePerCate
-				.get(NameCategories.Digital)));
+						.get(NameCategories.Digital)));
 		listItem.add(new DrawerItem(getString(R.string.title_cars),
 				R.drawable.car, MainActivity.newArticlePerCate
-				.get(NameCategories.Car)));
+						.get(NameCategories.Car)));
 		listItem.add(new DrawerItem(getString(R.string.title_social),
 				R.drawable.social, MainActivity.newArticlePerCate
-				.get(NameCategories.Social)));
+						.get(NameCategories.Social)));
 		listItem.add(new DrawerItem(getString(R.string.title_chat),
 				R.drawable.chat, MainActivity.newArticlePerCate
-				.get(NameCategories.Chat)));
+						.get(NameCategories.Chat)));
 		listItem.add(new DrawerItem(getString(R.string.title_funny),
 				R.drawable.funny, MainActivity.newArticlePerCate
-				.get(NameCategories.Funny)));
+						.get(NameCategories.Funny)));
 		listItem.add(new DrawerItem(getString(R.string.title_about),
 				R.drawable.about));
 
@@ -209,17 +209,17 @@ public class NavigationDrawerFragment extends Fragment {
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the navigation drawer and the action bar app icon.
 		mDrawerToggle = new ActionBarDrawerToggle(getActivity(), /* host Activity */
-		mDrawerLayout, /* DrawerLayout object */
-		R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
-		R.string.navigation_drawer_open, /*
-										 * "open drawer" description for
-										 * accessibility
-										 */
-		R.string.navigation_drawer_close /*
-										 * "close drawer" description for
-										 * accessibility
-										 */
-		) {
+				mDrawerLayout, /* DrawerLayout object */
+				R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
+				R.string.navigation_drawer_open, /*
+				 * "open drawer" description for
+				 * accessibility
+				 */
+				R.string.navigation_drawer_close /*
+				 * "close drawer" description for
+				 * accessibility
+				 */
+				) {
 			@Override
 			public void onDrawerClosed(View drawerView) {
 				super.onDrawerClosed(drawerView);
@@ -246,7 +246,7 @@ public class NavigationDrawerFragment extends Fragment {
 					SharedPreferences sp = PreferenceManager
 							.getDefaultSharedPreferences(getActivity());
 					sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true)
-							.apply();
+					.apply();
 				}
 
 				getActivity().invalidateOptionsMenu(); // calls
@@ -346,16 +346,16 @@ public class NavigationDrawerFragment extends Fragment {
 				ListViewNewsLiveFragment fl = new ListViewNewsLiveFragment();
 				fl.setHasOptionsMenu(true);
 				fragmentManager.beginTransaction().replace(R.id.container, fl)
-						.commit();
+				.commit();
 				MainActivity.currentFragment = Constant.List;
 				MainActivity.curViewGroup = Constant.List;
 				break;
-			// Change from List to Grid
+				// Change from List to Grid
 			case List:
 				GridViewNewsLiveFragment fg = new GridViewNewsLiveFragment();
 				fg.setHasOptionsMenu(true);
 				fragmentManager.beginTransaction().replace(R.id.container, fg)
-						.commit();
+				.commit();
 				MainActivity.currentFragment = Constant.Grid;
 				MainActivity.curViewGroup = Constant.Grid;
 				break;

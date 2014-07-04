@@ -319,9 +319,9 @@ public final class AccessToken implements Serializable {
 				bundle.getString(TokenCachingStrategy.TOKEN_KEY),
 				TokenCachingStrategy.getDate(bundle,
 						TokenCachingStrategy.EXPIRATION_DATE_KEY), permissions,
-						declinedPermissions, TokenCachingStrategy.getSource(bundle),
-						TokenCachingStrategy.getDate(bundle,
-								TokenCachingStrategy.LAST_REFRESH_DATE_KEY));
+				declinedPermissions, TokenCachingStrategy.getSource(bundle),
+				TokenCachingStrategy.getDate(bundle,
+						TokenCachingStrategy.LAST_REFRESH_DATE_KEY));
 	}
 
 	static List<String> getPermissionsFromBundle(Bundle bundle, String key) {

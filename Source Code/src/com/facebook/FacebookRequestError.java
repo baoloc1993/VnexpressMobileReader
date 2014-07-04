@@ -434,8 +434,8 @@ public final class FacebookRequestError {
 									.getStringPropertyAsJSON(singleResult,
 											BODY_KEY,
 											Response.NON_JSON_RESPONSE_PROPERTY)
-											: null, singleResult, batchResult,
-											connection);
+									: null, singleResult, batchResult,
+							connection);
 				}
 			}
 		} catch (JSONException e) {

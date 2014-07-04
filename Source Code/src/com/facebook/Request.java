@@ -778,9 +778,9 @@ public class Request {
 			String udid = attributionIdentifiers.getAttributionId() != null ? attributionIdentifiers
 					.getAttributionId() : attributionIdentifiers
 					.getAndroidAdvertiserId();
-					if (attributionIdentifiers.getAttributionId() != null) {
-						parameters.putString("udid", udid);
-					}
+			if (attributionIdentifiers.getAttributionId() != null) {
+				parameters.putString("udid", udid);
+			}
 		}
 
 		// Server will choose to not provide the App User ID in the event that
@@ -840,7 +840,7 @@ public class Request {
 	 */
 	public static Request newUploadStagingResourceWithImageRequest(
 			Session session, File file, Callback callback)
-					throws FileNotFoundException {
+			throws FileNotFoundException {
 		ParcelFileDescriptor descriptor = ParcelFileDescriptor.open(file,
 				ParcelFileDescriptor.MODE_READ_ONLY);
 		ParcelFileDescriptorWithMimeType descriptorWithMimeType = new ParcelFileDescriptorWithMimeType(
@@ -1494,7 +1494,7 @@ public class Request {
 	@Deprecated
 	public static RequestAsyncTask executeUploadPhotoRequestAsync(
 			Session session, File file, Callback callback)
-					throws FileNotFoundException {
+			throws FileNotFoundException {
 		return newUploadPhotoRequest(session, file, callback).executeAsync();
 	}
 
@@ -2088,7 +2088,7 @@ public class Request {
 
 		connection.setRequestProperty(USER_AGENT_HEADER, getUserAgent());
 		connection
-		.setRequestProperty(CONTENT_TYPE_HEADER, getMimeContentType());
+				.setRequestProperty(CONTENT_TYPE_HEADER, getMimeContentType());
 		connection.setRequestProperty(ACCEPT_LANGUAGE_HEADER, Locale
 				.getDefault().toString());
 
@@ -2275,13 +2275,13 @@ public class Request {
 			final ArrayList<String> keysAndValues = new ArrayList<String>();
 			processGraphObject(this.graphObject, relativeURL,
 					new KeyValueSerializer() {
-				@Override
-				public void writeString(String key, String value)
-						throws IOException {
-					keysAndValues.add(String.format("%s=%s", key,
-							URLEncoder.encode(value, "UTF-8")));
-				}
-			});
+						@Override
+						public void writeString(String key, String value)
+								throws IOException {
+							keysAndValues.add(String.format("%s=%s", key,
+									URLEncoder.encode(value, "UTF-8")));
+						}
+					});
 			String bodyValue = TextUtils.join("&", keysAndValues);
 			batchEntry.put(BATCH_BODY_PARAM, bodyValue);
 		}
@@ -2377,7 +2377,7 @@ public class Request {
 
 	private static void processRequest(RequestBatch requests, Logger logger,
 			int numRequests, URL url, OutputStream outputStream)
-					throws IOException, JSONException {
+			throws IOException, JSONException {
 		Serializer serializer = new Serializer(outputStream, logger);
 
 		if (numRequests == 1) {
@@ -2461,7 +2461,7 @@ public class Request {
 
 	private static void processGraphObjectProperty(String key, Object value,
 			KeyValueSerializer serializer, boolean passByValue)
-					throws IOException {
+			throws IOException {
 		Class<?> valueClass = value.getClass();
 		if (GraphObject.class.isAssignableFrom(valueClass)) {
 			value = ((GraphObject) value).getInnerJSONObject();
@@ -2541,7 +2541,7 @@ public class Request {
 
 	private static void serializeAttachments(
 			Map<String, Attachment> attachments, Serializer serializer)
-					throws IOException {
+			throws IOException {
 		Set<String> keys = attachments.keySet();
 
 		for (String key : keys) {
@@ -2555,7 +2555,7 @@ public class Request {
 
 	private static void serializeRequestsAsJSON(Serializer serializer,
 			Collection<Request> requests, Map<String, Attachment> attachments)
-					throws JSONException, IOException {
+			throws JSONException, IOException {
 		JSONArray batch = new JSONArray();
 		for (Request request : requests) {
 			request.serializeToBatch(batch, attachments);
@@ -2730,7 +2730,7 @@ public class Request {
 
 		public void writeFile(String key,
 				ParcelFileDescriptorWithMimeType descriptorWithMimeType)
-						throws IOException {
+				throws IOException {
 			writeFile(key, descriptorWithMimeType.getFileDescriptor(),
 					descriptorWithMimeType.getMimeType());
 		}
@@ -2747,7 +2747,7 @@ public class Request {
 			if (outputStream instanceof ProgressNoopOutputStream) {
 				// If we are only counting bytes then skip reading the file
 				((ProgressNoopOutputStream) outputStream)
-				.addProgress(descriptor.getStatSize());
+						.addProgress(descriptor.getStatSize());
 			} else {
 				ParcelFileDescriptor.AutoCloseInputStream inputStream = null;
 				BufferedInputStream bufferedInputStream = null;

@@ -710,7 +710,7 @@ public class AppEventsLogger {
 				}
 			}
 		}, 0, // start immediately
-		FLUSH_PERIOD_IN_SECONDS * 1000);
+				FLUSH_PERIOD_IN_SECONDS * 1000);
 
 		supportsAttributionRecheckTimer.schedule(new TimerTask() {
 			@Override
@@ -727,7 +727,7 @@ public class AppEventsLogger {
 				}
 			}
 		}, 0, // start immediately
-		APP_SUPPORTS_ATTRIBUTION_ID_RECHECK_PERIOD_IN_SECONDS * 1000);
+				APP_SUPPORTS_ATTRIBUTION_ID_RECHECK_PERIOD_IN_SECONDS * 1000);
 	}
 
 	private void logEvent(String eventName, Double valueToSum,
@@ -874,7 +874,7 @@ public class AppEventsLogger {
 					flushResults.numEvents);
 			intent.putExtra(APP_EVENTS_EXTRA_FLUSH_RESULT, flushResults.result);
 			LocalBroadcastManager.getInstance(applicationContext)
-			.sendBroadcast(intent);
+					.sendBroadcast(intent);
 		}
 	}
 
@@ -1317,7 +1317,7 @@ public class AppEventsLogger {
 							String.format(
 									"Skipping event named '%s' due to illegal name - must be under 40 chars "
 											+ "and alphanumeric, _, - or space, and not start with a space or hyphen.",
-											identifier));
+									identifier));
 				}
 			}
 
@@ -1439,7 +1439,7 @@ public class AppEventsLogger {
 
 				@SuppressWarnings("unchecked")
 				HashMap<AccessTokenAppIdPair, List<AppEvent>> obj = (HashMap<AccessTokenAppIdPair, List<AppEvent>>) ois
-				.readObject();
+						.readObject();
 
 				// Note: We delete the store before we store the events; this
 				// means we'd prefer to lose some
@@ -1460,7 +1460,7 @@ public class AppEventsLogger {
 				List<AppEvent> eventsToPersist) {
 			if (!persistedEvents.containsKey(accessTokenAppId)) {
 				persistedEvents
-				.put(accessTokenAppId, new ArrayList<AppEvent>());
+						.put(accessTokenAppId, new ArrayList<AppEvent>());
 			}
 			persistedEvents.get(accessTokenAppId).addAll(eventsToPersist);
 		}

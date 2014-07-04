@@ -439,13 +439,13 @@ public class Response {
 				jsonObject.put(BODY_KEY, object);
 				int responseCode = (connection != null) ? connection
 						.getResponseCode() : 200;
-						jsonObject.put(CODE_KEY, responseCode);
+				jsonObject.put(CODE_KEY, responseCode);
 
-						JSONArray jsonArray = new JSONArray();
-						jsonArray.put(jsonObject);
+				JSONArray jsonArray = new JSONArray();
+				jsonArray.put(jsonObject);
 
-						// Pretend we got an array of 1 back.
-						object = jsonArray;
+				// Pretend we got an array of 1 back.
+				object = jsonArray;
 			} catch (JSONException e) {
 				responses.add(new Response(request, connection,
 						new FacebookRequestError(connection, e)));

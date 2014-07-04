@@ -764,7 +764,7 @@ public class Session implements Serializable {
 		synchronized (lock) {
 			if (pendingAuthorizationRequest == null
 					|| (requestCode != pendingAuthorizationRequest
-					.getRequestCode())) {
+							.getRequestCode())) {
 				return false;
 			}
 		}
@@ -875,14 +875,14 @@ public class Session implements Serializable {
 	@Override
 	public String toString() {
 		return new StringBuilder()
-		.append("{Session")
-		.append(" state:")
-		.append(this.state)
-		.append(", token:")
-		.append((this.tokenInfo == null) ? "null" : this.tokenInfo)
-		.append(", appId:")
-		.append((this.applicationId == null) ? "null"
-				: this.applicationId).append("}").toString();
+				.append("{Session")
+				.append(" state:")
+				.append(this.state)
+				.append(", token:")
+				.append((this.tokenInfo == null) ? "null" : this.tokenInfo)
+				.append(", appId:")
+				.append((this.applicationId == null) ? "null"
+						: this.applicationId).append("}").toString();
 	}
 
 	void extendTokenCompleted(Bundle bundle) {
@@ -1321,7 +1321,7 @@ public class Session implements Serializable {
 				break;
 			case CREATED_TOKEN_LOADED:
 				if (openRequest != null
-				&& !Utility.isNullOrEmpty(openRequest.getPermissions())) {
+						&& !Utility.isNullOrEmpty(openRequest.getPermissions())) {
 					if (!Utility.isSubset(openRequest.getPermissions(),
 							getPermissions())) {
 						pendingAuthorizationRequest = openRequest;
@@ -1423,7 +1423,7 @@ public class Session implements Serializable {
 		return permission != null
 				&& (permission.startsWith(PUBLISH_PERMISSION_PREFIX)
 						|| permission.startsWith(MANAGE_PERMISSION_PREFIX) || OTHER_PUBLISH_PERMISSIONS
-						.contains(permission));
+							.contains(permission));
 
 	}
 
@@ -1579,18 +1579,18 @@ public class Session implements Serializable {
 	private void tryLegacyAuth(final AuthorizationRequest request) {
 		authorizationClient = new AuthorizationClient();
 		authorizationClient
-		.setOnCompletedListener(new AuthorizationClient.OnCompletedListener() {
-			@Override
-			public void onCompleted(AuthorizationClient.Result result) {
-				int activityResult;
-				if (result.code == AuthorizationClient.Result.Code.CANCEL) {
-					activityResult = Activity.RESULT_CANCELED;
-				} else {
-					activityResult = Activity.RESULT_OK;
-				}
-				handleAuthorizationResult(activityResult, result);
-			}
-		});
+				.setOnCompletedListener(new AuthorizationClient.OnCompletedListener() {
+					@Override
+					public void onCompleted(AuthorizationClient.Result result) {
+						int activityResult;
+						if (result.code == AuthorizationClient.Result.Code.CANCEL) {
+							activityResult = Activity.RESULT_CANCELED;
+						} else {
+							activityResult = Activity.RESULT_OK;
+						}
+						handleAuthorizationResult(activityResult, result);
+					}
+				});
 		authorizationClient.setContext(getStaticContext());
 		authorizationClient.startOrContinueAuth(request
 				.getAuthorizationClientRequest());
@@ -2265,7 +2265,7 @@ public class Session implements Serializable {
 		}
 
 		private static class AuthRequestSerializationProxyV1 implements
-		Serializable {
+				Serializable {
 			private static final long serialVersionUID = -8748347685113614927L;
 			private final SessionLoginBehavior loginBehavior;
 			private final int requestCode;
@@ -2421,7 +2421,7 @@ public class Session implements Serializable {
 	 * A request to be used to request new permissions for a Session.
 	 */
 	public static final class NewPermissionsRequest extends
-	AuthorizationRequest {
+			AuthorizationRequest {
 		private static final long serialVersionUID = 1L;
 
 		/**

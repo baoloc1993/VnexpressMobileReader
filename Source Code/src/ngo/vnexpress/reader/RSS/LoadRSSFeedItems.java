@@ -75,7 +75,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 					// ADD EACH ITEM INTO DATABASE
 					WebSite site = new WebSite(item.getTitle(), item.getLink(),
 							item.getDescription(), item.getPubdate(), item
-							.getImgUrl());
+									.getImgUrl());
 					rssDb.addSite(site);
 					// Log.d("LINK",item.getLink());
 				}
@@ -156,7 +156,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 			break;
 		case Entertainment:
 			url_name = MainActivity.activity
-			.getString(R.string.rss_entertainment);
+					.getString(R.string.rss_entertainment);
 			break;
 		case Sports:
 			url_name = MainActivity.activity.getString(R.string.rss_sports);

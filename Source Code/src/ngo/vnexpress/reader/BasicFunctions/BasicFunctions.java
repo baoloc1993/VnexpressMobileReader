@@ -15,6 +15,7 @@ import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.Options;
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.PullToRefreshLayout;
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -71,49 +72,49 @@ public class BasicFunctions {
 		ActionBarPullToRefresh.from(activity).insertLayoutInto(viewGroup)
 		// We need to insert the PullToRefreshLayout into the Fragment's
 		// ViewGroup
-				.theseChildrenArePullable(view)
-				// We need to mark the ListView and it's Empty View as pullable
-				// This is because they are not direct children of the
-				// ViewGroup
-				.options(
-						Options.create()
-								.refreshingText("Fetching News...")
-								.pullText("Pull me down to update!")
-								.releaseText("Release to update!!!")
-								.titleTextColor(android.R.color.black)
-								.progressBarColor(
-										android.R.color.holo_orange_light)
-								.headerBackgroundColor(
-										android.R.color.holo_blue_light)
+		.theseChildrenArePullable(view)
+		// We need to mark the ListView and it's Empty View as pullable
+		// This is because they are not direct children of the
+		// ViewGroup
+		.options(
+				Options.create()
+				.refreshingText("Fetching News...")
+				.pullText("Pull me down to update!")
+				.releaseText("Release to update!!!")
+				.titleTextColor(android.R.color.black)
+				.progressBarColor(
+						android.R.color.holo_orange_light)
+						.headerBackgroundColor(
+								android.R.color.holo_blue_light)
 								.progressBarStyle(
 										Options.PROGRESS_BAR_STYLE_OUTSIDE)
-								.build()).listener(new OnRefreshListener() {
-											@Override
-											public void onRefreshStarted(View view) {
-												if (isConnectingToInternet(activity
-														.getApplicationContext())) {
-													Timer timer = new Timer();
-													TimerTask task = new TimerTask() {
+										.build()).listener(new OnRefreshListener() {
+					@Override
+					public void onRefreshStarted(View view) {
+						if (isConnectingToInternet(activity
+								.getApplicationContext())) {
+							Timer timer = new Timer();
+							TimerTask task = new TimerTask() {
 
-														@Override
-														public void run() {
-															// TODO Auto-generated method stub
-															timerTask.run();
-														}
-													};
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									timerTask.run();
+								}
+							};
 
-													timer.schedule(task, 1000);
-												} else {
+							timer.schedule(task, 1000);
+						} else {
 
-													Toast.makeText(
-															activity.getApplicationContext(),
-															"INTERNET IS NOT AVAILABLE. THE OLD DATA WILL BE USED ",
-															Toast.LENGTH_LONG).show();
+							Toast.makeText(
+									activity.getApplicationContext(),
+									"INTERNET IS NOT AVAILABLE. THE OLD DATA WILL BE USED ",
+									Toast.LENGTH_LONG).show();
 
-													mPullToRefreshLayout.setRefreshComplete();
-												}
-											}
-										}).setup(mPullToRefreshLayout);
+							mPullToRefreshLayout.setRefreshComplete();
+						}
+					}
+				}).setup(mPullToRefreshLayout);
 	}
 
 	// CHECK IF IS CONNECTION TO INTERNET OR NOT
@@ -162,8 +163,8 @@ public class BasicFunctions {
 				// Log.d("SET ON ITEM CLICK LISTENER",
 				// String.valueOf(website.getId()));
 
-				android.support.v4.app.FragmentManager fragmentManager = MainActivity.activity
-						.getSupportFragmentManager();
+				FragmentManager fragmentManager = MainActivity.activity
+						.getFragmentManager();
 				DisplaySwipeViewNewsFragment displaySwipeViewNewsFragment = new DisplaySwipeViewNewsFragment();
 
 				displaySwipeViewNewsFragment.setArguments(args);
@@ -171,8 +172,8 @@ public class BasicFunctions {
 				// Go to DisplayFullNewsFragment
 				displaySwipeViewNewsFragment.setHasOptionsMenu(true);
 				fragmentManager.beginTransaction()
-				.replace(R.id.container, displaySwipeViewNewsFragment)
-				.commit();
+						.replace(R.id.container, displaySwipeViewNewsFragment)
+						.commit();
 				MainActivity.currentFragment = Constant.Web;
 				// Log.d("SET ON ITEM CLICK LISTENER",
 				// String.valueOf(rss_item.getId()));

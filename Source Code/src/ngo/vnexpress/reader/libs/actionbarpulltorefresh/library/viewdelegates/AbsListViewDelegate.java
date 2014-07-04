@@ -50,7 +50,7 @@ public class AbsListViewDelegate implements ViewDelegate {
 			switch (getVerticalScrollbarPosition(absListView)) {
 			case View.SCROLLBAR_POSITION_RIGHT:
 				ready = x < absListView.getRight()
-				- absListView.getVerticalScrollbarWidth();
+						- absListView.getVerticalScrollbarWidth();
 				break;
 			case View.SCROLLBAR_POSITION_LEFT:
 				ready = x > absListView.getVerticalScrollbarWidth();

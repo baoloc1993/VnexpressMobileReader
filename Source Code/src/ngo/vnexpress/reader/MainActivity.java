@@ -27,7 +27,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends FragmentActivity implements
-		NavigationDrawerFragment.NavigationDrawerCallbacks {
+NavigationDrawerFragment.NavigationDrawerCallbacks {
 	/**
 	 * Facebook
 	 */
@@ -249,12 +249,12 @@ public class MainActivity extends FragmentActivity implements
 		curViewGroup = Constant.List;
 		if (nameCategory != NameCategories.About) {
 			fragmentManager.beginTransaction()
-					.replace(R.id.container, new ListViewNewsLiveFragment())
-					.commit();
+			.replace(R.id.container, new ListViewNewsLiveFragment())
+			.commit();
 		} else {
 			fragmentManager.beginTransaction()
-					.replace(R.id.container, new SocialNetworkFragment())
-					.commit();
+			.replace(R.id.container, new SocialNetworkFragment())
+			.commit();
 		}
 
 	}
@@ -366,19 +366,19 @@ public class MainActivity extends FragmentActivity implements
 
 		uiHelper.onActivityResult(requestCode, resultCode, data,
 				new FacebookDialog.Callback() {
-			@Override
-			public void onError(FacebookDialog.PendingCall pendingCall,
-					Exception error, Bundle data) {
-				// Log.e("Activity", String.format("Error: %s",
-				// error.toString()));
-			}
+					@Override
+					public void onError(FacebookDialog.PendingCall pendingCall,
+							Exception error, Bundle data) {
+						// Log.e("Activity", String.format("Error: %s",
+						// error.toString()));
+					}
 
-			@Override
-			public void onComplete(
-					FacebookDialog.PendingCall pendingCall, Bundle data) {
-				// Log.i("Activity", "Success!");
-			}
-		});
+					@Override
+					public void onComplete(
+							FacebookDialog.PendingCall pendingCall, Bundle data) {
+						// Log.i("Activity", "Success!");
+					}
+				});
 	}
 
 }

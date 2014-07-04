@@ -496,7 +496,7 @@ public final class Settings {
 				// JSON.
 				if (publishResponse.getGraphObject() != null
 						&& publishResponse.getGraphObject()
-						.getInnerJSONObject() != null) {
+								.getInnerJSONObject() != null) {
 					editor.putString(jsonKey, publishResponse.getGraphObject()
 							.getInnerJSONObject().toString());
 				}

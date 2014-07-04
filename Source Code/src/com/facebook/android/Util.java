@@ -189,7 +189,7 @@ public final class Util {
 		}
 		Utility.logd("Facebook-Util", method + " URL: " + url);
 		HttpURLConnection conn = (HttpURLConnection) new URL(url)
-		.openConnection();
+				.openConnection();
 		conn.setRequestProperty("User-Agent", System.getProperties()
 				.getProperty("http.agent") + " FacebookAndroidSDK");
 		if (!method.equals("GET")) {
@@ -286,7 +286,7 @@ public final class Util {
 	 */
 	@Deprecated
 	public static JSONObject parseJson(String response) throws JSONException,
-	FacebookError {
+			FacebookError {
 		// Edge case: when sending a POST request to /[post_id]/likes
 		// the return value is 'true' or 'false'. Unfortunately
 		// these values cause the JSONObject constructor to throw

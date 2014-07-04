@@ -76,8 +76,8 @@ public final class Utility {
 	private static final String NUX_ENABLED = "gdpv4_nux_enabled";
 
 	private static final String[] APP_SETTING_FIELDS = new String[] {
-		SUPPORTS_ATTRIBUTION, SUPPORTS_IMPLICIT_SDK_LOGGING, NUX_CONTENT,
-		NUX_ENABLED };
+			SUPPORTS_ATTRIBUTION, SUPPORTS_IMPLICIT_SDK_LOGGING, NUX_CONTENT,
+			NUX_ENABLED };
 	private static final String APPLICATION_FIELDS = "fields";
 
 	// This is the default used by the buffer streams, but they trace a warning
@@ -411,9 +411,9 @@ public final class Utility {
 		FetchedAppSettings result = new FetchedAppSettings(
 				safeGetBooleanFromResponse(supportResponse,
 						SUPPORTS_ATTRIBUTION), safeGetBooleanFromResponse(
-								supportResponse, SUPPORTS_IMPLICIT_SDK_LOGGING),
-								safeGetStringFromResponse(supportResponse, NUX_CONTENT),
-								safeGetBooleanFromResponse(supportResponse, NUX_ENABLED));
+						supportResponse, SUPPORTS_IMPLICIT_SDK_LOGGING),
+				safeGetStringFromResponse(supportResponse, NUX_CONTENT),
+				safeGetBooleanFromResponse(supportResponse, NUX_ENABLED));
 
 		fetchedAppSettings.put(applicationId, result);
 

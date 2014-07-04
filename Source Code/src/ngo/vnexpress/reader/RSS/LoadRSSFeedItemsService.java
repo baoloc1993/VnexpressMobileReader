@@ -99,8 +99,8 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 
 					Log.d("DEBUG",
 							"CATE + " + MainActivity.nameCategory.toString()
-							+ "  " + String.valueOf(newSizeDatabase)
-							+ " - " + String.valueOf(oldSizeDatabase));
+									+ "  " + String.valueOf(newSizeDatabase)
+									+ " - " + String.valueOf(oldSizeDatabase));
 					// MainActivity.rssItems = rssItems;
 				}
 			});

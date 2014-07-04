@@ -659,7 +659,7 @@ public class FacebookDialog {
 						fragment,
 						getEventName(action,
 								extras.containsKey(NativeProtocol.EXTRA_PHOTOS)),
-								AnalyticsEvents.PARAMETER_DIALOG_OUTCOME_VALUE_FAILED);
+						AnalyticsEvents.PARAMETER_DIALOG_OUTCOME_VALUE_FAILED);
 
 				throw new FacebookException(
 						"Unable to create Intent; this likely means the Facebook app is not installed.");
@@ -765,7 +765,7 @@ public class FacebookDialog {
 	}
 
 	private abstract static class ShareDialogBuilderBase<CONCRETE extends ShareDialogBuilderBase<?>>
-	extends Builder<CONCRETE> {
+			extends Builder<CONCRETE> {
 		private String name;
 		private String caption;
 		private String description;
@@ -948,7 +948,7 @@ public class FacebookDialog {
 	 * indicates the capability is available.
 	 */
 	public static class ShareDialogBuilder extends
-	ShareDialogBuilderBase<ShareDialogBuilder> {
+			ShareDialogBuilderBase<ShareDialogBuilder> {
 
 		/**
 		 * Constructor.
@@ -968,7 +968,7 @@ public class FacebookDialog {
 	}
 
 	private static abstract class PhotoDialogBuilderBase<CONCRETE extends PhotoDialogBuilderBase<?>>
-	extends Builder<CONCRETE> {
+			extends Builder<CONCRETE> {
 		static int MAXIMUM_PHOTO_COUNT = 6;
 		private String place;
 		private ArrayList<String> friends;
@@ -1107,7 +1107,7 @@ public class FacebookDialog {
 	 * indicates the capability is available.
 	 */
 	public static class PhotoShareDialogBuilder extends
-	PhotoDialogBuilderBase<PhotoShareDialogBuilder> {
+			PhotoDialogBuilderBase<PhotoShareDialogBuilder> {
 		/**
 		 * Constructor.
 		 *
@@ -1140,7 +1140,7 @@ public class FacebookDialog {
 	 * indicates the capability is available.
 	 */
 	public static class PhotoMessageDialogBuilder extends
-	PhotoDialogBuilderBase<PhotoMessageDialogBuilder> {
+			PhotoDialogBuilderBase<PhotoMessageDialogBuilder> {
 		/**
 		 * Constructor.
 		 *
@@ -1175,7 +1175,7 @@ public class FacebookDialog {
 	 * tagging.
 	 */
 	public static class MessageDialogBuilder extends
-	ShareDialogBuilderBase<MessageDialogBuilder> {
+			ShareDialogBuilderBase<MessageDialogBuilder> {
 
 		/**
 		 * Constructor.
@@ -1195,7 +1195,7 @@ public class FacebookDialog {
 	}
 
 	private static abstract class OpenGraphDialogBuilderBase<CONCRETE extends OpenGraphDialogBuilderBase<?>>
-	extends Builder<CONCRETE> {
+			extends Builder<CONCRETE> {
 
 		private String previewPropertyName;
 		private OpenGraphAction action;
@@ -1781,7 +1781,7 @@ public class FacebookDialog {
 	 * indicates the capability is available.
 	 */
 	public static class OpenGraphActionDialogBuilder extends
-	OpenGraphDialogBuilderBase<OpenGraphActionDialogBuilder> {
+			OpenGraphDialogBuilderBase<OpenGraphActionDialogBuilder> {
 		/**
 		 * Constructor.
 		 *
@@ -1850,7 +1850,7 @@ public class FacebookDialog {
 	 * indicates the capability is available.
 	 */
 	public static class OpenGraphMessageDialogBuilder extends
-	OpenGraphDialogBuilderBase<OpenGraphMessageDialogBuilder> {
+			OpenGraphDialogBuilderBase<OpenGraphMessageDialogBuilder> {
 		/**
 		 * Constructor.
 		 *

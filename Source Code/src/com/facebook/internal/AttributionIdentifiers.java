@@ -102,7 +102,7 @@ public class AttributionIdentifiers {
 			Context context) {
 		if (recentlyFetchedIdentifiers != null
 				&& System.currentTimeMillis()
-				- recentlyFetchedIdentifiers.fetchTime < IDENTIFIER_REFRESH_INTERVAL_MILLIS) {
+						- recentlyFetchedIdentifiers.fetchTime < IDENTIFIER_REFRESH_INTERVAL_MILLIS) {
 			return recentlyFetchedIdentifiers;
 		}
 

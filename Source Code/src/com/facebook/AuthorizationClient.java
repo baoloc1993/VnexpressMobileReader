@@ -354,7 +354,7 @@ class AuthorizationClient implements Serializable {
 				public void startActivityForResult(Intent intent,
 						int requestCode) {
 					pendingRequest.getStartActivityDelegate()
-					.startActivityForResult(intent, requestCode);
+							.startActivityForResult(intent, requestCode);
 				}
 
 				@Override
@@ -487,7 +487,7 @@ class AuthorizationClient implements Serializable {
 	private AppEventsLogger getAppEventsLogger() {
 		if (appEventsLogger == null
 				|| appEventsLogger.getApplicationId() != pendingRequest
-				.getApplicationId()) {
+						.getApplicationId()) {
 			appEventsLogger = AppEventsLogger.newLogger(context,
 					pendingRequest.getApplicationId());
 		}

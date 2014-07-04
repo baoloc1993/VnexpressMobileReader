@@ -9,6 +9,7 @@ import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.RSS.RSSDatabaseHandler;
 import ngo.vnexpress.reader.RSS.WebSite;
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -20,8 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DisplaySwipeViewNewsFragment extends
-		android.support.v4.app.Fragment {
+public class DisplaySwipeViewNewsFragment extends Fragment {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
