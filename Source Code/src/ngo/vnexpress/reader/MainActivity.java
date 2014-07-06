@@ -50,6 +50,8 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public static NameCategories nameCategory = null;
 	public static int numberNewPost = 0;
 	public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
+	
+	Intent i;
 	/**
 	 * Google Admob
 	 */
@@ -77,12 +79,17 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
 		// Initialize Map
 		if (newArticlePerCate.isEmpty()) {
 			// Log.d("DEBUG", "INITIAL MAP");
 			initializeMap();
 		}
 
+		//Start service
+		i = new Intent(this, NotificationService.class);
+		startService(i);
+		
 		setContentView(R.layout.activity_main);
 		// try {
 		//
@@ -342,12 +349,13 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	@Override
 	public void onDestroy() {
 		// Destroy the AdView.
-		Intent i = new Intent(this, NotificationService.class);
-		startService(i);
+		
 		if (adView != null) {
 			adView.destroy();
 			uiHelper.onDestroy();
 		}
+		//Start Service
+		startService(i);
 		super.onDestroy();
 	}
 

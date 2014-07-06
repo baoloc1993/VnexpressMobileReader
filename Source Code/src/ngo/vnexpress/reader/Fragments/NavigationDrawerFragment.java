@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -117,10 +118,11 @@ public class NavigationDrawerFragment extends Fragment {
 		});
 
 		// Create ArrayList for Item in menu
-		// for (NameCategories name : NameCategories.values()){
-		// Log.d(name.toString(), "CATE MAP " +
+		 for (NameCategories name : NameCategories.values()){
+			 Log.d(name.toString(), "CATE MAP " + String.valueOf(MainActivity.newArticlePerCate
+						.get(name)));
 		// MainActivity.newArticlePerCate.get(name));
-		// }
+		 }
 
 		ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
 		listItem.add(new DrawerItem(getString(R.string.title_home_page),
@@ -175,6 +177,7 @@ public class NavigationDrawerFragment extends Fragment {
 		mDrawerListView.setAdapter(new ListDrawerItemAdapter(getActionBar()
 				.getThemedContext(), R.layout.drawer_list_item, listItem));
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+		MainActivity.numberNewPost = 0;
 		return mDrawerListView;
 	}
 

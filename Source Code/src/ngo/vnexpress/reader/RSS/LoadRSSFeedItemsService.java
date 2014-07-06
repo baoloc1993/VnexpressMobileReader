@@ -4,8 +4,13 @@ import java.util.Collections;
 
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.NameCategories;
+import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
+import ngo.vnexpress.reader.backgroundnotification.NotificationService;
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.PullToRefreshLayout;
+import android.app.Service;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -51,22 +56,23 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 			}
 			MainActivity.nameCategory = name;
 
-			if (BasicFunctions.isConnectingToInternet(MainActivity.activity
-					.getApplicationContext())) {
+//			if (BasicFunctions.isConnectingToInternet(
+//					.getApplicationContext())) {
 
 				rssItems = rssParser.getRSSFeedItems(getRssUrl());
 				Collections.reverse(rssItems);
-			}
+			//}
 
 			// updating UI from Background Thread
 
-			MainActivity.activity.runOnUiThread(new Runnable() {
+				//Handler handler = new Handler(Looper.getMainLooper());
+				
+				Thread background = new Thread((new Runnable() {
 
 				@Override
 				public void run() {
 
-					RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
-							MainActivity.activity);
+					RSSDatabaseHandler rssDb = new RSSDatabaseHandler(NotificationService.mContext);
 
 					// Size of database before add new post
 					int oldSizeDatabase = rssDb.getDatabaseSize();
@@ -74,8 +80,8 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 					/**
 					 * Updating parsed items into listview
 					 * */
-
-					// NO INTERNET -> RSSITEMS is emtpy
+					//Log.d("RUN", "RUNNING");
+					// NO INTERNET -> RSSI"TEMS is emtpy
 					for (RSSItem item : rssItems) {
 
 						// ADD EACH ITEM INTO DATABASE
@@ -93,17 +99,19 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 					int newArticle = 0;
 					MainActivity.numberNewPost += newSizeDatabase
 							- oldSizeDatabase;
-					newArticle = newSizeDatabase - oldSizeDatabase;
+					//newArticle = MainActivity.newArticlePerCate.get(name) + newSizeDatabase - oldSizeDatabase;
 
 					MainActivity.newArticlePerCate.put(name, newArticle);
 
-					Log.d("DEBUG",
-							"CATE + " + MainActivity.nameCategory.toString()
-									+ "  " + String.valueOf(newSizeDatabase)
-									+ " - " + String.valueOf(oldSizeDatabase));
+//					Log.d("DEBUG",
+//							"CATE + " + MainActivity.nameCategory.toString()
+//									+ "  " + String.valueOf(newSizeDatabase)
+//									+ " - " + String.valueOf(oldSizeDatabase));
 					// MainActivity.rssItems = rssItems;
 				}
-			});
+			}));
+				background.start();
+				background.interrupt();
 		}
 		return null;
 	}
@@ -119,7 +127,61 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 
 	@Override
 	public String getRssUrl() {
-		return super.getRssUrl();
+		String url_name;
+		//NotificationService service = new NotificationService();
+		switch (MainActivity.nameCategory) {
+
+		case Homepage:
+			url_name = "http://vnexpress.net/rss/tin-moi-nhat.rss";
+			break;
+		case Business:
+			url_name = "http://vnexpress.net/rss/kinh-doanh.rss";
+			break;
+		case Car:
+			url_name = "http://vnexpress.net/rss/oto-xe-may.rss";
+			break;
+		case Chat:
+			url_name = "http://vnexpress.net/rss/tam-su.rss";
+			break;
+		case Digital:
+			url_name = "http://vnexpress.net/rss/so-hoa.rss";
+			break;
+		case Entertainment:
+			url_name = "http://vnexpress.net/rss/giai-tri.rss";
+			break;
+		case Sports:
+			url_name = "http://vnexpress.net/rss/the-thao.rss";
+			break;
+		case Funny:
+			url_name = "http://vnexpress.net/rss/cuoi.rss";
+			break;
+		case Laws:
+			url_name = "http://vnexpress.net/rss/phap-luat.rss";
+			break;
+		case Life:
+			url_name = "http://vnexpress.net/rss/doi-song.rss";
+			break;
+		case News:
+			url_name = "http://vnexpress.net/rss/thoi-su.rss";
+			break;
+		case Science:
+			url_name = "http://vnexpress.net/rss/khoa-hoc.rss";
+			break;
+		case Social:
+			url_name = "http://vnexpress.net/rss/cong-dong.rss";
+			break;
+		case Travelling:
+			url_name = "http://vnexpress.net/rss/du-lich.rss";
+			break;
+		case World:
+			url_name = "http://vnexpress.net/rss/the-gioi.rss";
+			break;
+		default:
+			url_name = "http://vnexpress.net/rss/tin-moi-nhat.rss";
+
+		}
+		return url_name;
+		//return super.getRssUrl();
 
 	}
 
