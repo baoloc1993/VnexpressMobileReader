@@ -4,8 +4,10 @@ package ngo.vnexpress.reader.backgroundnotification;
  * Background Service
  */
 import java.util.Calendar;
+import java.util.HashMap;
 
 import ngo.vnexpress.reader.MainActivity;
+import ngo.vnexpress.reader.NameCategories;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.RSS.LoadRSSFeedItemsService;
 import android.app.Application;
@@ -24,12 +26,15 @@ import android.widget.Toast;
 
 public class NotificationService extends Service {
 
-	private static final int TIME_PERIOD_HOUR = 1;
+	private static final int TIME_PERIOD_HOUR = 3;
 	private CountDownTimer countDownTimer;
 
 	private int notificationIdOne;
 	private NotificationManager myNotificationManager;
-
+	
+	public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
+	public static int numberNewPost = 0;
+	
 	//public static Application service = new NotificationService().getApplication();
 	public static Context mContext; 
 	@Override
@@ -46,12 +51,12 @@ public class NotificationService extends Service {
 //		 Toast.LENGTH_LONG).show();
 
 		// Set timer for update notification
-		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 300 * 1000,
-				TIME_PERIOD_HOUR * 250 * 1000) {
+		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 3600 * 1000,
+				TIME_PERIOD_HOUR * 3550 * 1000) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-
+				//Log.d("DEBUG", "TICK");
 				// Display notification
 				//MainActivity.numberNewPost = 0;
 				new LoadRSSFeedItemsService().execute();
@@ -62,8 +67,8 @@ public class NotificationService extends Service {
 			public void onFinish() {
 				// Create infinite loop of timer
 				// load new articles from RSS
-				// Log.d("DEBUG", "CATE new " + String.valueOf(MainActivity.numberNewPost) );
-				if (MainActivity.numberNewPost > 0) {
+				// Log.d("DEBUG", "TICK new " + String.valueOf(numberNewPost) );
+				if (numberNewPost > 0) {
 					displayNotification();
 
 				}
@@ -96,34 +101,20 @@ public class NotificationService extends Service {
 		
 	}
 
-	// Get and format current time
-	private String getCurrentTime() {
-		String time = "";
-		Calendar c = Calendar.getInstance();
-		int seconds = c.get(Calendar.SECOND);
-		int mins = c.get(Calendar.MINUTE);
-		int hours = c.get(Calendar.HOUR_OF_DAY);
-		int days = c.get(Calendar.DAY_OF_MONTH);
-		int months = c.get(Calendar.MONTH);
-		int years = c.get(Calendar.YEAR);
-		time = String.valueOf(hours) + ":" + String.valueOf(mins) + ":"
-				+ String.valueOf(seconds) + " " + String.valueOf(days) + " / "
-				+ String.valueOf(months) + " / " + String.valueOf(years);
-		return time;
-	}
+
 
 	void displayNotification() {
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this);
 
 		//Set parameter of Notification which is displayed
-		String time = getCurrentTime();
+		//String time = getCurrentTime();
 		// Log.d("DEBUG", "DATE  = " + time);
 		mBuilder.setContentTitle("Vnexpress Reader");
-		mBuilder.setContentText(String.valueOf(MainActivity.numberNewPost)
-				+ " " + getString(R.string.articles) + " " + time);
-		mBuilder.setTicker(String.valueOf(MainActivity.numberNewPost) + " "
-				+ getString(R.string.articles) + " " + time);
+		mBuilder.setContentText(String.valueOf(numberNewPost)
+				+ " " + getString(R.string.articles) );
+		mBuilder.setTicker(String.valueOf(numberNewPost) + " "
+				+ getString(R.string.articles) );
 		mBuilder.setSmallIcon(R.drawable.ic_launcher);
 		
 		//Notification disappear when click to notification

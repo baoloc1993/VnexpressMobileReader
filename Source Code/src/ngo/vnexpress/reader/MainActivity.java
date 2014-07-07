@@ -48,8 +48,8 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public static List<RSSItem> rssItems = new ArrayList<RSSItem>();
 	public static int LIMITED_NUMBER = 100;
 	public static NameCategories nameCategory = null;
-	public static int numberNewPost = 0;
-	public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
+//	public static int numberNewPost = 0;
+	//public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
 	
 	Intent i;
 	/**
@@ -78,17 +78,18 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		
+		//Start service
+		i = new Intent(this, NotificationService.class);
+		startService(i);
 		// Initialize Map
-		if (newArticlePerCate.isEmpty()) {
+		if (NotificationService.newArticlePerCate.isEmpty()) {
 			// Log.d("DEBUG", "INITIAL MAP");
 			initializeMap();
 		}
 
-		//Start service
-		i = new Intent(this, NotificationService.class);
-		startService(i);
+		
+		
 		
 		setContentView(R.layout.activity_main);
 		// try {
@@ -320,9 +321,9 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// Log.d("DEBUG", "MAP INI");
 
 		for (NameCategories name : NameCategories.values()) {
-			if (!newArticlePerCate.containsKey(name)) {
+			if (!NotificationService.newArticlePerCate.containsKey(name)) {
 				// Log.d("MAIN ACTIVITY", "CATE ");
-				newArticlePerCate.put(name, 0);
+				NotificationService.newArticlePerCate.put(name, 0);
 			}
 		}
 	}

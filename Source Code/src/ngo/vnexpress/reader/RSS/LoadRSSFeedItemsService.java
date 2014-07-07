@@ -97,11 +97,13 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 
 					// The number of new article
 					int newArticle = 0;
-					MainActivity.numberNewPost += newSizeDatabase
+					NotificationService.numberNewPost += newSizeDatabase
 							- oldSizeDatabase;
-					//newArticle = MainActivity.newArticlePerCate.get(name) + newSizeDatabase - oldSizeDatabase;
+					if (NotificationService.newArticlePerCate.get(name) != null){
+						newArticle = NotificationService.newArticlePerCate.get(name) + newSizeDatabase - oldSizeDatabase;
 
-					MainActivity.newArticlePerCate.put(name, newArticle);
+					}
+					NotificationService.newArticlePerCate.put(name, newArticle);
 
 //					Log.d("DEBUG",
 //							"CATE + " + MainActivity.nameCategory.toString()

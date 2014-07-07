@@ -8,6 +8,7 @@ import ngo.vnexpress.reader.NameCategories;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Adapters.ListDrawerItemAdapter;
 import ngo.vnexpress.reader.Items.DrawerItem;
+import ngo.vnexpress.reader.backgroundnotification.NotificationService;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -118,57 +119,57 @@ public class NavigationDrawerFragment extends Fragment {
 		});
 
 		// Create ArrayList for Item in menu
-		 for (NameCategories name : NameCategories.values()){
-			 Log.d(name.toString(), "CATE MAP " + String.valueOf(MainActivity.newArticlePerCate
-						.get(name)));
-		// MainActivity.newArticlePerCate.get(name));
-		 }
+//		 for (NameCategories name : NameCategories.values()){
+//			 Log.d(name.toString(), "CATE MAP " + String.valueOf(NotificationService.newArticlePerCate
+//						.get(name)));
+////		// MainActivity.newArticlePerCate.get(name));
+//		 }
 
 		ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
 		listItem.add(new DrawerItem(getString(R.string.title_home_page),
-				R.drawable.home, MainActivity.newArticlePerCate
+				R.drawable.home, NotificationService.newArticlePerCate
 						.get(NameCategories.Homepage)));
 		listItem.add(new DrawerItem(getString(R.string.title_news),
-				R.drawable.news, MainActivity.newArticlePerCate
+				R.drawable.news, NotificationService.newArticlePerCate
 						.get(NameCategories.News)));
 		listItem.add(new DrawerItem(getString(R.string.title_life),
-				R.drawable.life, MainActivity.newArticlePerCate
+				R.drawable.life, NotificationService.newArticlePerCate
 						.get(NameCategories.Life)));
 		listItem.add(new DrawerItem(getString(R.string.title_world),
-				R.drawable.world, MainActivity.newArticlePerCate
+				R.drawable.world, NotificationService.newArticlePerCate
 						.get(NameCategories.World)));
 		listItem.add(new DrawerItem(getString(R.string.title_business),
-				R.drawable.business, MainActivity.newArticlePerCate
+				R.drawable.business, NotificationService.newArticlePerCate
 						.get(NameCategories.Business)));
 		listItem.add(new DrawerItem(getString(R.string.title_entertainment),
-				R.drawable.entertainment, MainActivity.newArticlePerCate
+				R.drawable.entertainment, NotificationService.newArticlePerCate
 						.get(NameCategories.Entertainment)));
 		listItem.add(new DrawerItem(getString(R.string.title_sports),
-				R.drawable.sport, MainActivity.newArticlePerCate
+				R.drawable.sport, NotificationService.newArticlePerCate
 						.get(NameCategories.Sports)));
 		listItem.add(new DrawerItem(getString(R.string.title_laws),
-				R.drawable.law, MainActivity.newArticlePerCate
+				R.drawable.law, NotificationService.newArticlePerCate
 						.get(NameCategories.Laws)));
 		listItem.add(new DrawerItem(getString(R.string.title_travelling),
-				R.drawable.travelling, MainActivity.newArticlePerCate
+				R.drawable.travelling, NotificationService.newArticlePerCate
 						.get(NameCategories.Travelling)));
 		listItem.add(new DrawerItem(getString(R.string.title_science),
-				R.drawable.science, MainActivity.newArticlePerCate
+				R.drawable.science, NotificationService.newArticlePerCate
 						.get(NameCategories.Science)));
 		listItem.add(new DrawerItem(getString(R.string.title_digital),
-				R.drawable.digital, MainActivity.newArticlePerCate
+				R.drawable.digital, NotificationService.newArticlePerCate
 						.get(NameCategories.Digital)));
 		listItem.add(new DrawerItem(getString(R.string.title_cars),
-				R.drawable.car, MainActivity.newArticlePerCate
+				R.drawable.car, NotificationService.newArticlePerCate
 						.get(NameCategories.Car)));
 		listItem.add(new DrawerItem(getString(R.string.title_social),
-				R.drawable.social, MainActivity.newArticlePerCate
+				R.drawable.social, NotificationService.newArticlePerCate
 						.get(NameCategories.Social)));
 		listItem.add(new DrawerItem(getString(R.string.title_chat),
-				R.drawable.chat, MainActivity.newArticlePerCate
+				R.drawable.chat, NotificationService.newArticlePerCate
 						.get(NameCategories.Chat)));
 		listItem.add(new DrawerItem(getString(R.string.title_funny),
-				R.drawable.funny, MainActivity.newArticlePerCate
+				R.drawable.funny, NotificationService.newArticlePerCate
 						.get(NameCategories.Funny)));
 		listItem.add(new DrawerItem(getString(R.string.title_about),
 				R.drawable.about));
@@ -177,7 +178,7 @@ public class NavigationDrawerFragment extends Fragment {
 		mDrawerListView.setAdapter(new ListDrawerItemAdapter(getActionBar()
 				.getThemedContext(), R.layout.drawer_list_item, listItem));
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-		MainActivity.numberNewPost = 0;
+		NotificationService.numberNewPost = 0;
 		return mDrawerListView;
 	}
 

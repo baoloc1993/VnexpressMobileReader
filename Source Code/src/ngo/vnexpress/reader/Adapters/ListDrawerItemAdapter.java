@@ -93,6 +93,8 @@ public class ListDrawerItemAdapter extends ArrayAdapter<DrawerItem> {
 				notification.setText(String.valueOf(i.getNotification()));
 				if (i.getNotification() > 0) {
 					notification.setVisibility(View.VISIBLE);
+				}else{
+					notification.setVisibility(View.INVISIBLE);
 				}
 			}
 
