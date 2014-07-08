@@ -1,6 +1,8 @@
 package ngo.vnexpress.reader.Fragments;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
@@ -115,6 +117,7 @@ public class NavigationDrawerFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				selectItem(position);
+				
 			}
 		});
 
@@ -179,6 +182,7 @@ public class NavigationDrawerFragment extends Fragment {
 				.getThemedContext(), R.layout.drawer_list_item, listItem));
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 		NotificationService.numberNewPost = 0;
+		
 		return mDrawerListView;
 	}
 
@@ -278,6 +282,13 @@ public class NavigationDrawerFragment extends Fragment {
 
 	private void selectItem(int position) {
 		mCurrentSelectedPosition = position;
+		
+		//Reset the number of new post when the category is clicked
+		Set<NameCategories> keySet = NotificationService.newArticlePerCate.keySet();
+		ArrayList<NameCategories> list = new ArrayList<NameCategories>(keySet);
+		NameCategories name = (NameCategories) list.get(position);
+		NotificationService.newArticlePerCate.put(name, 0);
+		//Log.d("DEBUG", "DEBUG " + name.toString());
 		if (mDrawerListView != null) {
 			mDrawerListView.setItemChecked(position, true);
 		}
@@ -369,6 +380,8 @@ public class NavigationDrawerFragment extends Fragment {
 			}
 			return true;
 		}
+		
+		//Share button
 		if (item.getItemId() == R.id.share) {
 
 			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(

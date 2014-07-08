@@ -11,6 +11,7 @@
     <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     
      <!-- Permission to write to external storage -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -37,14 +38,14 @@
         <activity android:name="com.google.android.gms.ads.AdActivity"
              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
         <service android:name="ngo.vnexpress.reader.backgroundnotification.NotificationService" />
-        <activity android:name="ngo.vnexpress.reader.backgroundnotification.NotificationActivity"></activity>
-        
-        
-         
-      
-         
-        
-       
+        <receiver android:name="ngo.vnexpress.reader.backgroundnotification.BootCompletedIntentReceiver" 
+			       android:enabled="true"
+			       android:exported="false" >
+	       <intent-filter>
+	          <action android:name="android.intent.action.BOOT_COMPLETED" />
+	       </intent-filter>
+  		</receiver>
+
     </application>
      
   

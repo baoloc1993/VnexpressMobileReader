@@ -5,6 +5,7 @@ package ngo.vnexpress.reader.backgroundnotification;
  */
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.NameCategories;
@@ -26,13 +27,13 @@ import android.widget.Toast;
 
 public class NotificationService extends Service {
 
-	private static final int TIME_PERIOD_HOUR = 3;
+	private static final int TIME_PERIOD_HOUR = 2;
 	private CountDownTimer countDownTimer;
 
 	private int notificationIdOne;
 	private NotificationManager myNotificationManager;
 	
-	public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
+	public static LinkedHashMap<NameCategories, Integer> newArticlePerCate = new LinkedHashMap<NameCategories, Integer>();
 	public static int numberNewPost = 0;
 	
 	//public static Application service = new NotificationService().getApplication();
@@ -56,7 +57,7 @@ public class NotificationService extends Service {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				//Log.d("DEBUG", "TICK");
+				Log.d("DEBUG", "TICK");
 				// Display notification
 				//MainActivity.numberNewPost = 0;
 				new LoadRSSFeedItemsService().execute();
