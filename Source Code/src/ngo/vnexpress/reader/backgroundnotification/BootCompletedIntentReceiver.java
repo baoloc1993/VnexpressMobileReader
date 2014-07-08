@@ -1,5 +1,8 @@
 package ngo.vnexpress.reader.backgroundnotification;
 
+/**
+ * Service auto start after reboot
+ */
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
