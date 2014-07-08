@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 public class NotificationService extends Service {
 
-	private static final int TIME_PERIOD_HOUR = 2;
+	private static final int TIME_PERIOD_HOUR = 3;
 	private CountDownTimer countDownTimer;
 
 	private int notificationIdOne;
@@ -57,10 +57,12 @@ public class NotificationService extends Service {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				Log.d("DEBUG", "TICK");
+				//Log.d("DEBUG", "TICK");
 				// Display notification
 				//MainActivity.numberNewPost = 0;
-				new LoadRSSFeedItemsService().execute();
+				if (!MainActivity.stopService){
+					new LoadRSSFeedItemsService().execute();
+				}
 
 			}
 
@@ -98,7 +100,7 @@ public class NotificationService extends Service {
 	@Override
 	public void onDestroy() {
 		// Toast.makeText(this, "MyService Stopped", Toast.LENGTH_LONG).show();
-		 //Log.d("DESTROY", "onDestroy");
+		 Log.d("DESTROY", "onDestroy");
 		
 	}
 

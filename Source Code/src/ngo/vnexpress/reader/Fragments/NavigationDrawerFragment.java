@@ -285,9 +285,13 @@ public class NavigationDrawerFragment extends Fragment {
 		
 		//Reset the number of new post when the category is clicked
 		Set<NameCategories> keySet = NotificationService.newArticlePerCate.keySet();
-		ArrayList<NameCategories> list = new ArrayList<NameCategories>(keySet);
-		NameCategories name = (NameCategories) list.get(position);
-		NotificationService.newArticlePerCate.put(name, 0);
+		if (keySet != null){
+			ArrayList<NameCategories> list = new ArrayList<NameCategories>(keySet);
+			NameCategories name = list.get(position);
+			MainActivity.nameCategory = name;
+			NotificationService.newArticlePerCate.put(name, 0);
+		}
+		
 		//Log.d("DEBUG", "DEBUG " + name.toString());
 		if (mDrawerListView != null) {
 			mDrawerListView.setItemChecked(position, true);
@@ -344,6 +348,9 @@ public class NavigationDrawerFragment extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
+	/**
+	 * Config button on Menu Option bar
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {

@@ -48,6 +48,9 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public static List<RSSItem> rssItems = new ArrayList<RSSItem>();
 	public static int LIMITED_NUMBER = 100;
 	public static NameCategories nameCategory = null;
+	public static NameCategories nameCategoryService = null;
+	
+	public static boolean stopService = false;
 //	public static int numberNewPost = 0;
 	//public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
 	
@@ -78,18 +81,17 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		//nameCategory = NameCategories.Homepage;
 		//Start service
+		stopService = true;
 		i = new Intent(this, NotificationService.class);
-		startService(i);
+		
 		// Initialize Map
 		if (NotificationService.newArticlePerCate.isEmpty()) {
 			// Log.d("DEBUG", "INITIAL MAP");
 			initializeMap();
 		}
 
-		
-		
 		
 		setContentView(R.layout.activity_main);
 		// try {
@@ -111,6 +113,17 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// } catch (NoSuchAlgorithmException e) {
 		// Log.e("no such an algorithm", e.toString());
 		// }
+		/**
+		 * Navigation Drawer
+		 */
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
+				.findFragmentById(R.id.navigation_drawer);
+
+		mTitle = getTitle();
+
+		// Set up the drawer.
+		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
+				(DrawerLayout) findViewById(R.id.drawer_layout));
 		/**
 		 * for FB sharing
 		 */
@@ -143,17 +156,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		screenHeight = displayMetrics.heightPixels;
 		screenWidth = displayMetrics.widthPixels;
 		activity = this;
-		/**
-		 * Navigation Drawer
-		 */
-		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
-				.findFragmentById(R.id.navigation_drawer);
-
-		mTitle = getTitle();
-
-		// Set up the drawer.
-		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
-				(DrawerLayout) findViewById(R.id.drawer_layout));
+		
 
 		// COPY FILE FROM ASSET FOLDER TO MEMORY
 		// copyAssets();
@@ -330,6 +333,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	@Override
 	public void onResume() {
+		stopService = true;
 		super.onResume();
 		if (adView != null) {
 			adView.resume();
@@ -339,6 +343,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	@Override
 	public void onPause() {
+		stopService = false;
 		if (adView != null) {
 			adView.pause();
 			uiHelper.onPause();
@@ -356,6 +361,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			uiHelper.onDestroy();
 		}
 		//Start Service
+		stopService = false;
 		startService(i);
 		super.onDestroy();
 	}

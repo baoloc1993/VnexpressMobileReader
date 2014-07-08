@@ -13,9 +13,11 @@ import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Adapters.GridNewsItemAdapter;
 import ngo.vnexpress.reader.Adapters.ListNewsItemAdapter;
 import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
+import ngo.vnexpress.reader.backgroundnotification.NotificationService;
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.PullToRefreshLayout;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -48,7 +50,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		// list of rss items
 		if (BasicFunctions.isConnectingToInternet(MainActivity.activity
 				.getApplicationContext())) {
-			// Log.d("DEBUG", "CATE = " + getRssUrl());
+			//Log.d("DEBUG", "CATE = " + MainActivity.nameCategory.toString() + " " + getRssUrl());
 			rssItems = rssParser.getRSSFeedItems(getRssUrl());
 			Collections.reverse(rssItems);
 		}
@@ -61,9 +63,10 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 			@Override
 			public void run() {
-				RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
-						MainActivity.activity);
-
+//				RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
+//						MainActivity.activity);
+				RSSDatabaseHandler rssDb = RSSDatabaseHandler.getInstance(MainActivity.activity);	
+				rssDb.getWritableDatabase();
 				/**
 				 * Updating parsed items into listview
 				 * */
@@ -91,6 +94,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 					// Add RSSItem to RSSItems
 					rssItemsDataBase.add(newItem);
+					//rssDb.close();
 					// Log.d("DATABASE", "TABLE = " +
 					// rssItemsDataBase.get(0).getTitle());
 				}

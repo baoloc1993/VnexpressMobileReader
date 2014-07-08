@@ -46,15 +46,15 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 		// newArticlePerCate
 		// Go through all categories inside an Asyntask
 		for (final NameCategories name : NameCategories.values()) {
-
+			if (!MainActivity.stopService){
 			// Delay 2s to synchronize 2 threads
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			MainActivity.nameCategory = name;
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				MainActivity.nameCategory = name;
 
 //			if (BasicFunctions.isConnectingToInternet(
 //					.getApplicationContext())) {
@@ -66,54 +66,57 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 			// updating UI from Background Thread
 
 				//Handler handler = new Handler(Looper.getMainLooper());
-				
-				Thread background = new Thread((new Runnable() {
-
-				@Override
-				public void run() {
-
-					RSSDatabaseHandler rssDb = new RSSDatabaseHandler(NotificationService.mContext);
-
-					// Size of database before add new post
-					int oldSizeDatabase = rssDb.getDatabaseSize();
-
-					/**
-					 * Updating parsed items into listview
-					 * */
-					//Log.d("RUN", "RUNNING");
-					// NO INTERNET -> RSSI"TEMS is emtpy
-					for (RSSItem item : rssItems) {
-
-						// ADD EACH ITEM INTO DATABASE
-						WebSite site = new WebSite(item.getTitle(), item
-								.getLink(), item.getDescription(), item
-								.getPubdate(), item.getImgUrl());
-						rssDb.addSite(site);
-						// Log.d("LINK","LINK + " + item.getLink());
-					}
-
-					// Size of database after add new post
-					int newSizeDatabase = rssDb.getDatabaseSize();
-
-					// The number of new article
-					int newArticle = 0;
-					NotificationService.numberNewPost += newSizeDatabase
-							- oldSizeDatabase;
-					if (NotificationService.newArticlePerCate.get(name) != null){
-						newArticle = NotificationService.newArticlePerCate.get(name) + newSizeDatabase - oldSizeDatabase;
-
-					}
-					NotificationService.newArticlePerCate.put(name, newArticle);
-
-//					Log.d("DEBUG",
-//							"CATE + " + MainActivity.nameCategory.toString()
-//									+ "  " + String.valueOf(newSizeDatabase)
-//									+ " - " + String.valueOf(oldSizeDatabase));
-					// MainActivity.rssItems = rssItems;
-				}
-			}));
-				background.start();
-				background.interrupt();
+				//if (!MainActivity.stopService){
+					Thread background = new Thread((new Runnable() {
+	
+					@Override
+					public void run() {
+	
+						//RSSDatabaseHandler rssDb = new RSSDatabaseHandler(NotificationService.mContext);
+						RSSDatabaseHandler rssDb = RSSDatabaseHandler.getInstance(NotificationService.mContext);	
+						//RSSDatabaseHandler rssDb = RSSDatabaseHandler.
+						// Size of database before add new post
+						int oldSizeDatabase = rssDb.getDatabaseSize();
+	
+						/**
+						 * Updating parsed items into listview
+						 * */
+						//Log.d("RUN", "RUNNING");
+						// NO INTERNET -> RSSI"TEMS is emtpy
+						for (RSSItem item : rssItems) {
+	
+							// ADD EACH ITEM INTO DATABASE
+							WebSite site = new WebSite(item.getTitle(), item
+									.getLink(), item.getDescription(), item
+									.getPubdate(), item.getImgUrl());
+							rssDb.addSite(site);
+							// Log.d("LINK","LINK + " + item.getLink());
+						}
+	
+						// Size of database after add new post
+						int newSizeDatabase = rssDb.getDatabaseSize();
+						//rssDb.close();
+						// The number of new article
+						int newArticle = 0;
+						NotificationService.numberNewPost += newSizeDatabase
+								- oldSizeDatabase;
+						if (NotificationService.newArticlePerCate.get(name) != null){
+							newArticle = NotificationService.newArticlePerCate.get(name) + newSizeDatabase - oldSizeDatabase;
+	
+						}
+						NotificationService.newArticlePerCate.put(name, newArticle);
+	
+//						Log.d("DEBUG",
+//								"CATE + " + MainActivity.nameCategory.toString()
+//										+ "  " + String.valueOf(newSizeDatabase)
+//										+ " - " + String.valueOf(oldSizeDatabase));
+						// MainActivity.rssItems = rssItems;
+						
+						}
+					}));
+					background.start();
+					background.interrupt();
+			}
 		}
 		return null;
 	}

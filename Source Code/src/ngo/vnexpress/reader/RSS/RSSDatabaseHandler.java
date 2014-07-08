@@ -13,11 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ngo.vnexpress.reader.MainActivity;
+import ngo.vnexpress.reader.NameCategories;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class RSSDatabaseHandler extends SQLiteOpenHelper {
 
@@ -29,6 +31,8 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 
 	// Contacts table name
 	private static String TABLE_RSS = "websites";
+	
+	private static RSSDatabaseHandler mInstance = null;
 
 	// Contacts Table Columns names
 	private static final String KEY_ID = "id";
@@ -49,8 +53,9 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 
 	public RSSDatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		TABLE_RSS = getTableName();
-
+		
+		
+		
 	}
 
 	// Creating Tables
@@ -67,6 +72,8 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 		}
 
 	}
+	
+	
 
 	// Upgrading database
 	@Override
@@ -78,13 +85,25 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
+	
+	  public static RSSDatabaseHandler getInstance(Context ctx) {
+
+		    // Use the application context, which will ensure that you 
+		    // don't accidentally leak an Activity's context.
+		    // See this article for more information: http://bit.ly/6LRzfx
+		    if (mInstance == null) {
+		      mInstance = new RSSDatabaseHandler(ctx.getApplicationContext());
+		    }
+		    return mInstance;
+		  }
+	  
 	/**
 	 * Adding a new website in websites table Function will check if a site
 	 * already existed in database. If existed will update the old one else
 	 * creates a new row
 	 * */
 	public void addSite(WebSite site) {
-
+		TABLE_RSS = getTableName();
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -95,7 +114,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 
 		values.put(KEY_PUBLIC_DATE, site.getPubDate()); // public date
 		// Check if row already existed in database
-		if (!isSiteExists(db, site.getImageLink())) {
+		if (!isSiteExists(db, site.getLink())) {
 			// site not existed, create a new row
 			db.insert(TABLE_RSS, null, values);
 			db.close();
@@ -110,7 +129,9 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 * Reading all rows from database
 	 * */
 	public List<WebSite> getAllSitesByID() {
+		TABLE_RSS = getTableName();
 		List<WebSite> siteList = new ArrayList<WebSite>();
+		//Log.d("DEBUG", "SQL " + TABLE_RSS);
 		// Select All Query
 		String selectQuery = "SELECT  * FROM " + TABLE_RSS + " ORDER BY "
 				+ KEY_ID + " DESC";
@@ -129,6 +150,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 				site.setDescription(cursor.getString(4));
 				site.setPubDate(cursor.getString(5));
 				// Adding contact to list
+				//Log.d("DEBUG", "SQL " + String.valueOf(site.getId()));
 				siteList.add(site);
 			} while (cursor.moveToNext());
 		}
@@ -180,6 +202,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 * Updating a single row row will be identified by rss link
 	 * */
 	public int updateSite(WebSite site) {
+		TABLE_RSS = getTableName();
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -202,6 +225,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 * Reading a row (website) row is identified by row id
 	 * */
 	public WebSite getSiteById(int id) {
+		TABLE_RSS = getTableName();
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_RSS, new String[] { KEY_ID, KEY_TITLE,
@@ -230,6 +254,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 * Reading a row (website) row is identified by link
 	 * */
 	public WebSite getSiteByLink(String link) {
+		TABLE_RSS = getTableName();
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_RSS, new String[] { KEY_ID, KEY_TITLE,
@@ -257,6 +282,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 * Deleting single row
 	 * */
 	public void deleteSite(WebSite site) {
+		TABLE_RSS = getTableName();
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_RSS, KEY_ID + " = ?",
 				new String[] { String.valueOf(site.getId()) });
@@ -267,10 +293,10 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 * Checking whether a site is already existed check is done by matching rss
 	 * link
 	 * */
-	public boolean isSiteExists(SQLiteDatabase db, String img_link) {
-
+	public boolean isSiteExists(SQLiteDatabase db, String link) {
+		TABLE_RSS = getTableName();
 		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_RSS
-				+ " WHERE img_link = '" + img_link + "'", new String[] {});
+				+ " WHERE link = '" + link + "'", new String[] {});
 		boolean exists = (cursor.getCount() > 0);
 		return exists;
 	}
@@ -279,6 +305,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	 * Get the size of the database
 	 */
 	public int getDatabaseSize() {
+		TABLE_RSS = getTableName();
 		String countQuery = "SELECT  * FROM " + TABLE_RSS;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
@@ -287,12 +314,14 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 		return cnt;
 	}
 
+	
 	/**
 	 * Set table name
 	 */
 	private String getTableName() {
+		
 		String table_name;
-
+		//Log.d("DEBUG", "SQL CATE " + MainActivity.nameCategory);
 		switch (MainActivity.nameCategory) {
 
 		case Homepage:
