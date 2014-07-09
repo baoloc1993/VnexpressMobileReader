@@ -136,6 +136,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// Intent i=new Intent(this, NotificationService.class);
 		// Create an ad.
 		adView = (AdView) findViewById(R.id.adView);
+		
 		// Add the AdView to the view hierarchy. The view will have no size
 		// until the ad is loaded.
 
