@@ -16,7 +16,7 @@ public class BootCompletedIntentReceiver extends BroadcastReceiver {
 		if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
 			   Intent pushIntent = new Intent(context, NotificationService.class);
 			   //pushIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			   Log.d("DEBUG", "TICK START");
+			   //Log.d("DEBUG", "TICK START");
 			   context.startService(pushIntent);
 		}
 	}

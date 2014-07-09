@@ -46,7 +46,12 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 		// newArticlePerCate
 		// Go through all categories inside an Asyntask
 		for (final NameCategories name : NameCategories.values()) {
-			if (!MainActivity.stopService){
+			//Log.d("DEBUG", "CATE " + name.toString());
+			
+			//Do not load RSS when activity start
+			if (MainActivity.stopService){
+				return null;
+			}
 			// Delay 2s to synchronize 2 threads
 				try {
 					Thread.sleep(1000);
@@ -66,7 +71,8 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 			// updating UI from Background Thread
 
 				//Handler handler = new Handler(Looper.getMainLooper());
-				//if (!MainActivity.stopService){
+				//Stop load database when main activity start
+				
 					Thread background = new Thread((new Runnable() {
 	
 					@Override
@@ -106,10 +112,10 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 						}
 						NotificationService.newArticlePerCate.put(name, newArticle);
 	
-//						Log.d("DEBUG",
-//								"CATE + " + MainActivity.nameCategory.toString()
-//										+ "  " + String.valueOf(newSizeDatabase)
-//										+ " - " + String.valueOf(oldSizeDatabase));
+						Log.d("DEBUG",
+								"CATE + " + MainActivity.nameCategory.toString()
+										+ "  " + String.valueOf(newSizeDatabase)
+										+ " - " + String.valueOf(oldSizeDatabase));
 						// MainActivity.rssItems = rssItems;
 						
 						}
@@ -117,7 +123,7 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 					background.start();
 					background.interrupt();
 			}
-		}
+		
 		return null;
 	}
 
