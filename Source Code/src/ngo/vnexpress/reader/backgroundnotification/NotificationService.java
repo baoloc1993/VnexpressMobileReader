@@ -53,11 +53,11 @@ public class NotificationService extends Service {
 
 		// Set timer for update notification
 		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 3600 * 1000,
-				TIME_PERIOD_HOUR * 3550 * 1000) {
+				TIME_PERIOD_HOUR * 3530 * 1000) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				//Log.d("DEBUG", "TICK " + MainActivity.stopService);
+				Log.d("DEBUG", "TICK " + MainActivity.stopService);
 				// Display notification
 				//MainActivity.numberNewPost = 0;
 				if (!MainActivity.stopService){

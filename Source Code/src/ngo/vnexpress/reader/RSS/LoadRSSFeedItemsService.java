@@ -54,7 +54,7 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 			}
 			// Delay 2s to synchronize 2 threads
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -77,7 +77,9 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	
 					@Override
 					public void run() {
-	
+						if (MainActivity.stopService){
+							return;
+						}
 						//RSSDatabaseHandler rssDb = new RSSDatabaseHandler(NotificationService.mContext);
 						RSSDatabaseHandler rssDb = RSSDatabaseHandler.getInstance(NotificationService.mContext);	
 						//RSSDatabaseHandler rssDb = RSSDatabaseHandler.
@@ -112,10 +114,10 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 						}
 						NotificationService.newArticlePerCate.put(name, newArticle);
 	
-//						Log.d("DEBUG",
-//								"CATE + " + MainActivity.nameCategory.toString()
-//										+ "  " + String.valueOf(newSizeDatabase)
-//										+ " - " + String.valueOf(oldSizeDatabase));
+						Log.d("DEBUG",
+								"CATE + " + MainActivity.nameCategory.toString()
+										+ "  " + String.valueOf(newSizeDatabase)
+										+ " - " + String.valueOf(oldSizeDatabase));
 						// MainActivity.rssItems = rssItems;
 						
 						}
