@@ -114,10 +114,10 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 						}
 						NotificationService.newArticlePerCate.put(name, newArticle);
 	
-						Log.d("DEBUG",
-								"CATE + " + MainActivity.nameCategory.toString()
-										+ "  " + String.valueOf(newSizeDatabase)
-										+ " - " + String.valueOf(oldSizeDatabase));
+//						Log.d("DEBUG",
+//								"CATE + " + MainActivity.nameCategory.toString()
+//										+ "  " + String.valueOf(newSizeDatabase)
+//										+ " - " + String.valueOf(oldSizeDatabase));
 						// MainActivity.rssItems = rssItems;
 						
 						}
