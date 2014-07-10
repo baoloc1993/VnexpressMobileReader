@@ -638,7 +638,7 @@ public class FacebookDialog {
 		 *
 		 * @return a FacebookDialog instance
 		 */
-		public FacebookDialog build() {
+		public FacebookDialog build() throws FacebookException{
 			validate();
 
 			Bundle extras = new Bundle();

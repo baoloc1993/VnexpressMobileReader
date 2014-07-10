@@ -30,7 +30,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.facebook.FacebookException;
 import com.facebook.widget.FacebookDialog;
 
 /**
@@ -391,13 +393,18 @@ public class NavigationDrawerFragment extends Fragment {
 		//Share button
 		if (item.getItemId() == R.id.share) {
 
-			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
-					getActivity()).setLink(MainActivity.currentWeb.getLink())
-					.setCaption("Find us on Google Play")
-					.setName(MainActivity.currentWeb.getTitle())
-					.setDescription(MainActivity.currentWeb.getDescription())
-					.build();
-			MainActivity.uiHelper.trackPendingDialogCall(shareDialog.present());
+			try {
+				FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
+						getActivity()).setLink(MainActivity.currentWeb.getLink())
+						.setCaption("Find us on Google Play")
+						.setName(MainActivity.currentWeb.getTitle())
+						.setDescription(MainActivity.currentWeb.getDescription())
+						.build();
+				MainActivity.uiHelper.trackPendingDialogCall(shareDialog.present());
+			} catch (FacebookException e) {
+				// TODO Auto-generated catch block
+				Toast.makeText(getActivity(), "Bạn cần cài đặt ứng dụng facebook để chia sẻ bài viết", Toast.LENGTH_SHORT).show();
+			}
 
 		}
 		return super.onOptionsItemSelected(item);
