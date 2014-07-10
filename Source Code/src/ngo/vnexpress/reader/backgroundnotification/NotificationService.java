@@ -72,7 +72,7 @@ public class NotificationService extends Service {
 				// Create infinite loop of timer
 				// load new articles from RSS
 				 Log.d("DEBUG", "TICK new " + String.valueOf(numberNewPost) );
-				if (numberNewPost >= 0) {
+				if (numberNewPost > 0) {
 					displayNotification();
 
 				}
