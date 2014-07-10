@@ -57,7 +57,7 @@ public class NotificationService extends Service {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				Log.d("DEBUG", "TICK " + MainActivity.stopService);
+				//Log.d("DEBUG", "TICK " + MainActivity.stopService);
 				// Display notification
 				//MainActivity.numberNewPost = 0;
 				if (!MainActivity.stopService){
@@ -71,7 +71,7 @@ public class NotificationService extends Service {
 			public void onFinish() {
 				// Create infinite loop of timer
 				// load new articles from RSS
-				 Log.d("DEBUG", "TICK new " + String.valueOf(numberNewPost) );
+				// Log.d("DEBUG", "TICK new " + String.valueOf(numberNewPost) );
 				if (numberNewPost > 0) {
 					displayNotification();
 
