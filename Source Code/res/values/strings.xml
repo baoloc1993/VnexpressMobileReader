@@ -9,7 +9,7 @@
     <string name="switch_layout">Đổi giao diện</string>
     <string name="share">Chia sẻ</string>
     <string name="shareText">Chia sẻ bài viết cho bạn bè</string>
-    <string name="ad_unit_id"> ca-app-pub-9919394378512649/7852974411</string>
+    <string name="ad_unit_id">ca-app-pub-9919394378512649/7852974411</string>
     <string name="rss_link">http://vnexpress.net/rss/tin-moi-nhat.rss</string>
     <string name="pull_to_refresh_pull_label">Pull to refresh…</string>
     <string name="pull_to_refresh_release_label">Release to refresh…</string>

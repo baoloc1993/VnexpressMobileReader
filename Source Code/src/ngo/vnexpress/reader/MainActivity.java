@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.FacebookDialog;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends FragmentActivity implements
@@ -143,7 +144,8 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// Create an ad request. Check logcat output for the hashed device ID to
 		// get test ads on a physical device.
 		AdRequest adRequest = new AdRequest.Builder().build();
-
+		//adView.setAdSize(AdSize.BANNER);
+		//adView.setAdUnitId(getString(R.string.ad_unit_id));
 		// Start loading the ad in the background.
 		adView.loadAd(adRequest);
 
@@ -338,8 +340,9 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		super.onResume();
 		if (adView != null) {
 			adView.resume();
-			uiHelper.onResume();
+			
 		}
+		uiHelper.onResume();
 	}
 
 	@Override
@@ -347,8 +350,9 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		stopService = false;
 		if (adView != null) {
 			adView.pause();
-			uiHelper.onPause();
+			
 		}
+		uiHelper.onPause();
 		super.onPause();
 	}
 
@@ -359,8 +363,9 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		
 		if (adView != null) {
 			adView.destroy();
-			uiHelper.onDestroy();
+
 		}
+		uiHelper.onDestroy();
 		//Start Service
 		stopService = false;
 		startService(i);
