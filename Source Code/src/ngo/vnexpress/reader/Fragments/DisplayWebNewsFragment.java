@@ -86,6 +86,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 						list.setHasOptionsMenu(true);
 						fragmentManager.beginTransaction()
 						.replace(R.id.container, list).commit();
+						
 						MainActivity.currentFragment = Constant.List;
 					}
 

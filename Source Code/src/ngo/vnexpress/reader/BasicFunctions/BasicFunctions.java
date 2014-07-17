@@ -1,5 +1,7 @@
 package ngo.vnexpress.reader.BasicFunctions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -7,8 +9,11 @@ import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Fragments.DisplaySwipeViewNewsFragment;
+import ngo.vnexpress.reader.RSS.LoadRSSFeedItems;
+import ngo.vnexpress.reader.RSS.LoadSingleItems;
 import ngo.vnexpress.reader.RSS.RSSDatabaseHandler;
 import ngo.vnexpress.reader.RSS.RSSItem;
+import ngo.vnexpress.reader.RSS.RSSParser;
 import ngo.vnexpress.reader.RSS.WebSite;
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.Options;
@@ -16,12 +21,14 @@ import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.PullToRefreshLay
 import ngo.vnexpress.reader.libs.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,42 +151,14 @@ public class BasicFunctions {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				
+				new LoadSingleItems(parent, position, id).execute();
 				//
-				// Get Item of current position in database
-				RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
-						MainActivity.activity);
-				RSSItem rss_item = (RSSItem) parent.getItemAtPosition(position);
-				WebSite website = rssDb.getSiteByLink(rss_item.getLink());
-				// List<WebSite> websites = rssDb.getAllSitesByID();
 
-				// transfer link of current Item to other fragment
-				Bundle args = new Bundle();
-				args.putInt(DisplaySwipeViewNewsFragment.ARG_ID,
-						website.getId());
-				// args.putString(DisplayFullNewsFragment.ARG_TYPE_FRAGMENT,
-				// getClass().toString());
-				// args.putInt(DisplayFullNewsFragment.ARG_SIZE,
-				// websites.size());
-				// Log.d("SET ON ITEM CLICK LISTENER",
-				// String.valueOf(website.getId()));
-
-				FragmentManager fragmentManager = MainActivity.activity
-						.getFragmentManager();
-				DisplaySwipeViewNewsFragment displaySwipeViewNewsFragment = new DisplaySwipeViewNewsFragment();
-
-				displaySwipeViewNewsFragment.setArguments(args);
-
-				// Go to DisplayFullNewsFragment
-				displaySwipeViewNewsFragment.setHasOptionsMenu(true);
-				fragmentManager.beginTransaction()
-						.replace(R.id.container, displaySwipeViewNewsFragment)
-						.commit();
-				MainActivity.currentFragment = Constant.Web;
-				// Log.d("SET ON ITEM CLICK LISTENER",
-				// String.valueOf(rss_item.getId()));
 			};
 		};
 		return onItemClickListener;
 	}
+
 
 }
