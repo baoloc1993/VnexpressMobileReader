@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.Adapters.GridNewsItemAdapter;
@@ -38,19 +37,6 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		this.viewGroup = viewGroup;
 		this.pullToRefreshLayout = pullToRefreshLayout;
 
-	}
-	/**
-	 * Before starting background thread Show Progress Dialog
-	 * */
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		pDialog = new ProgressDialog(
-				MainActivity.activity);
-		pDialog.setMessage("Loading websites ...");
-		pDialog.setIndeterminate(false);
-		pDialog.setCancelable(false);
-		pDialog.show();
 	}
 
 	/**
