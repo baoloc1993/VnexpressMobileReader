@@ -118,7 +118,7 @@ public class NotificationService extends Service {
 				+ " " + getString(R.string.articles) );
 		mBuilder.setTicker(String.valueOf(numberNewPost) + " "
 				+ getString(R.string.articles) );
-		mBuilder.setSmallIcon(R.drawable.ic_launcher);
+		mBuilder.setSmallIcon(R.drawable.vnexpress);
 		
 		//Notification disappear when click to notification
 		mBuilder.setAutoCancel(true);

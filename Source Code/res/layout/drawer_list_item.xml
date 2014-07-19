@@ -27,7 +27,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/vnexpress" />
 
     <TextView
         android:id="@+id/title"
