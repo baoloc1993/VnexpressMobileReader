@@ -14,6 +14,7 @@ import ngo.vnexpress.reader.backgroundnotification.NotificationService;
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -42,6 +43,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	/**
 	 * Static variables
 	 */
+	public static int versionCode = 0;
 	public static boolean FirstOpen;
 	public static Constant currentFragment = Constant.List;
 	public static Constant curViewGroup = null;
@@ -81,7 +83,17 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
+		/**
+		 * Get version Code
+		 */
+		try {
+			versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			
+		}
 		//nameCategory = NameCategories.Homepage;
 		//Start service
 		stopService = true;

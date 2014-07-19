@@ -138,6 +138,20 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		}
 
 	}
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		if (MainActivity.FirstOpen) {
+			pDialog = new ProgressDialog(MainActivity.activity);
+			pDialog.setMessage("Loading recent articles...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(false);
+			pDialog.show();
+			MainActivity.FirstOpen = false;
+		} else {
+		}
+
+	}
 
 	protected String getRssUrl() {
 		String url_name;

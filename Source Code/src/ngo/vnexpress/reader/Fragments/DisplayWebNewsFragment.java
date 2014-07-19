@@ -8,6 +8,7 @@ import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,10 +18,12 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 	public static String KEY_SITE_LINK = "";
+	private ProgressDialog progressDiaLog;
 
 	public DisplayWebNewsFragment() {
 		super();
@@ -32,7 +35,16 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 		View rootView = inflater.inflate(R.layout.preview_single_news_web_view,
 				container, false);
-
+		/**
+		 * Progress DiaLog
+		 * 
+		 */
+		progressDiaLog = new ProgressDialog(getActivity());
+		progressDiaLog.setMessage("Loading ...");
+		progressDiaLog.setIndeterminate(false);
+		progressDiaLog.setCancelable(false);
+		
+		
 		// Get SITE_LINK sent from other fragment
 		Bundle args = this.getArguments();
 		final String link = args.getString(KEY_SITE_LINK);
@@ -50,7 +62,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 		webView.getSettings().setAppCacheEnabled(true);
 		webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-		webView.setWebChromeClient(new WebChromeClient() {
+		webView.setWebChromeClient(new MyWebViewClient() {
 		});
 
 		webView.setWebViewClient(new WebViewClient() {
@@ -112,5 +124,24 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 	}
-
+//	public void setValue(int progress) {
+//		
+//					// item selected
+//					progressBar.setVisibility(View.VISIBLE);
+//					progressBar.setProgress(progress);
+//	}
+	private class MyWebViewClient extends WebChromeClient {
+		@Override
+		public void onProgressChanged(WebView view, int newProgress) {
+			if(newProgress > 0 && newProgress < 100) {
+				if(!progressDiaLog.isShowing()) {
+					progressDiaLog.show();
+				}
+			}
+			if(newProgress>=100) {
+				progressDiaLog.dismiss();
+			}
+			super.onProgressChanged(view, newProgress);
+		}
+	}
 }
