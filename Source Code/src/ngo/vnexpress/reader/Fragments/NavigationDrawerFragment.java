@@ -106,6 +106,7 @@ public class NavigationDrawerFragment extends Fragment {
 		// Indicate that this fragment would like to influence the set of
 		// actions in the action bar.
 		setHasOptionsMenu(true);
+		selectItem(0);
 	}
 
 	@Override
@@ -265,6 +266,7 @@ public class NavigationDrawerFragment extends Fragment {
 				getActivity().invalidateOptionsMenu(); // calls
 				// onPrepareOptionsMenu()
 			}
+			
 		};
 
 		// If the user hasn't 'learned' about the drawer, open it to introduce
@@ -423,6 +425,7 @@ public class NavigationDrawerFragment extends Fragment {
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setTitle(R.string.app_name);
+		actionBar.setIcon(R.drawable.vnexpress);
 	}
 
 	private ActionBar getActionBar() {

@@ -19,6 +19,7 @@ import android.app.Service;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -53,7 +54,7 @@ public class NotificationService extends Service {
 
 		// Set timer for update notification
 		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 3600 * 1000,
-				TIME_PERIOD_HOUR * 3530 * 1000) {
+				TIME_PERIOD_HOUR * 200 * 1000) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
@@ -72,7 +73,7 @@ public class NotificationService extends Service {
 				// Create infinite loop of timer
 				// load new articles from RSS
 				// Log.d("DEBUG", "TICK new " + String.valueOf(numberNewPost) );
-				if (numberNewPost > 0) {
+				if (numberNewPost >= 0) {
 					displayNotification();
 
 				}
@@ -113,7 +114,7 @@ public class NotificationService extends Service {
 		//Set parameter of Notification which is displayed
 		//String time = getCurrentTime();
 		// Log.d("DEBUG", "DATE  = " + time);
-		mBuilder.setContentTitle("Vnexpress Reader");
+		mBuilder.setContentTitle("Vnexpress Mobile Reader");
 		mBuilder.setContentText(String.valueOf(numberNewPost)
 				+ " " + getString(R.string.articles) );
 		mBuilder.setTicker(String.valueOf(numberNewPost) + " "

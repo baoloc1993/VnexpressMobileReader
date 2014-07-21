@@ -8,6 +8,7 @@ import java.util.List;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
 import ngo.vnexpress.reader.Fragments.NavigationDrawerFragment;
 import ngo.vnexpress.reader.Fragments.SocialNetworkFragment;
+import ngo.vnexpress.reader.RSS.RSSDatabaseHandler;
 import ngo.vnexpress.reader.RSS.RSSItem;
 import ngo.vnexpress.reader.RSS.WebSite;
 import ngo.vnexpress.reader.backgroundnotification.NotificationService;
@@ -90,6 +91,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		 */
 		try {
 			versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+			//RSSDatabaseHandler.DATABASE_VERSION = versionCode;
 		} catch (NameNotFoundException e) {
 			// TODO Auto-generated catch block
 			
@@ -171,11 +173,13 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		screenHeight = displayMetrics.heightPixels;
 		screenWidth = displayMetrics.widthPixels;
 		activity = this;
+		/**
+		 * Hompage at start
+		 */
 		
-
 		// COPY FILE FROM ASSET FOLDER TO MEMORY
 		// copyAssets();
-
+		
 	}
 
 	@Override
@@ -266,7 +270,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		default:
 			nameCategory = NameCategories.Homepage;
 			mTitle = getString(R.string.title_home_page);
-			mIconId = R.drawable.home;
+			mIconId = R.drawable.vnexpress;
 			break;
 
 		}
