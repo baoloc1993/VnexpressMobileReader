@@ -54,56 +54,56 @@ public class RSSParser {
 
 	}
 
-	/***
-	 * Get RSS feed from url
-	 *
-	 * @param url
-	 *            - is url of the website
-	 * @return RSSFeed class object
-	 */
-	public RSSFeed getRSSFeed(String url) {
-		RSSFeed rssFeed = null;
-		String rss_feed_xml = null;
-
-		// getting rss link from html source code
-		String rss_url = this.getRSSLinkFromURL(url);
-
-		// check if rss_link is found or not
-		if (rss_url != null) {
-			// RSS url found
-			// get RSS XML from rss url
-			rss_feed_xml = this.getXmlFromUrl(rss_url);
-			// check if RSS XML fetched or not
-			if (rss_feed_xml != null) {
-				// successfully fetched rss xml
-				// parse the xml
-				try {
-					Document doc = this.getDomElement(rss_feed_xml);
-					NodeList nodeList = doc.getElementsByTagName(TAG_CHANNEL);
-					Element e = (Element) nodeList.item(0);
-
-					// RSS nodes
-					String title = this.getValue(e, TAG_TITLE);
-					String link = this.getValue(e, TAG_LINK);
-					String description = this.getValue(e, TAG_DESRIPTION);
-					String language = this.getValue(e, TAG_LANGUAGE);
-
-					// Creating new RSS Feed
-					rssFeed = new RSSFeed(title, description, link, rss_url,
-							language);
-				} catch (Exception e) {
-					// Check log for errors
-					e.printStackTrace();
-				}
-
-			} else {
-				// failed to fetch rss xml
-			}
-		} else {
-			// no RSS url found
-		}
-		return rssFeed;
-	}
+//	/***
+//	 * Get RSS feed from url
+//	 *
+//	 * @param url
+//	 *            - is url of the website
+//	 * @return RSSFeed class object
+//	 */
+//	public RSSFeed getRSSFeed(String url) {
+//		RSSFeed rssFeed = null;
+//		String rss_feed_xml = null;
+//
+//		// getting rss link from html source code
+//		String rss_url = this.getRSSLinkFromURL(url);
+//
+//		// check if rss_link is found or not
+//		if (rss_url != null) {
+//			// RSS url found
+//			// get RSS XML from rss url
+//			rss_feed_xml = this.getXmlFromUrl(rss_url);
+//			// check if RSS XML fetched or not
+//			if (rss_feed_xml != null) {
+//				// successfully fetched rss xml
+//				// parse the xml
+//				try {
+//					Document doc = this.getDomElement(rss_feed_xml);
+//					NodeList nodeList = doc.getElementsByTagName(TAG_CHANNEL);
+//					Element e = (Element) nodeList.item(0);
+//
+//					// RSS nodes
+//					String title = this.getValue(e, TAG_TITLE);
+//					String link = this.getValue(e, TAG_LINK);
+//					String description = this.getValue(e, TAG_DESRIPTION);
+//					String language = this.getValue(e, TAG_LANGUAGE);
+//
+//					// Creating new RSS Feed
+//					rssFeed = new RSSFeed(title, description, link, rss_url,
+//							language);
+//				} catch (Exception e) {
+//					// Check log for errors
+//					e.printStackTrace();
+//				}
+//
+//			} else {
+//				// failed to fetch rss xml
+//			}
+//		} else {
+//			// no RSS url found
+//		}
+//		return rssFeed;
+//	}
 
 	/**
 	 * Getting RSS feed items <item>
