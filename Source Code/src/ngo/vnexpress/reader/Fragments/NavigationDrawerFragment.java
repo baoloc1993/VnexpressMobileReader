@@ -129,56 +129,59 @@ public class NavigationDrawerFragment extends Fragment {
 //						.get(name)));
 ////		// MainActivity.newArticlePerCate.get(name));
 //		 }
-
-		ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
-		listItem.add(new DrawerItem(getString(R.string.title_home_page),
-				R.drawable.home, NotificationService.newArticlePerCate
-						.get(NameCategories.Homepage)));
-		listItem.add(new DrawerItem(getString(R.string.title_news),
-				R.drawable.news, NotificationService.newArticlePerCate
-						.get(NameCategories.News)));
-		listItem.add(new DrawerItem(getString(R.string.title_life),
-				R.drawable.life, NotificationService.newArticlePerCate
-						.get(NameCategories.Life)));
-		listItem.add(new DrawerItem(getString(R.string.title_world),
-				R.drawable.world, NotificationService.newArticlePerCate
-						.get(NameCategories.World)));
-		listItem.add(new DrawerItem(getString(R.string.title_business),
-				R.drawable.business, NotificationService.newArticlePerCate
-						.get(NameCategories.Business)));
-		listItem.add(new DrawerItem(getString(R.string.title_entertainment),
-				R.drawable.entertainment, NotificationService.newArticlePerCate
-						.get(NameCategories.Entertainment)));
-		listItem.add(new DrawerItem(getString(R.string.title_sports),
-				R.drawable.sport, NotificationService.newArticlePerCate
-						.get(NameCategories.Sports)));
-		listItem.add(new DrawerItem(getString(R.string.title_laws),
-				R.drawable.law, NotificationService.newArticlePerCate
-						.get(NameCategories.Laws)));
-		listItem.add(new DrawerItem(getString(R.string.title_travelling),
-				R.drawable.travelling, NotificationService.newArticlePerCate
-						.get(NameCategories.Travelling)));
-		listItem.add(new DrawerItem(getString(R.string.title_science),
-				R.drawable.science, NotificationService.newArticlePerCate
-						.get(NameCategories.Science)));
-		listItem.add(new DrawerItem(getString(R.string.title_digital),
-				R.drawable.digital, NotificationService.newArticlePerCate
-						.get(NameCategories.Digital)));
-		listItem.add(new DrawerItem(getString(R.string.title_cars),
-				R.drawable.car, NotificationService.newArticlePerCate
-						.get(NameCategories.Car)));
-		listItem.add(new DrawerItem(getString(R.string.title_social),
-				R.drawable.social, NotificationService.newArticlePerCate
-						.get(NameCategories.Social)));
-		listItem.add(new DrawerItem(getString(R.string.title_chat),
-				R.drawable.chat, NotificationService.newArticlePerCate
-						.get(NameCategories.Chat)));
-		listItem.add(new DrawerItem(getString(R.string.title_funny),
-				R.drawable.funny, NotificationService.newArticlePerCate
-						.get(NameCategories.Funny)));
-		listItem.add(new DrawerItem(getString(R.string.title_about),
-				R.drawable.about));
-
+		 ArrayList<DrawerItem> listItem = new ArrayList<DrawerItem>();
+		try{
+			
+			listItem.add(new DrawerItem(getString(R.string.title_home_page),
+					R.drawable.home, NotificationService.newArticlePerCate
+							.get(NameCategories.Homepage)));
+			listItem.add(new DrawerItem(getString(R.string.title_news),
+					R.drawable.news, NotificationService.newArticlePerCate
+							.get(NameCategories.News)));
+			listItem.add(new DrawerItem(getString(R.string.title_life),
+					R.drawable.life, NotificationService.newArticlePerCate
+							.get(NameCategories.Life)));
+			listItem.add(new DrawerItem(getString(R.string.title_world),
+					R.drawable.world, NotificationService.newArticlePerCate
+							.get(NameCategories.World)));
+			listItem.add(new DrawerItem(getString(R.string.title_business),
+					R.drawable.business, NotificationService.newArticlePerCate
+							.get(NameCategories.Business)));
+			listItem.add(new DrawerItem(getString(R.string.title_entertainment),
+					R.drawable.entertainment, NotificationService.newArticlePerCate
+							.get(NameCategories.Entertainment)));
+			listItem.add(new DrawerItem(getString(R.string.title_sports),
+					R.drawable.sport, NotificationService.newArticlePerCate
+							.get(NameCategories.Sports)));
+			listItem.add(new DrawerItem(getString(R.string.title_laws),
+					R.drawable.law, NotificationService.newArticlePerCate
+							.get(NameCategories.Laws)));
+			listItem.add(new DrawerItem(getString(R.string.title_travelling),
+					R.drawable.travelling, NotificationService.newArticlePerCate
+							.get(NameCategories.Travelling)));
+			listItem.add(new DrawerItem(getString(R.string.title_science),
+					R.drawable.science, NotificationService.newArticlePerCate
+							.get(NameCategories.Science)));
+			listItem.add(new DrawerItem(getString(R.string.title_digital),
+					R.drawable.digital, NotificationService.newArticlePerCate
+							.get(NameCategories.Digital)));
+			listItem.add(new DrawerItem(getString(R.string.title_cars),
+					R.drawable.car, NotificationService.newArticlePerCate
+							.get(NameCategories.Car)));
+			listItem.add(new DrawerItem(getString(R.string.title_social),
+					R.drawable.social, NotificationService.newArticlePerCate
+							.get(NameCategories.Social)));
+			listItem.add(new DrawerItem(getString(R.string.title_chat),
+					R.drawable.chat, NotificationService.newArticlePerCate
+							.get(NameCategories.Chat)));
+			listItem.add(new DrawerItem(getString(R.string.title_funny),
+					R.drawable.funny, NotificationService.newArticlePerCate
+							.get(NameCategories.Funny)));
+			listItem.add(new DrawerItem(getString(R.string.title_about),
+					R.drawable.about));
+		}catch (Exception e){
+			
+		}
 		// SetAdapter for menu
 		mDrawerListView.setAdapter(new ListDrawerItemAdapter(getActionBar()
 				.getThemedContext(), R.layout.drawer_list_item, listItem));
