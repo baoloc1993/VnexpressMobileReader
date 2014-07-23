@@ -3,12 +3,22 @@
     android:id="@+id/web_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
+    <ProgressBar
+        android:id="@+id/webProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/icon"
+        android:layout_marginBottom="-7dp"
+        android:layout_marginTop="-7dp" />
+
     <WebView
         android:id="@+id/single_web_view"
+        android:layout_below="@+id/webProgressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </WebView>
-
-    
 
 </RelativeLayout>

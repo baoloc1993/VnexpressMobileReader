@@ -24,7 +24,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 	public static String KEY_SITE_LINK = "";
 	private ProgressDialog progressDiaLog;
-
+	private ProgressBar progressBar;
 	public DisplayWebNewsFragment() {
 		super();
 	}
@@ -36,13 +36,10 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 		View rootView = inflater.inflate(R.layout.preview_single_news_web_view,
 				container, false);
 		/**
-		 * Progress DiaLog
+		 * Progress Bar
 		 * 
 		 */
-		progressDiaLog = new ProgressDialog(getActivity());
-		progressDiaLog.setMessage("Loading ...");
-		progressDiaLog.setIndeterminate(false);
-		progressDiaLog.setCancelable(false);
+		progressBar = (ProgressBar)rootView.findViewById(R.id.webProgressBar);
 		
 		
 		// Get SITE_LINK sent from other fragment
@@ -133,14 +130,7 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 	private class MyWebViewClient extends WebChromeClient {
 		@Override
 		public void onProgressChanged(WebView view, int newProgress) {
-			if(newProgress > 0 && newProgress < 100) {
-				if(!progressDiaLog.isShowing()) {
-					progressDiaLog.show();
-				}
-			}
-			if(newProgress>=100) {
-				progressDiaLog.dismiss();
-			}
+			progressBar.setProgress(newProgress);
 			super.onProgressChanged(view, newProgress);
 		}
 	}
