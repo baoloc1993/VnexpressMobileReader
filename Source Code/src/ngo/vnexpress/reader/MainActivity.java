@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
+import com.google.analytics.tracking.android.EasyTracker;
 import ngo.vnexpress.reader.Fragments.ListViewNewsLiveFragment;
 import ngo.vnexpress.reader.Fragments.NavigationDrawerFragment;
 import ngo.vnexpress.reader.Fragments.SocialNetworkFragment;
@@ -349,7 +349,12 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 			}
 		}
 	}
-
+	@Override
+	  public void onStart() {
+	    super.onStart();
+	    
+	    EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+	  }
 	@Override
 	public void onResume() {
 		stopService = true;
@@ -387,7 +392,15 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		startService(i);
 		super.onDestroy();
 	}
-
+	@Override
+	  public void onStop() {
+	    super.onStop();
+	    if(stopService) {
+	    	stopService = false;
+	    	startService(i);
+	    }
+	    EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+	  }
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);

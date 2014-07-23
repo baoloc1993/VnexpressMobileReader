@@ -76,7 +76,7 @@ public class ListViewNewsLiveFragment extends Fragment {
 			}
 		};
 		// We can now setup the PullToRefreshLayout
-		BasicFunctions.IniPullToRefresh(getActivity(), (ViewGroup) view,
+		BasicFunctions.IniPullToRefresh(MainActivity.activity, (ViewGroup) view,
 				(View) listNews, timerTask, mPullToRefreshLayout);
 	}
 

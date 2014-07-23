@@ -8,6 +8,7 @@ package ngo.vnexpress.reader.Fragments;
  */
 import java.util.TimerTask;
 
+import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
 import ngo.vnexpress.reader.RSS.LoadRSSFeedItems;
@@ -67,7 +68,7 @@ public class GridViewNewsLiveFragment extends Fragment {
 		};
 		mPullToRefreshLayout = new PullToRefreshLayout(view.getContext());
 		// We can now setup the PullToRefreshLayout
-		BasicFunctions.IniPullToRefresh(getActivity(), (ViewGroup) view,
+		BasicFunctions.IniPullToRefresh(MainActivity.activity, (ViewGroup) view,
 				(View) gridNews, timerTask, mPullToRefreshLayout);
 	}
 	//

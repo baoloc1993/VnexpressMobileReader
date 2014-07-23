@@ -54,7 +54,7 @@ public class NotificationService extends Service {
 
 		// Set timer for update notification
 		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 3600 * 1000,
-				TIME_PERIOD_HOUR * 200 * 1000) {
+				TIME_PERIOD_HOUR * 3550 * 1000) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
@@ -73,7 +73,7 @@ public class NotificationService extends Service {
 				// Create infinite loop of timer
 				// load new articles from RSS
 				// Log.d("DEBUG", "TICK new " + String.valueOf(numberNewPost) );
-				if (numberNewPost >= 0) {
+				if (numberNewPost > 0) {
 					displayNotification();
 
 				}
