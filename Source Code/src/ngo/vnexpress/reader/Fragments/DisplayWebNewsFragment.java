@@ -3,6 +3,23 @@ package ngo.vnexpress.reader.Fragments;
 /**
  * Display the detail webview of the articles
  */
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.jsoup.examples.HtmlToPlainText;
+
 import ngo.vnexpress.reader.Constant;
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
@@ -10,6 +27,8 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +38,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 	public static String KEY_SITE_LINK = "";
 	private ProgressDialog progressDiaLog;
 	private ProgressBar progressBar;
+	private String result;
 	public DisplayWebNewsFragment() {
 		super();
 	}
@@ -69,8 +90,38 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 
 			}
 		});
+//		 URL url = null;
+//		try {
+//			url = new URL(link);
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		   HttpURLConnection urlConnection = null;
+//		try {
+//			urlConnection = (HttpURLConnection) url.openConnection();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		   try {
+//		     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//		     result = convertStreamToString(in);
+//		     //result = getContent(result);
+//		     //Spanned a = Html.fromHtml(result);
+//		     TextView tv = (TextView)rootView.findViewById(R.id.httpresponse);
+//		     tv.setText(result);
+//		     
+//		   } catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//		     urlConnection.disconnect();
+//		   }
+//		 
+			    
 		webView.loadUrl(link);
-
+		//   webView.loadData(result, "text/html; charset=UTF-8",null);
 		rootView.setFocusableInTouchMode(true);
 		rootView.requestFocus();
 
@@ -117,6 +168,19 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 		return rootView;
 	}
 
+	private String getContent(String input) {
+		// TODO Auto-generated method stub
+		
+		String openTag = "<div class=\"title_news\">";
+		
+		String closeTag = "<!-- Javascript Parser -->";
+		int openIndex = input.indexOf(openTag);
+		int closeIndex = input.indexOf(closeTag);
+		String result = input.substring(openIndex, closeIndex);
+		
+		return result;
+	}
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -134,4 +198,36 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 			super.onProgressChanged(view, newProgress);
 		}
 	}
+//	private static String convertStreamToString(InputStream is) {
+//	    /*
+//	     * To convert the InputStream to String we use the BufferedReader.readLine()
+//	     * method. We iterate until the BufferedReader return null which means
+//	     * there's no more data to read. Each line will appended to a StringBuilder
+//	     * and returned as String.
+//	     */
+//	    BufferedReader reader = null;
+//		try {
+//			reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+//		} catch (UnsupportedEncodingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//	    StringBuilder sb = new StringBuilder();
+//
+//	    String line = null;
+//	    try {
+//	        while ((line = reader.readLine()) != null) {
+//	            sb.append(line + "\n");
+//	        }
+//	    } catch (IOException e) {
+//	        e.printStackTrace();
+//	    } finally {
+//	        try {
+//	            is.close();
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+//	    }
+//	    return sb.toString();
+//	}
 }

@@ -33,7 +33,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
+import com.facebook.Session;
 import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.WebDialog;
+import com.facebook.widget.WebDialog.OnCompleteListener;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -383,23 +387,27 @@ public class NavigationDrawerFragment extends Fragment {
 		//Share button
 		if (item.getItemId() == R.id.share) {
 
-			try {
+			if (FacebookDialog.canPresentShareDialog(MainActivity.activity.getApplicationContext(), 
+                    FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
 				FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
 						getActivity()).setLink(MainActivity.currentWeb.getLink())
 						.setCaption("Find us on Google Play")
 						.setName(MainActivity.currentWeb.getTitle())
 						.setDescription(MainActivity.currentWeb.getDescription())
+						
 						.build();
 				MainActivity.uiHelper.trackPendingDialogCall(shareDialog.present());
-			} catch (FacebookException e) {
-				// TODO Auto-generated catch block
-				Toast.makeText(getActivity(), "Bạn cần cài đặt ứng dụng facebook để chia sẻ bài viết", Toast.LENGTH_SHORT).show();
+				
+			} else {
+				  // Fallback. For example, publish the post using the Feed Dialog
+				Toast.makeText(getActivity(), "Bạn cần cài ứng dụng facebook", Toast.LENGTH_SHORT).show();
+				
 			}
 
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	/**
 	 * Per the navigation drawer design guidelines, updates the action bar to
 	 * show the global app 'context', rather than just what's in the current
