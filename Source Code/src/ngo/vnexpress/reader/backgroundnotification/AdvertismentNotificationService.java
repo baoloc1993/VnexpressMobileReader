@@ -109,7 +109,17 @@ public class AdvertismentNotificationService extends Service {
 	void displayNotification() {
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this);
+		NotificationCompat.InboxStyle inboxStyle =
+		        new NotificationCompat.InboxStyle();
+		inboxStyle.setBigContentTitle("CTY Thương mại & XNK THANH DŨNG");
+		inboxStyle.addLine("Chuyên hàng hóa, thiết bị nhập khẩu từ Trung Quốc");
+		inboxStyle.addLine("Nhập khẩu các sản phẩm bảo hộ lao động phòng sạch");
+		inboxStyle.addLine("Điện thoại: 04.35542481 - 097.406.9999");
+		
+		//for (int i=0; i < events.length; i++) {
 
+		//    inboxStyle.addLine(events[i]);
+		//}
 		//Set parameter of Notification which is displayed
 		//String time = getCurrentTime();
 		// Log.d("DEBUG", "DATE  = " + time);
@@ -119,6 +129,7 @@ public class AdvertismentNotificationService extends Service {
 		mBuilder.setSmallIcon(R.drawable.vnexpress);
 		
 		
+		mBuilder.setStyle(inboxStyle);
 		//Notification disappear when click to notification
 		mBuilder.setAutoCancel(true);
 		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://muahangchina.com/index.php"));
