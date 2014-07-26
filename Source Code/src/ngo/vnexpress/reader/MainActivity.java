@@ -13,6 +13,7 @@ import ngo.vnexpress.reader.Fragments.SocialNetworkFragment;
 import ngo.vnexpress.reader.RSS.RSSDatabaseHandler;
 import ngo.vnexpress.reader.RSS.RSSItem;
 import ngo.vnexpress.reader.RSS.WebSite;
+import ngo.vnexpress.reader.backgroundnotification.AdvertismentNotificationService;
 import ngo.vnexpress.reader.backgroundnotification.NotificationService;
 import android.app.ActionBar;
 import android.app.FragmentManager;
@@ -28,9 +29,9 @@ import android.view.MenuItem;
 
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.FacebookDialog;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdSize;
+//import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends FragmentActivity implements
 NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -61,11 +62,12 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 //	public static int numberNewPost = 0;
 	//public static HashMap<NameCategories, Integer> newArticlePerCate = new HashMap<NameCategories, Integer>();
 	
-	Intent i;
+	Intent notiService;
+	Intent adService;
 	/**
 	 * Google Admob
 	 */
-	private AdView adView;
+	//private AdView adView;
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
@@ -108,7 +110,9 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		//nameCategory = NameCategories.Homepage;
 		//Start service
 		stopService = true;
-		i = new Intent(this, NotificationService.class);
+		notiService = new Intent(this,NotificationService.class);
+		adService = new Intent(this, AdvertismentNotificationService.class);
+		startService(adService);
 		
 		// Initialize Map
 		if (NotificationService.newArticlePerCate.isEmpty()) {
@@ -159,18 +163,18 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// Start background Service
 		// Intent i=new Intent(this, NotificationService.class);
 		// Create an ad.
-		adView = (AdView) findViewById(R.id.adView);
+		//adView = (AdView) findViewById(R.id.adView);
 		
 		// Add the AdView to the view hierarchy. The view will have no size
 		// until the ad is loaded.
 
 		// Create an ad request. Check logcat output for the hashed device ID to
 		// get test ads on a physical device.
-		AdRequest adRequest = new AdRequest.Builder().build();
+		//AdRequest adRequest = new AdRequest.Builder().build();
 		//adView.setAdSize(AdSize.BANNER);
 		//adView.setAdUnitId(getString(R.string.ad_unit_id));
 		// Start loading the ad in the background.
-		adView.loadAd(adRequest);
+		//adView.loadAd(adRequest);
 
 		/**
 		 * get screen's size;
@@ -368,20 +372,20 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public void onResume() {
 		stopService = true;
 		super.onResume();
-		if (adView != null) {
-			adView.resume();
-			
-		}
+//		if (adView != null) {
+//			adView.resume();
+//			
+//		}
 		uiHelper.onResume();
 	}
 
 	@Override
 	public void onPause() {
 		stopService = false;
-		if (adView != null) {
-			adView.pause();
-			
-		}
+//		if (adView != null) {
+//			adView.pause();
+//			
+//		}
 		uiHelper.onPause();
 		super.onPause();
 	}
@@ -391,14 +395,14 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	public void onDestroy() {
 		// Destroy the AdView.
 		
-		if (adView != null) {
-			adView.destroy();
-
-		}
+//		if (adView != null) {
+//			adView.destroy();
+//
+//		}
 		uiHelper.onDestroy();
 		//Start Service
 		stopService = false;
-		startService(i);
+		startService(notiService);
 		super.onDestroy();
 	}
 	@Override
@@ -406,7 +410,7 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 	    super.onStop();
 	    if(stopService) {
 	    	stopService = false;
-	    	startService(i);
+	    	startService(notiService);
 	    }
 	    EasyTracker.getInstance(this).activityStop(this);  // Add this method.
 	  }

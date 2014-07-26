@@ -49,8 +49,8 @@ public class NotificationService extends Service {
 		//Intent i = new Intent(this, MainActivity.class);
 		mContext = this.getApplicationContext();
 		//Log.d("DEBUG", "CATE new " + String.valueOf(MainActivity.numberNewPost) );
-//		 Toast.makeText(this, "Congrats! MyService Created",
-//		 Toast.LENGTH_LONG).show();
+		 Toast.makeText(this, "Congrats! MyService Created",
+		 Toast.LENGTH_LONG).show();
 
 		// Set timer for update notification
 		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 3600 * 1000,

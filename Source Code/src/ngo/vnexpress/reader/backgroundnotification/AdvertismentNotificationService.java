@@ -21,6 +21,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -54,8 +55,8 @@ public class AdvertismentNotificationService extends Service {
 //		 Toast.LENGTH_LONG).show();
 
 		// Set timer for update notification
-		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 36 * 1000,
-				TIME_PERIOD_HOUR * 3 * 1000) {
+		countDownTimer = new CountDownTimer(TIME_PERIOD_HOUR * 3600 * 1000,
+				TIME_PERIOD_HOUR * 3500 * 1000) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
@@ -66,7 +67,7 @@ public class AdvertismentNotificationService extends Service {
 //					//Log.d("DEBUG" , "TICK LoadRSS");
 //					new LoadRSSFeedItemsService().execute();
 //				}
-
+				displayNotification();
 			}
 
 			@Override
@@ -105,9 +106,6 @@ public class AdvertismentNotificationService extends Service {
 		 //Log.d("DESTROY", "onDestroy");
 		
 	}
-
-
-
 	void displayNotification() {
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this);
@@ -115,19 +113,22 @@ public class AdvertismentNotificationService extends Service {
 		//Set parameter of Notification which is displayed
 		//String time = getCurrentTime();
 		// Log.d("DEBUG", "DATE  = " + time);
-		mBuilder.setContentTitle("CÔNG TY TNHH THƯƠNG MẠI VÀ XUẤT NHẬP KHẨU THANH DŨNG");
-		mBuilder.setContentText("Chuyên kinh doanh vật tư, hàng hóa, thiết bị nhập khẩu từ Trung Quốc theo yêu cầu của khách hàng." );
-		mBuilder.setTicker(" Nhập khẩu trực tiếp từ các nhà sản xuất tại Trung quốc - Phân phối trên phạm vi toàn quốc." );
+		mBuilder.setContentTitle("CTY Thương mại & XNK THANH DŨNG");
+		mBuilder.setContentText("Chuyên hàng hóa, thiết bị nhập khẩu từ Trung Quốc" );
+		mBuilder.setTicker("Nhập khẩu trực tiếp từ các nhà sản xuất tại Trung quốc - Phân phối trên phạm vi toàn quốc." );
 		mBuilder.setSmallIcon(R.drawable.vnexpress);
+		
 		
 		//Notification disappear when click to notification
 		mBuilder.setAutoCancel(true);
-		
-		Intent i = new Intent(this, MainActivity.class);
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://muahangchina.com/index.php"));
+		//startActivity(browserIntent);
+		//Intent i = new Intent(this, MainActivity.class);
 		
 		// This ensures that navigating backward from the Activity leads out of
 		// the app to Home page
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		//stackBuilder.
 		// Adds the back stack for the Intent
 		// stackBuilder.addParentStack(D.class);
 
@@ -145,6 +146,7 @@ public class AdvertismentNotificationService extends Service {
 
 		//myNotificationManager.
 		Notification fakeNotification = new Notification();
+		//fakeNotification.
 //		fakeNotification.flags = Notification.DEFAULT_LIGHTS
 //				| Notification.FLAG_AUTO_CANCEL;
 		startForeground(1, fakeNotification);
