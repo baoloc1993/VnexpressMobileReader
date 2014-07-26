@@ -45,6 +45,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_IMG_LINK = "img_link";
 	private static final String KEY_PUBLIC_DATE = "public_date";
 
+	private static final int MAX_SIZE_DATABASE = 100;
 	// String of table-name
 	private String table_name_array[] = { "home_page", "business", "cars",
 			"chat", "digital", "entertainment", "sports", "funny", "laws",
@@ -115,7 +116,7 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 
 		values.put(KEY_PUBLIC_DATE, site.getPubDate()); // public date
 		// Check if row already existed in database
-		if (!isSiteExists(db, site.getLink())) {
+		if (!isSiteExists(db, site.getLink(), site.getTitle(), site.getImageLink())) {
 			// site not existed, create a new row
 			db.insert(TABLE_RSS, null, values);
 			db.close();
@@ -289,17 +290,95 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 				new String[] { String.valueOf(site.getId()) });
 		db.close();
 	}
+	
+	/**
+	 * Deleting many rows
+	 * */
+	public void cleanDatabase() {
+		TABLE_RSS = getTableName();
+		SQLiteDatabase db = this.getWritableDatabase();
+		int numberOfDelete = getDatabaseSize() - MAX_SIZE_DATABASE;
+		Log.d("DEBUG" , "COUNT " + String.valueOf(numberOfDelete));
+		int count = 0;
+		
+		if (numberOfDelete <= 0) return;
+		else{
+			String selectQuery = "SELECT * FROM " + TABLE_RSS + " ORDER BY "
+					+ KEY_ID + " ASC";
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			// looping through all rows and adding to list
+			if (cursor.moveToFirst()) {
+				do {
+					db.delete(TABLE_RSS, KEY_ID + " = ?",
+							new String[] { cursor.getString(0)});
+					count++;
+					if (count > numberOfDelete) break;
+					Log.d("DEBUG" , "COUNT " + String.valueOf(count));
+					//WebSite site = new WebSite();
+					//site.setId(Integer.parseInt(cursor.getString(0)));
+//					site.setTitle(cursor.getString(1));
+//					site.setLink(cursor.getString(2));
+//					site.setImageLink(cursor.getString(3));
+//					site.setDescription(cursor.getString(4));
+//					site.setPubDate(cursor.getString(5));
+					// Adding contact to list
+					//Log.d("DEBUG", "SQL " + String.valueOf(site.getId()));
+					//siteList.add(site);
+				} while (cursor.moveToNext());
+			}
+		
+		}
+		db.close();
+		
+		//SELECT TOP 2 * FROM Customers;
+		
+		
+	}
 
+	/**
+	 * 
+	 */
+	public int getLatestId(){
+		TABLE_RSS = getTableName();
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQuery = "SELECT * FROM " + TABLE_RSS + " ORDER BY "
+				+ KEY_ID + " DESC";
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		cursor.moveToFirst();
+		return cursor.getInt(0);
+	}
 	/**
 	 * Checking whether a site is already existed check is done by matching rss
 	 * link
 	 * */
-	public boolean isSiteExists(SQLiteDatabase db, String link) {
+	public boolean isSiteExists(SQLiteDatabase db, String link, String title, String img_link) {
 		TABLE_RSS = getTableName();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_RSS
+		boolean exists = false;
+		Cursor cursor;
+		//has the same link
+		cursor = db.rawQuery("SELECT * FROM " + TABLE_RSS
 				+ " WHERE link = '" + link + "'", new String[] {});
-		boolean exists = (cursor.getCount() > 0);
-		return exists;
+		exists = (cursor.getCount() > 0);
+		if (exists){
+			return true;
+		}
+		
+//		//has the same title
+//		cursor = db.rawQuery("SELECT * FROM " + TABLE_RSS
+//				+ " WHERE title = '" + title + "'", new String[] {});
+//		exists = (cursor.getCount() > 0);
+//		if (exists){
+//			return true;
+//		}
+		
+		//has the same image
+		cursor = db.rawQuery("SELECT * FROM " + TABLE_RSS
+				+ " WHERE img_link = '" + img_link + "'", new String[] {});
+		exists = (cursor.getCount() > 0);
+		if (exists){
+			return true;
+		}		
+		return false;
 	}
 
 	/**

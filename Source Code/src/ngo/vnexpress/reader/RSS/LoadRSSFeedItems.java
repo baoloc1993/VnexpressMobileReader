@@ -85,6 +85,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 				// updating listview
 				// Get All Website for Database
+				rssDb.cleanDatabase();
 				List<WebSite> websites = rssDb.getAllSitesByID();
 				for (WebSite website : websites) {
 					RSSItem newItem = new RSSItem(website.getId(), website
@@ -98,6 +99,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 					// Log.d("DATABASE", "TABLE = " +
 					// rssItemsDataBase.get(0).getTitle());
 				}
+				
 				if (viewGroup instanceof ListView) {
 
 					ListNewsItemAdapter adapter = new ListNewsItemAdapter(

@@ -17,6 +17,7 @@ import android.support.v4.view.PagerAdapter;
 //import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,8 @@ public class DisplaySwipeViewNewsFragment extends Fragment {
 
 	private static int size = 0;
 	private static int id = 0;
-
+	private static int latestID = 0;
+	
 	private static ngo.vnexpress.reader.MainActivity myContext;
 	RSSDatabaseHandler rssDb = null;
 
@@ -68,7 +70,7 @@ public class DisplaySwipeViewNewsFragment extends Fragment {
 				false);
 		final RSSDatabaseHandler rssDb = new RSSDatabaseHandler(getActivity());
 		size = rssDb.getDatabaseSize();
-
+		latestID = rssDb.getLatestId();
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
 		Bundle bundle = this.getArguments();
@@ -87,8 +89,8 @@ public class DisplaySwipeViewNewsFragment extends Fragment {
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
-
-				MainActivity.currentWeb = rssDb.getSiteById(arg0 + 1);
+				//Log.d("Value of ID", "TEST arg = " + String.valueOf(arg0));
+				MainActivity.currentWeb = rssDb.getSiteById(latestID - arg0);
 
 			}
 
@@ -105,8 +107,9 @@ public class DisplaySwipeViewNewsFragment extends Fragment {
 			}
 		});
 		// id start from 0. Position start from 1
-		// Log.d("Value of ID", "TEST = " + String.valueOf(id));
-		mViewPager.setCurrentItem(id - 1);
+		//Log.d("Value of ID", "TEST = " + String.valueOf(rssDb.getLatestId()));
+		
+		mViewPager.setCurrentItem(latestID - id -1);
 		return rootView;
 
 	}
@@ -133,11 +136,11 @@ public class DisplaySwipeViewNewsFragment extends Fragment {
 			// List<WebSite> websites = rssDb.getAllSitesByID();
 			// Log.d("value of SIZE OF DATABASE", "TEST = " +
 			// String.valueOf(DisplayFullNewsFragment.size));
-			// Log.d("value of SIZE OF DATABASE", "USING FUNCTION TEST = " +
-			// String.valueOf(rssDb.getDatabaseSize()));
+//			 Log.d("value of SIZE OF DATABASE", "USING FUNCTION TEST = " +
+//			 String.valueOf(rssDb.getDatabaseSize()) + " " + String.valueOf(position));
 
 			// POSITION START AT 0, ID IN DATABASE START AT 1
-			WebSite website = rssDb.getSiteById(position + 1);
+			WebSite website = rssDb.getSiteById(latestID - position);
 			DisplayWebNewsFragment f = new DisplayWebNewsFragment();
 			// MainActivity.currentWeb = rssDb.getSiteById(position + 1);
 
