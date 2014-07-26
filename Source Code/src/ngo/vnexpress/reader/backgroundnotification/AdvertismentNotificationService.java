@@ -115,6 +115,7 @@ public class AdvertismentNotificationService extends Service {
 		inboxStyle.addLine("Chuyên hàng hóa, thiết bị nhập khẩu từ Trung Quốc");
 		inboxStyle.addLine("Nhập khẩu các sản phẩm bảo hộ lao động phòng sạch");
 		inboxStyle.addLine("Điện thoại: 04.35542481 - 097.406.9999");
+		inboxStyle.addLine("Website: www.muahangchina.com");
 		
 		//for (int i=0; i < events.length; i++) {
 
