@@ -109,7 +109,7 @@ public class DisplaySwipeViewNewsFragment extends Fragment {
 		// id start from 0. Position start from 1
 		//Log.d("Value of ID", "TEST = " + String.valueOf(rssDb.getLatestId()));
 		
-		mViewPager.setCurrentItem(latestID - id -1);
+		mViewPager.setCurrentItem(latestID - id);
 		return rootView;
 
 	}
