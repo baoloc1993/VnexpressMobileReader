@@ -4,32 +4,11 @@
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<ScrollView
-    android:id="@+id/scroll"
-    android:layout_width="match_parent" 
-    android:layout_height="300dp"
-    android:visibility="gone"
-    >
-<!--
 
-<WebView 
-    android:id="@+id/adText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="-20dp" 
-    />
-      -->
-      
-      <TextView
-          android:id="@+id/adText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" 
-          />
-      </ScrollView>
 <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
 <android.support.v4.widget.DrawerLayout 
     android:id="@+id/drawer_layout"
-    android:layout_below="@+id/scroll"
+    
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ngo.vnexpress.reader.MainActivity" >

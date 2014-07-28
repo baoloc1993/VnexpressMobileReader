@@ -144,14 +144,6 @@ NavigationDrawerFragment.NavigationDrawerCallbacks {
 		// } catch (NoSuchAlgorithmException e) {
 		// Log.e("no such an algorithm", e.toString());
 		// }
-		/**
-		 * Ad text
-		 */
-//		WebView webView =  (WebView) findViewById(R.id.adText);
-//		String content = "<marquee behavior='scroll' direction='left' scrollamount=3>"+
-//                "asasasas" + "</marquee>";
-//		
-//		webView.loadData(content,"text/html", "utf-8");
 		
 		/**
 		 * Navigation Drawer

@@ -81,12 +81,12 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 		
 		// Set parameter of webview
 		webView.getSettings().setJavaScriptEnabled(true);
-		webView.getSettings().setGeolocationEnabled(true);
+		
 		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-		webView.getSettings().setBuiltInZoomControls(true);
+		
 		webView.getSettings().setDomStorageEnabled(true);
 		webView.getSettings().setAppCacheEnabled(true);
-		webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+		webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 		
 		new LoadWeb(link,webView).execute();
 		
