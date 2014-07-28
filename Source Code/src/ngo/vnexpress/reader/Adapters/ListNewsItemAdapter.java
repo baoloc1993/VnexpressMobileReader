@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
+import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
 import ngo.vnexpress.reader.Imageloader.ImageLoader;
 import ngo.vnexpress.reader.RSS.RSSItem;
 import android.content.Context;
@@ -95,7 +96,7 @@ public class ListNewsItemAdapter extends ArrayAdapter<RSSItem> {
 				ImageLoader imgLoader = new ImageLoader(getContext());
 				// Loader image - will be shown before loading image
 				int loader = R.drawable.image_not_found;
-
+				
 				imgLoader.DisplayImage(i.getImgUrl(), loader, icon);
 
 			}
