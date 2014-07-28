@@ -78,9 +78,9 @@ public class BasicFunctions {
 		// ViewGroup
 		.options(
 				Options.create()
-				.refreshingText("Fetching News...")
-				.pullText("Pull me down to update!")
-				.releaseText("Release to update!!!")
+				.refreshingText("Đang lấy bài mới...")
+				.pullText("Kéo xuống để cập nhật!")
+				.releaseText("Nhả ra để cập nhật!!!")
 				.titleTextColor(android.R.color.black)
 				.progressBarColor(
 						android.R.color.holo_orange_light)

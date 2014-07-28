@@ -137,18 +137,6 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 		return rootView;
 	}
 
-	private String getContent(String input) {
-		// TODO Auto-generated method stub
-
-		String openTag = "<div class=\"title_news\">";
-
-		String closeTag = "<!-- Javascript Parser -->";
-		int openIndex = input.indexOf(openTag);
-		int closeIndex = input.indexOf(closeTag);
-		String result = input.substring(openIndex, closeIndex);
-
-		return result;
-	}
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -168,38 +156,4 @@ public class DisplayWebNewsFragment extends android.support.v4.app.Fragment {
 			super.onProgressChanged(view, newProgress);
 		}
 	}
-	// private static String convertStreamToString(InputStream is) {
-	// /*
-	// * To convert the InputStream to String we use the
-	// BufferedReader.readLine()
-	// * method. We iterate until the BufferedReader return null which means
-	// * there's no more data to read. Each line will appended to a
-	// StringBuilder
-	// * and returned as String.
-	// */
-	// BufferedReader reader = null;
-	// try {
-	// reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
-	// } catch (UnsupportedEncodingException e1) {
-	// // TODO Auto-generated catch block
-	// e1.printStackTrace();
-	// }
-	// StringBuilder sb = new StringBuilder();
-	//
-	// String line = null;
-	// try {
-	// while ((line = reader.readLine()) != null) {
-	// sb.append(line + "\n");
-	// }
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// } finally {
-	// try {
-	// is.close();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// return sb.toString();
-	// }
 }
