@@ -8,7 +8,7 @@
 <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
 <android.support.v4.widget.DrawerLayout 
     android:id="@+id/drawer_layout"
-    
+    android:layout_marginTop="50dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ngo.vnexpress.reader.MainActivity" >
@@ -53,7 +53,7 @@
     android:id="@+id/adView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
+    android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
     ads:adUnitId="ca-app-pub-9919394378512649/7852974411"
     ads:adSize="BANNER"

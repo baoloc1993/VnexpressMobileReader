@@ -35,7 +35,7 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 	protected String doInBackground(String... params) {
 
 		try {
-			
+
 			setDoc(org.jsoup.Jsoup.connect(link).get());
 
 		} catch (IOException e) {
@@ -45,63 +45,40 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 
 		Element title = doc.body().getElementsByClass("title_news").first();
 		if (title != null) { // in normal page
+
 			Element content = doc.body().getElementsByClass("fck_detail")
 					.first();
 			String contentHTML = "";
 			Elements slideshow = doc.body().getElementsByClass(
 					"item_slide_show");
 			for (Element slide : slideshow) {
-				Element slideImage = slide.getElementsByTag("img").first();
+				String slideImageHtml = getSlideImage(slide);
 
-				String caption = slideImage.attributes().get(
-						"data-component-caption");
-				Attributes atts = slideImage.attributes();
-				String src = atts.get("src");
-				for (Attribute att : atts) {
-
-					atts.remove(att.getKey());
-
-				}
-				slideImage.attr("src", src);
-				slideImage.attr("width", "100%");
-				String html = slideImage.toString();
-
-				contentHTML += html + caption;
+				contentHTML += slideImageHtml;
 
 			}
-			
-			
-
-			
-
-			Elements imgs = content.getElementsByTag("img");
-			
-			for (Element img : imgs) {
-				
-				Attributes atts = img.attributes();
-				String src = atts.get("src");
-				for(Attribute att : atts) {
-					atts.remove(att.getKey());
-				}
-				img.attr("src",src);
-				img.attr("width", "100%");
+			if (content != null) {
+				imageHandle(content);
+				tableHandle(content);
+				contentHTML += content.html();
 			}
-			contentHTML += content.html();
 
-			DisplayWebNewsFragment.htmlContent = title.html()
-					+  contentHTML;
+			DisplayWebNewsFragment.htmlContent = title.html() + contentHTML;
 
 		} else { // in video page
 
 			title = doc.body().getElementsByClass("video_top_title").first();
 			Element aTag = title.getElementsByTag("a").first();
 			aTag.removeAttr("href");
-			aTag.attr("style","font-size:250%;font-weight:bold");
-			String htmlVideo = getVideo(doc.body().getElementsByAttributeValue("name", "flashvars").first());
-			
-			Element short_des = doc.body().getElementsByClass("video_top_lead").first();
-			DisplayWebNewsFragment.htmlContent = title.html()+"<p>"
-					+ short_des.html()+"<p>" + htmlVideo+"<p><p>";
+			aTag.attr("style", "font-size:250%;font-weight:bold");
+			String htmlVideo = getVideo(doc.body()
+					.getElementsByAttributeValue("name", "flashvars").first());
+
+			Element short_des = doc.body().getElementsByClass("video_top_lead")
+					.first();
+			String html = "<div>" + title.html() + "<p>" + short_des.html()
+					+ "<p>" + htmlVideo + "<br><br></div>";
+			DisplayWebNewsFragment.htmlContent = html;
 
 		}
 
@@ -110,18 +87,67 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 
 	}
 
+	private void tableHandle(Element content) {
+		// TODO Handle table to fit webview
+		Elements tables = content.getElementsByTag("table");
+		for(Element table : tables) {
+			table.attr("style", "width: 100%");
+			table.attr("border", "0");
+			
+			
+		}
+	}
+
+	private void imageHandle(Element content) {
+		// TODO Handle image in webpage to load easily
+		Elements imgs = content.getElementsByTag("img");
+
+		for (Element img : imgs) {
+
+			Attributes atts = img.attributes();
+			String src = atts.get("src");
+			for (Attribute att : atts) {
+				atts.remove(att.getKey());
+			}
+			img.attr("src", src);
+			img.attr("width", "100%");
+		}
+	}
+
+	private String getSlideImage(Element slide) {
+		/**
+		 * get Slide image html in case of the webpage containing slide images
+		 */
+		Element slideImage = slide.getElementsByTag("img").first();
+
+		String caption = slideImage.attributes().get("data-component-caption");
+		Attributes atts = slideImage.attributes();
+		String src = atts.get("src");
+		for (Attribute att : atts) {
+
+			atts.remove(att.getKey());
+
+		}
+		slideImage.attr("src", src);
+		slideImage.attr("width", "100%");
+		String html = slideImage.toString();
+		return html + caption;
+	}
+
 	private String getVideo(Element videoTag) {
-		// TODO Auto-generated method stub
+		// TODO get Video Html in case of the webpage is video page
 		String value = videoTag.attributes().get("value");
 		String openString = "trackurl=";
-		String closeString ="&objectid=";
+		String closeString = "&objectid=";
 		int startIndex = value.indexOf(openString);
 		int endIndex = value.indexOf(closeString);
-		String videoLink = value.substring(startIndex+openString.length(), endIndex);
-		String htmlVideo = "<video controls=\"\" autoplay=\"\" name=\"media\"><source src=\""+ videoLink + "\" type=\"video/mp4\" width=\"100%\"></video>";
-		
+		String videoLink = value.substring(startIndex + openString.length(),
+				endIndex);
+		String htmlVideo = "<video controls=\"\" autoplay=\"\" name=\"media\" width=\"100%\"><source src=\""
+				+ videoLink + "\" type=\"video/mp4\" ></video>";
+
 		return htmlVideo;
-		
+
 	}
 
 	/**
@@ -135,10 +161,9 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 		} else {
 
 		}
-		
-			webView.loadData(DisplayWebNewsFragment.htmlContent,
-					"text/html; charset=UTF-8", null);
-		
+
+		webView.loadData(DisplayWebNewsFragment.htmlContent,
+				"text/html; charset=UTF-8", null);
 
 	}
 
