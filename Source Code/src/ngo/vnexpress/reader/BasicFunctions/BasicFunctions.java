@@ -150,6 +150,7 @@ public class BasicFunctions {
 						MainActivity.activity);
 				RSSItem rss_item = (RSSItem) parent.getItemAtPosition(position);
 				WebSite website = rssDb.getSiteByLink(rss_item.getLink());
+				MainActivity.currentWeb = website;
 				// List<WebSite> websites = rssDb.getAllSitesByID();
 
 				// transfer link of current Item to other fragment
