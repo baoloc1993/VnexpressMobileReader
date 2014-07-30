@@ -17,7 +17,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.TaskStackBuilder;
+import android.support.v4.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -49,7 +49,7 @@ public class AdvertismentNotificationService extends Service {
 	@Override
 	public void onCreate() {
 		//Intent i = new Intent(this, MainActivity.class);
-		mContext = this.getApplicationContext();
+		mContext = this;
 		//Log.d("DEBUG", "CATE new " + String.valueOf(MainActivity.numberNewPost) );
 //		 Toast.makeText(this, "Congrats! MyService Created",
 //		 Toast.LENGTH_LONG).show();

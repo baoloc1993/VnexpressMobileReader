@@ -47,7 +47,7 @@ public class NotificationService extends Service {
 	@Override
 	public void onCreate() {
 		//Intent i = new Intent(this, MainActivity.class);
-		mContext = this.getApplicationContext();
+		mContext = this;
 		//Log.d("DEBUG", "CATE new " + String.valueOf(MainActivity.numberNewPost) );
 //		 Toast.makeText(this, "Congrats! MyService Created",
 //		 Toast.LENGTH_LONG).show();

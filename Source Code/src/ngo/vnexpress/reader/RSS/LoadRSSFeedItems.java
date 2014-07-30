@@ -39,6 +39,23 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 	}
 
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		if (MainActivity.FirstOpen) {
+			pDialog = new ProgressDialog(MainActivity.activity);
+			pDialog.setMessage("Ä�ang táº£i bÃ i bÃ¡o ...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(false);
+			
+				pDialog.show();
+			
+			MainActivity.FirstOpen = false;
+		} else {
+		}
+
+	}
+
 	/**
 	 * getting all recent articles and showing them in listview
 	 * */
@@ -48,9 +65,9 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		// String rss_url = args[0];
 		// IF INTERNET CONNECTING, RETRIVE DATA FROM RSS LINK
 		// list of rss items
-		if (BasicFunctions.isConnectingToInternet(MainActivity.activity
-				.getApplicationContext())) {
-			//Log.d("DEBUG", "CATE = " + MainActivity.nameCategory.toString() + " " + getRssUrl());
+		if (BasicFunctions.isConnectingToInternet(MainActivity.activity)) {
+			// Log.d("DEBUG", "CATE = " + MainActivity.nameCategory.toString() +
+			// " " + getRssUrl());
 			rssItems = rssParser.getRSSFeedItems(getRssUrl());
 			Collections.reverse(rssItems);
 		}
@@ -63,9 +80,10 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 			@Override
 			public void run() {
-//				RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
-//						MainActivity.activity);
-				RSSDatabaseHandler rssDb = RSSDatabaseHandler.getInstance(MainActivity.activity);	
+				// RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
+				// MainActivity.activity);
+				RSSDatabaseHandler rssDb = RSSDatabaseHandler
+						.getInstance(MainActivity.activity);
 				rssDb.getWritableDatabase();
 				/**
 				 * Updating parsed items into listview
@@ -95,11 +113,11 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 
 					// Add RSSItem to RSSItems
 					rssItemsDataBase.add(newItem);
-					//rssDb.close();
+					// rssDb.close();
 					// Log.d("DATABASE", "TABLE = " +
 					// rssItemsDataBase.get(0).getTitle());
 				}
-				
+
 				if (viewGroup instanceof ListView) {
 
 					ListNewsItemAdapter adapter = new ListNewsItemAdapter(
@@ -137,20 +155,6 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		}
 		if (pullToRefreshLayout != null) {
 			pullToRefreshLayout.setRefreshComplete();
-		}
-
-	}
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		if (MainActivity.FirstOpen) {
-			pDialog = new ProgressDialog(MainActivity.activity);
-			pDialog.setMessage("Đang tải bài báo ...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(false);
-			pDialog.show();
-			MainActivity.FirstOpen = false;
-		} else {
 		}
 
 	}
