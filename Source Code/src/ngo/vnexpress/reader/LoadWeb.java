@@ -43,45 +43,48 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 			Log.e(new Exception("not connect"));
 		}
 
-		Element title = doc.body().getElementsByClass("title_news").first();
-		if (title != null) { // in normal page
+		if (doc != null) {
+			Element title = doc.body().getElementsByClass("title_news").first();
+			if (title != null) { // in normal page
 
-			Element content = doc.body().getElementsByClass("fck_detail")
-					.first();
-			String contentHTML = "";
-			Elements slideshow = doc.body().getElementsByClass(
-					"item_slide_show");
-			for (Element slide : slideshow) {
-				String slideImageHtml = getSlideImage(slide);
+				Element content = doc.body().getElementsByClass("fck_detail")
+						.first();
+				String contentHTML = "";
+				Elements slideshow = doc.body().getElementsByClass(
+						"item_slide_show");
+				for (Element slide : slideshow) {
+					String slideImageHtml = getSlideImage(slide);
 
-				contentHTML += slideImageHtml;
+					contentHTML += slideImageHtml;
+
+				}
+				if (content != null) {
+					imageHandle(content);
+					tableHandle(content);
+					contentHTML += content.html();
+				}
+
+				DisplayWebNewsFragment.htmlContent = title.html() + contentHTML;
+
+			} else { // in video page
+
+				title = doc.body().getElementsByClass("video_top_title")
+						.first();
+				Element aTag = title.getElementsByTag("a").first();
+				aTag.removeAttr("href");
+				aTag.attr("style", "font-size:250%;font-weight:bold");
+				String htmlVideo = getVideo(doc.body()
+						.getElementsByAttributeValue("name", "flashvars")
+						.first());
+
+				Element short_des = doc.body()
+						.getElementsByClass("video_top_lead").first();
+				String html = "<div>" + title.html() + "<p>" + short_des.html()
+						+ "<p>" + htmlVideo + "<br><br></div>";
+				DisplayWebNewsFragment.htmlContent = html;
 
 			}
-			if (content != null) {
-				imageHandle(content);
-				tableHandle(content);
-				contentHTML += content.html();
-			}
-
-			DisplayWebNewsFragment.htmlContent = title.html() + contentHTML;
-
-		} else { // in video page
-
-			title = doc.body().getElementsByClass("video_top_title").first();
-			Element aTag = title.getElementsByTag("a").first();
-			aTag.removeAttr("href");
-			aTag.attr("style", "font-size:250%;font-weight:bold");
-			String htmlVideo = getVideo(doc.body()
-					.getElementsByAttributeValue("name", "flashvars").first());
-
-			Element short_des = doc.body().getElementsByClass("video_top_lead")
-					.first();
-			String html = "<div>" + title.html() + "<p>" + short_des.html()
-					+ "<p>" + htmlVideo + "<br><br></div>";
-			DisplayWebNewsFragment.htmlContent = html;
-
 		}
-
 		return null;
 		// TODO Auto-generated method stub
 
@@ -90,11 +93,10 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 	private void tableHandle(Element content) {
 		// TODO Handle table to fit webview
 		Elements tables = content.getElementsByTag("table");
-		for(Element table : tables) {
+		for (Element table : tables) {
 			table.attr("style", "width: 100%");
 			table.attr("border", "0");
-			
-			
+
 		}
 	}
 
