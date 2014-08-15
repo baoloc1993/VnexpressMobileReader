@@ -42,7 +42,7 @@ public class LoadRSSFeedItemsService extends LoadRSSFeedItems {
 	@Override
 	protected String doInBackground(String... args) {
 		// MainActivity.newArticlePerCate.clear();
-
+		
 		// newArticlePerCate
 		// Go through all categories inside an Asyntask
 		for (final NameCategories name : NameCategories.values()) {

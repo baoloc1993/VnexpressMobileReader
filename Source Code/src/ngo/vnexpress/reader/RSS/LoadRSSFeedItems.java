@@ -44,7 +44,7 @@ public class LoadRSSFeedItems extends AsyncTask<String, String, String> {
 		super.onPreExecute();
 		if (MainActivity.FirstOpen) {
 			pDialog = new ProgressDialog(MainActivity.activity);
-			pDialog.setMessage("Ä�ang táº£i bÃ i bÃ¡o ...");
+			pDialog.setMessage("Đang tải bài báo ...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(false);
 			

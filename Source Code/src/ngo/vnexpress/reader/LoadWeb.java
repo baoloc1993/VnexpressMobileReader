@@ -2,6 +2,7 @@ package ngo.vnexpress.reader;
 
 import java.io.IOException;
 
+import ngo.vnexpress.reader.BasicFunctions.BasicFunctions;
 import ngo.vnexpress.reader.Fragments.DisplayWebNewsFragment;
 
 import org.jsoup.nodes.Attribute;
@@ -17,73 +18,82 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoadWeb extends AsyncTask<String, String, String> {
 	String link;
 
 	private Document doc;
-	private ProgressDialog pDialog;
 	private WebView webView;
+	private boolean isLoadedFromCache = false;
 
 	public LoadWeb(String link, WebView webView) {
 		this.link = link;
 		this.webView = webView;
+
 	}
 
 	@Override
 	protected String doInBackground(String... params) {
+		if (BasicFunctions.isConnectingToInternet(MainActivity.activity)) {
+			try {
 
-		try {
+				setDoc(org.jsoup.Jsoup.connect(link).get());
 
-			setDoc(org.jsoup.Jsoup.connect(link).get());
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			Log.e(new Exception("not connect"));
-		}
-
-		if (doc != null) {
-			Element title = doc.body().getElementsByClass("title_news").first();
-			if (title != null) { // in normal page
-
-				Element content = doc.body().getElementsByClass("fck_detail")
-						.first();
-				String contentHTML = "";
-				Elements slideshow = doc.body().getElementsByClass(
-						"item_slide_show");
-				for (Element slide : slideshow) {
-					String slideImageHtml = getSlideImage(slide);
-
-					contentHTML += slideImageHtml;
-
-				}
-				if (content != null) {
-					imageHandle(content);
-					tableHandle(content);
-					contentHTML += content.html();
-				}
-
-				DisplayWebNewsFragment.htmlContent = title.html() + contentHTML;
-
-			} else { // in video page
-
-				title = doc.body().getElementsByClass("video_top_title")
-						.first();
-				Element aTag = title.getElementsByTag("a").first();
-				aTag.removeAttr("href");
-				aTag.attr("style", "font-size:250%;font-weight:bold");
-				String htmlVideo = getVideo(doc.body()
-						.getElementsByAttributeValue("name", "flashvars")
-						.first());
-
-				Element short_des = doc.body()
-						.getElementsByClass("video_top_lead").first();
-				String html = "<div>" + title.html() + "<p>" + short_des.html()
-						+ "<p>" + htmlVideo + "<br><br></div>";
-				DisplayWebNewsFragment.htmlContent = html;
-
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				Log.e(new Exception("not connect"));
 			}
+
+			if (doc != null) {
+				Element title = doc.body().getElementsByClass("title_news")
+						.first();
+				if (title != null) { // in normal page
+
+					Element content = doc.body()
+							.getElementsByClass("fck_detail").first();
+					String contentHTML = "";
+					Elements slideshow = doc.body().getElementsByClass(
+							"item_slide_show");
+					for (Element slide : slideshow) {
+						String slideImageHtml = getSlideImage(slide);
+
+						contentHTML += slideImageHtml;
+
+					}
+					if (content != null) {
+						imageHandle(content);
+						tableHandle(content);
+						contentHTML += content.html();
+					}
+
+					DisplayWebNewsFragment.htmlContent = title.html()
+							+ contentHTML;
+
+				} else { // in video page
+
+					title = doc.body().getElementsByClass("video_top_title")
+							.first();
+					Element aTag = title.getElementsByTag("a").first();
+					aTag.removeAttr("href");
+					aTag.attr("style", "font-size:250%;font-weight:bold");
+					String htmlVideo = getVideo(doc.body()
+							.getElementsByAttributeValue("name", "flashvars")
+							.first());
+
+					Element short_des = doc.body()
+							.getElementsByClass("video_top_lead").first();
+					String html = "<div>" + title.html() + "<p>"
+							+ short_des.html() + "<p>" + htmlVideo
+							+ "<br><br></div>";
+					DisplayWebNewsFragment.htmlContent = html;
+
+				}
+			}
+		}else {
+			DisplayWebNewsFragment.htmlContent = "No internet acess";
 		}
 		return null;
 		// TODO Auto-generated method stub
@@ -157,13 +167,7 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 	 * **/
 	@Override
 	protected void onPostExecute(String args) {
-		// dismiss the dialog after getting all products
-		if (pDialog != null) {
-			pDialog.dismiss();
-		} else {
-
-		}
-
+		
 		webView.loadData(DisplayWebNewsFragment.htmlContent,
 				"text/html; charset=UTF-8", null);
 
@@ -173,11 +177,7 @@ public class LoadWeb extends AsyncTask<String, String, String> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 
-		pDialog = new ProgressDialog(MainActivity.activity);
-		pDialog.setMessage("Đang tải bài báo ...");
-		pDialog.setIndeterminate(false);
-		pDialog.setCancelable(false);
-		pDialog.show();
+		
 
 	}
 

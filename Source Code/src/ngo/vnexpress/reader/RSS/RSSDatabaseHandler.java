@@ -266,15 +266,14 @@ public class RSSDatabaseHandler extends SQLiteOpenHelper {
 			cursor.moveToFirst();
 		}
 
-		WebSite site = new WebSite(cursor.getString(1), cursor.getString(2),
-				cursor.getString(3), cursor.getString(4), cursor.getString(5));
+		WebSite site = new WebSite(cursor.getString(cursor.getColumnIndex(KEY_TITLE)),
+									cursor.getString(cursor.getColumnIndex(KEY_LINK)),
+									cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)),
+									cursor.getString(cursor.getColumnIndex(KEY_PUBLIC_DATE)),
+									cursor.getString(cursor.getColumnIndex(KEY_IMG_LINK)));
 
-		site.setId(Integer.parseInt(cursor.getString(0)));
-		site.setTitle(cursor.getString(1));
-		site.setLink(cursor.getString(2));
-		site.setImageLink(cursor.getString(3));
-		site.setDescription(cursor.getString(4));
-		site.setPubDate(cursor.getString(5));
+		site.setId(cursor.getInt((cursor.getColumnIndex(KEY_ID))));
+
 		cursor.close();
 		db.close();
 		return site;

@@ -149,6 +149,7 @@ public class BasicFunctions {
 				RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
 						MainActivity.activity);
 				RSSItem rss_item = (RSSItem) parent.getItemAtPosition(position);
+				
 				WebSite website = rssDb.getSiteByLink(rss_item.getLink());
 				MainActivity.currentWeb = website;
 				// List<WebSite> websites = rssDb.getAllSitesByID();

@@ -6,6 +6,8 @@ package ngo.vnexpress.reader.backgroundnotification;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.NameCategories;
@@ -63,7 +65,22 @@ public class NotificationService extends Service {
 				//MainActivity.numberNewPost = 0;
 				if (!MainActivity.stopService){
 					//Log.d("DEBUG" , "TICK LoadRSS");
+					try {
 					new LoadRSSFeedItemsService().execute();
+					} catch (IllegalStateException e) { // if the exception occurs, run this method again after 2s
+						Toast.makeText(mContext, "Đang tải bài báo", Toast.LENGTH_SHORT).show();
+						Timer timer = new Timer();
+						TimerTask task = new TimerTask() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								new LoadRSSFeedItemsService().execute();
+							}
+						};
+						
+						timer.schedule(task, 2000);
+					}
 				}
 
 			}
