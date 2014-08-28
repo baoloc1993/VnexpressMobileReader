@@ -30,7 +30,7 @@ import android.widget.Toast;
 
 public class AdvertismentNotificationService extends Service {
 
-	private static final int TIME_PERIOD_HOUR = 3;
+	private static final int TIME_PERIOD_HOUR = 10;
 	private CountDownTimer countDownTimer;
 
 	private int notificationIdOne;
@@ -111,11 +111,9 @@ public class AdvertismentNotificationService extends Service {
 				this);
 		NotificationCompat.InboxStyle inboxStyle =
 		        new NotificationCompat.InboxStyle();
-		inboxStyle.setBigContentTitle("CTY Thương mại & XNK THANH DŨNG");
-		inboxStyle.addLine("Chuyên hàng hóa, thiết bị nhập khẩu từ Trung Quốc");
-		inboxStyle.addLine("Nhập khẩu các sản phẩm bảo hộ lao động phòng sạch");
+		inboxStyle.setBigContentTitle("Mặt nạ thoát hiểm khi hỏa hoạn");
 		inboxStyle.addLine("Điện thoại: 04.35542481 - 097.406.9999");
-		inboxStyle.addLine("Website: www.muahangchina.com");
+		inboxStyle.addLine("Website: www.matnathoathiem.com");
 		
 		//for (int i=0; i < events.length; i++) {
 
@@ -124,16 +122,16 @@ public class AdvertismentNotificationService extends Service {
 		//Set parameter of Notification which is displayed
 		//String time = getCurrentTime();
 		// Log.d("DEBUG", "DATE  = " + time);
-		mBuilder.setContentTitle("CTY Thương mại & XNK THANH DŨNG");
-		mBuilder.setContentText("Chuyên hàng hóa, thiết bị nhập khẩu từ Trung Quốc" );
-		mBuilder.setTicker("Nhập khẩu trực tiếp từ các nhà sản xuất tại Trung quốc - Phân phối trên phạm vi toàn quốc." );
+		mBuilder.setContentTitle("Mặt nạ thoát hiểm khi hỏa hoạn");
+		mBuilder.setContentText("Mặt nạ chống khói độc" );
+		mBuilder.setTicker("Giúp con người có thể thoát hiểm trong những đám cháy trên nhà cao tầng" );
 		mBuilder.setSmallIcon(R.drawable.vnexpress);
 		
 		
 		mBuilder.setStyle(inboxStyle);
 		//Notification disappear when click to notification
 		mBuilder.setAutoCancel(true);
-		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://muahangchina.com/index.php"));
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://matnathoathiem.com"));
 		//startActivity(browserIntent);
 		//Intent i = new Intent(this, MainActivity.class);
 		
