@@ -116,8 +116,8 @@ public class MainActivity extends FragmentActivity implements
 		// Start service
 		stopService = true;
 		notiService = new Intent(this, NotificationService.class);
-		adService = new Intent(this, AdvertismentNotificationService.class);
-		startService(adService);
+//		adService = new Intent(this, AdvertismentNotificationService.class);
+//		startService(adService);
 
 		// Initialize Map
 		if (NotificationService.newArticlePerCate.isEmpty()) {
