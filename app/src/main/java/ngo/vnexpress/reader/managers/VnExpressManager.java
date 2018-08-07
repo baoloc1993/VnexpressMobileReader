@@ -14,21 +14,23 @@ public class VnExpressManager extends RSSItemManager {
     private VnExpressManager(Class<? extends RSSItem> type) {
         super(type);
     }
-    public synchronized static VnExpressManager getInstance(){
-        if(instance == null){
+
+    public synchronized static VnExpressManager getInstance() {
+        if (instance == null) {
             instance = new VnExpressManager(VnExpressItem.class);
         }
         return instance;
     }
+
     @Override
     protected Map<String, String> fetchCategories() {
         HashMap<String, String> categories = new HashMap<>();
-        categories.put("Homepage","https://vnexpress.net/rss/tin-moi-nhat.rss");
-        categories.put("Headlines","https://vnexpress.net/rss/thoi-su.rss");
-        categories.put("Health","https://vnexpress.net/rss/suc-khoe.rss");
-        categories.put("World","https://vnexpress.net/rss/the-gioi.rss");
-        categories.put("Business","https://vnexpress.net/rss/kinh-doanh.rss");
-        categories.put("Sport","https://vnexpress.net/rss/the-thao.rss");
+        categories.put("Homepage", "https://vnexpress.net/rss/tin-moi-nhat.rss");
+        categories.put("Headlines", "https://vnexpress.net/rss/thoi-su.rss");
+        categories.put("Health", "https://vnexpress.net/rss/suc-khoe.rss");
+        categories.put("World", "https://vnexpress.net/rss/the-gioi.rss");
+        categories.put("Business", "https://vnexpress.net/rss/kinh-doanh.rss");
+        categories.put("Sport", "https://vnexpress.net/rss/the-thao.rss");
 
         return categories;
     }
@@ -36,11 +38,6 @@ public class VnExpressManager extends RSSItemManager {
     @Override
     protected String setSource() {
         return "VnExpress";
-    }
-
-    @Override
-    protected RSSItem createItem() {
-        return new VnExpressItem();
     }
 
     @NonNull
@@ -53,5 +50,10 @@ public class VnExpressManager extends RSSItemManager {
     @Override
     protected String setToolbarTextColor() {
         return "#ffffff";
+    }
+
+    @Override
+    protected RSSItem createItem() {
+        return new VnExpressItem();
     }
 }

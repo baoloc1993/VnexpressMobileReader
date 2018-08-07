@@ -35,21 +35,22 @@ public class LoadingRecyclerView extends RelativeLayout implements LoadingCompon
         initialize(this.getContext());
     }
 
-    public void initialize(Context context){
+    public void initialize(Context context) {
 
 
-        for(int i = 0 ; i < this.getChildCount();i++){
+        for (int i = 0; i < this.getChildCount(); i++) {
             View child = this.getChildAt(i);
-            if(child instanceof RecyclerView){
+            if (child instanceof RecyclerView) {
                 this.recyclerView = (RecyclerView) child;
 
             }
-            if(child instanceof ProgressBar){
+            if (child instanceof ProgressBar) {
                 this.progressBar = (ProgressBar) child;
             }
         }
         progressBar.setVisibility(GONE);
     }
+
     @Override
     public void showLoading() {
         recyclerView.setVisibility(GONE);

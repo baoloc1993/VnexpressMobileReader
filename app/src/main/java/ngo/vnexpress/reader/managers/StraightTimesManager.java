@@ -15,8 +15,8 @@ public class StraightTimesManager extends RSSItemManager {
         super(type);
     }
 
-    public synchronized static StraightTimesManager getInstance(){
-        if(instance == null){
+    public synchronized static StraightTimesManager getInstance() {
+        if (instance == null) {
             instance = new StraightTimesManager(StraightTimesItem.class);
         }
         return instance;
@@ -25,11 +25,11 @@ public class StraightTimesManager extends RSSItemManager {
     @Override
     protected Map<String, String> fetchCategories() {
         HashMap<String, String> categories = new HashMap<>();
-        categories.put("Singapore","https://www.straitstimes.com/news/singapore/rss.xml");
-        categories.put("Asia","https://www.straitstimes.com/news/asia/rss.xml");
-        categories.put("World","https://www.straitstimes.com/news/world/rss.xml");
-        categories.put("Business","https://www.straitstimes.com/news/business/rss.xml");
-        categories.put("Sport","https://www.straitstimes.com/news/sport/rss.xml");
+        categories.put("Singapore", "https://www.straitstimes.com/news/singapore/rss.xml");
+        categories.put("Asia", "https://www.straitstimes.com/news/asia/rss.xml");
+        categories.put("World", "https://www.straitstimes.com/news/world/rss.xml");
+        categories.put("Business", "https://www.straitstimes.com/news/business/rss.xml");
+        categories.put("Sport", "https://www.straitstimes.com/news/sport/rss.xml");
 
         return categories;
 
@@ -38,11 +38,6 @@ public class StraightTimesManager extends RSSItemManager {
     @Override
     protected String setSource() {
         return "The Straights Times";
-    }
-
-    @Override
-    protected RSSItem createItem() {
-        return new StraightTimesItem();
     }
 
     @NonNull
@@ -55,5 +50,10 @@ public class StraightTimesManager extends RSSItemManager {
     @Override
     protected String setToolbarTextColor() {
         return "#FFFFFF";
+    }
+
+    @Override
+    protected RSSItem createItem() {
+        return new StraightTimesItem();
     }
 }

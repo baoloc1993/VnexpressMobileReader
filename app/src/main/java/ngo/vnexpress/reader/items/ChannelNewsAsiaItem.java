@@ -1,13 +1,14 @@
 package ngo.vnexpress.reader.items;
 
+import com.annimon.stream.Stream;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.managers.RSSItemManager;
 
-public class ChannelNewsAsiaItem extends RSSItem{
+public class ChannelNewsAsiaItem extends RSSItem {
     @Override
     public void fetchRSS(Element item) {
         title = item.getElementsByTag("title").text();
@@ -34,14 +35,14 @@ public class ChannelNewsAsiaItem extends RSSItem{
 
 
             final String[] content = {""};
-            articleRoot.getElementsByTag("p").eachText().forEach(s -> content[0] += (s + "\n\n"));
+            Stream.of(articleRoot.getElementsByTag("p").eachText()).forEach( s -> content[0] += (s + "\n\n"));
             setContent(content[0]);
 
         } catch (Exception e) {
             setContent("This article is premium");
-        }finally {
+        } finally {
             isCached = true;
-            RSSItemManager.getInstance(this.getClass()).saveItems(MainActivity.activity);
+            RSSItemManager.getInstance(this.getClass()).saveItems();
         }
     }
 }

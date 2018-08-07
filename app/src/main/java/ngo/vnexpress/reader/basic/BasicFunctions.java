@@ -1,43 +1,35 @@
 package ngo.vnexpress.reader.basic;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.res.Resources;
+
+import java.net.InetAddress;
 
 /**
- *
  * @author Fabio Ngo Class store basic functions ( most-used functions)
  */
 public class BasicFunctions {
 
-	/**
-	 * Convert DP to PX
-	 */
-	public static int dpToPx(int dp, Context context) {
-		float density = context.getResources().getDisplayMetrics().density;
-		return Math.round(dp * density);
-	}
+    /**
+     * Convert DP to PX
+     */
+    public static int dpToPx(int dp, Resources resources) {
+        float density = resources.getDisplayMetrics().density;
+        return Math.round(dp * density);
+    }
 
 
+    // CHECK IF IS CONNECTION TO INTERNET OR NOT
+    public static boolean isConnectingToInternet() {
 
-	// CHECK IF IS CONNECTION TO INTERNET OR NOT
-	public static boolean isConnectingToInternet(Context context) {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
 
-		ConnectivityManager connectivity = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		if (connectivity != null) {
-			NetworkInfo[] info = connectivity.getAllNetworkInfo();
-			if (info != null) {
-				for (NetworkInfo element : info) {
-					if (element.getState() == NetworkInfo.State.CONNECTED) {
-						return true;
-					}
-				}
-			}
-
-		}
-		return false;
-	}
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 
 }

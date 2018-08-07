@@ -2,6 +2,8 @@ package ngo.vnexpress.reader.managers;
 
 import android.support.annotation.NonNull;
 
+import com.annimon.stream.Stream;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
@@ -12,9 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.items.ChannelNewsAsiaItem;
 import ngo.vnexpress.reader.items.RSSItem;
 import ngo.vnexpress.reader.items.StraightTimesItem;
@@ -59,7 +59,7 @@ public abstract class RSSItemManager extends ItemManager<RSSItem> {
     RSSItemManager(Class<? extends RSSItem> type) {
         super(type);
         this.categories = fetchCategories();
-        this.currentCategory = this.getCategories().stream().findFirst().orElse("");
+        this.currentCategory = Stream.of(this.getCategories()).findFirst().orElse("");
         this.source = this.setSource();
         this.headerBgColor = this.setHeaderBgColor();
         this.toolbarTextColor = this.setToolbarTextColor();
@@ -74,14 +74,14 @@ public abstract class RSSItemManager extends ItemManager<RSSItem> {
             this.add(rssItem);
 
         }
-        saveItems(MainActivity.activity);
+        saveItems();
     }
 
     protected abstract RSSItem createItem();
 
     public List<RSSItem> getItemByCategory(String category) {
-        loadItems(MainActivity.activity);
-        return items.stream().filter(item -> item.getCategory().equals(category)).sorted((o1, o2) -> {
+        loadItems();
+        return Stream.of(items).filter(item -> item.getCategory().equals(category)).sorted((o1, o2) -> {
             SimpleDateFormat date1 = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
             SimpleDateFormat date2 = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
             try {
@@ -94,7 +94,7 @@ public abstract class RSSItemManager extends ItemManager<RSSItem> {
                 e.printStackTrace();
             }
             return 0;
-        }).collect(Collectors.toList());
+        }).collect(com.annimon.stream.Collectors.toList());
     }
 
     public List<RSSItem> getItemByCurrentCategory() {

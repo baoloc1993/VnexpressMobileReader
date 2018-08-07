@@ -1,10 +1,12 @@
 package ngo.vnexpress.reader.adapters;
 
-/**
- * Adapter of List Fragment
+/*
+  Adapter of List Fragment
  */
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -27,12 +29,12 @@ public class ListNewsItemAdapter extends RecyclerView.Adapter<ListNewsItemAdapte
 
     // declaring our ArrayList of items
     private List<RSSItem> objects;
+    private FragmentManager fragmentManager;
 
-    /**
-     * @param objects
-     */
-    public ListNewsItemAdapter(List<RSSItem> objects) {
+
+    public ListNewsItemAdapter(List<RSSItem> objects, FragmentManager fragmentManager) {
         this.objects = objects;
+        this.fragmentManager = fragmentManager;
     }
 
     /*
@@ -71,7 +73,7 @@ public class ListNewsItemAdapter extends RecyclerView.Adapter<ListNewsItemAdapte
         // if not, assign some text!
         // Config parameter of each textview and imageview(Resize)
         // For TITLE, ICON, CONTENT, TIMESTAMP
-        return new ViewHolder(v,title, icon, content, timestamp);
+        return new ViewHolder(v, title, icon, content, timestamp, fragmentManager);
 
 
     }
@@ -114,21 +116,13 @@ public class ListNewsItemAdapter extends RecyclerView.Adapter<ListNewsItemAdapte
         TextView content;
         TextView timestamp;
         View container;
-        public RSSItem getNews() {
-            return news;
-        }
-
-        public void setNews(RSSItem news) {
-            this.news = news;
-        }
-
         RSSItem news;
 
-        ViewHolder(View container,TextView title, ImageView icon, TextView content, TextView timestamp) {
+        ViewHolder(View container, TextView title, ImageView icon, TextView content, TextView timestamp, FragmentManager fragmentManager) {
             super(container);
             container.setOnClickListener(view -> {
                 WholeNewsDialog dialog = new WholeNewsDialog(news);
-                android.app.FragmentTransaction ft = MainActivity.activity.getFragmentManager().beginTransaction();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
                 dialog.show(ft, WholeNewsDialog.TAG);
             });
             this.title = title;
@@ -136,6 +130,14 @@ public class ListNewsItemAdapter extends RecyclerView.Adapter<ListNewsItemAdapte
             this.content = content;
             this.timestamp = timestamp;
             this.container = container;
+        }
+
+        public RSSItem getNews() {
+            return news;
+        }
+
+        public void setNews(RSSItem news) {
+            this.news = news;
         }
     }
 }

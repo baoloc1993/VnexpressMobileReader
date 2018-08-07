@@ -1,14 +1,19 @@
 package ngo.vnexpress.reader.views;
 
+
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +23,6 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.squareup.picasso.Picasso;
 
@@ -33,13 +37,53 @@ import static android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACK
 
 public class WholeNewsDialog extends DialogFragment implements LoadingComponent {
     public static final String TAG = "WholeNewsDialog";
+    private Toolbar toolbar;
     private RSSItem news;
     private View rootView;
     private View newsContainer;
     private ProgressBar progressBar;
-    Toolbar toolbar;
+
     public WholeNewsDialog(RSSItem news) {
         this.news = news;
+    }
+
+    public static void loadBackground(WholeNewsDialog dialog) {
+        View view = dialog.rootView;
+        RSSItem newsItem = dialog.news;
+
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                newsItem.fetchContent();
+                return "fetched";
+            }
+
+            @Override
+            protected void onPreExecute() {
+                dialog.showLoading();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                dialog.hideLoading();
+                TextView title = view.findViewById(R.id.news_title);
+                TextView description = view.findViewById(R.id.news_description);
+                TextView readMore = view.findViewById(R.id.news_read_more);
+                ImageView newsImage = view.findViewById(R.id.news_image);
+                ScrollView scrollView = view.findViewById(R.id.news_scrollView);
+                scrollView.scrollTo(0, 0);
+                title.setText(newsItem.getTitle());
+                description.setText(Html.fromHtml(newsItem.getDescription()));
+                readMore.setText(newsItem.getContent());
+                int width = MainActivity.screenWidth;
+                int height = (int) (width * 1080 / 1920.0);
+                if (newsItem.getImgUrl().equals("")) {
+                    newsImage.setVisibility(View.GONE);
+                } else {
+                    Picasso.get().load(newsItem.getImgUrl()).error(R.drawable.image_not_found).resize(width, height).into(newsImage);
+                }
+            }
+        }.execute();
     }
 
     @Override
@@ -59,13 +103,14 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
             dialog.getWindow().setLayout(width, height);
             dialog.getWindow().addFlags(FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             RSSItemManager rssItemManager = RSSItemManager.getInstance(MainActivity.currentSource);
-            dialog.getWindow().setStatusBarColor(Color.parseColor(rssItemManager.getHeaderBgColor()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                dialog.getWindow().setStatusBarColor(Color.parseColor(rssItemManager.getHeaderBgColor()));
+            }
+
+
 
         }
     }
-
-
-
 
     @Nullable
     @Override
@@ -84,21 +129,22 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
         toolbar.setTitleTextColor(textColor);
 
         toolbar.setTitle(news.getSource());
-        toolbar.setElevation(12);
+
 
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-        toolbar.getNavigationIcon().setTint(textColor);
+        toolbar.getNavigationIcon().mutate().setColorFilter(textColor, PorterDuff.Mode.SRC_IN);
+//        DrawableCompat.setTint(toolbar.getNavigationIcon().mutate(),textColor);
+//        DrawableCompat.setTintMode(toolbar.getNavigationIcon(), PorterDuff.Mode.SRC_IN);
         toolbar.setSubtitle(news.getCategory());
 
         toolbar.inflateMenu(R.menu.webview);
-        for(int i = 0 ; i < toolbar.getMenu().size();i++){
-            toolbar.getMenu().getItem(i).setIconTintList(ColorStateList.valueOf(textColor));
+        for (int i = 0; i < toolbar.getMenu().size(); i++) {
+            MenuItemCompat.setIconTintList(toolbar.getMenu().getItem(i),ColorStateList.valueOf(textColor));
         }
-        toolbar.getOverflowIcon().setTint(textColor);
-        toolbar.setTitleMarginEnd(100);
+
         toolbar.setNavigationOnClickListener(item -> this.dismiss());
         toolbar.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.next_article:
                     goNextArticle();
                     break;
@@ -118,10 +164,9 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
 
     }
 
-
     private void share() {
         Intent intent = new Intent();
-        intent.putExtra(Intent.EXTRA_TEXT,"Send from app: "+news.getLink());
+        intent.putExtra(Intent.EXTRA_TEXT, "Send from app: " + news.getLink());
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
 
@@ -131,10 +176,10 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
     private void goNextArticle() {
         List<RSSItem> listNews = RSSItemManager.getInstance(MainActivity.currentSource).getItemByCategory(news.getCategory());
         int currentIndex = listNews.indexOf(news);
-        if(currentIndex == 0){
-            Toast.makeText(getContext(),"No later article",Toast.LENGTH_SHORT).show();
-        }else{
-            news = listNews.get(currentIndex-1);
+        if (currentIndex == 0) {
+            Toast.makeText(getContext(), "No later article", Toast.LENGTH_SHORT).show();
+        } else {
+            news = listNews.get(currentIndex - 1);
             showArticle();
         }
     }
@@ -142,61 +187,22 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
     private void goPrevArticle() {
         List<RSSItem> listNews = RSSItemManager.getInstance(MainActivity.currentSource).getItemByCategory(news.getCategory());
         int currentIndex = listNews.indexOf(news);
-        if(currentIndex + 1 == listNews.size()){
-            Toast.makeText(getContext(),"No older article",Toast.LENGTH_SHORT).show();
+        if (currentIndex + 1 == listNews.size()) {
+            Toast.makeText(getContext(), "No older article", Toast.LENGTH_SHORT).show();
 
-        }else{
-            news = listNews.get(currentIndex+1);
+        } else {
+            news = listNews.get(currentIndex + 1);
             showArticle();
         }
 
     }
 
-    public static void loadBackground(WholeNewsDialog dialog){
-        View view = dialog.rootView;
-        RSSItem newsItem = dialog.news;
-
-        new AsyncTask<String, String, String>() {
-            @Override
-            protected void onPreExecute() {
-                dialog.showLoading();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                dialog.hideLoading();
-                TextView title = view.findViewById(R.id.news_title);
-                TextView description = view.findViewById(R.id.news_description);
-                TextView readMore = view.findViewById(R.id.news_read_more);
-                ImageView newsImage = view.findViewById(R.id.news_image);
-                ScrollView scrollView = view.findViewById(R.id.news_scrollView);
-                scrollView.scrollTo(0,0);
-                title.setText(newsItem.getTitle());
-                description.setText(Html.fromHtml(newsItem.getDescription()));
-                readMore.setText(newsItem.getContent());
-                int width = MainActivity.screenWidth;
-                int height = (int) (width*1080/1920.0);
-                if(newsItem.getImgUrl().equals("")){
-                    newsImage.setVisibility(View.GONE);
-                }else{
-                    Picasso.get().load(newsItem.getImgUrl()).error(R.drawable.image_not_found).resize(width,height).into(newsImage);
-                }
-            }
-
-            @Override
-            protected String doInBackground(String... strings) {
-                newsItem.fetchContent();
-                return "fetched";
-            }
-        }.execute();
-    }
     private void showArticle() {
 
-        if(rootView == null){
+        if (rootView == null) {
             return;
         }
         loadBackground(this);
-
 
 
     }

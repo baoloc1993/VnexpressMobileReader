@@ -1,11 +1,12 @@
 package ngo.vnexpress.reader.items;
 
+import com.annimon.stream.Stream;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.managers.RSSItemManager;
 
 public class StraightTimesItem extends RSSItem {
@@ -38,14 +39,14 @@ public class StraightTimesItem extends RSSItem {
 
             Element readmoreSection = articleRoot.getElementsByAttributeValueContaining("itemprop", "articleBody").get(0);
             final String[] content = {""};
-            readmoreSection.getElementsByTag("p").eachText().forEach(s -> content[0] += (s + "\n\n"));
+            Stream.of(readmoreSection.getElementsByTag("p").eachText()).forEach((String s) -> content[0] += (s + "\n\n"));
             setContent(content[0]);
 
         } catch (Exception e) {
             setContent("This article is premium");
-        }finally {
+        } finally {
             isCached = true;
-            RSSItemManager.getInstance(this.getClass()).saveItems(MainActivity.activity);
+            RSSItemManager.getInstance(this.getClass()).saveItems();
         }
     }
 }

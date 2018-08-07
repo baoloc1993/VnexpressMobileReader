@@ -5,18 +5,14 @@ import java.util.UUID;
 
 public abstract class Item implements Serializable {
     protected String title;
-
-    public String getId() {
-        return id;
-    }
-
     protected String id;
 
     public Item(String title) {
         this.title = title;
-        id= UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
     }
-    public Item(String title,String id) {
+
+    public Item(String title, String id) {
         this.title = title;
         this.id = id;
     }
@@ -32,5 +28,9 @@ public abstract class Item implements Serializable {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Item && this.getId().equals(((Item) obj).getId());
+    }
+
+    public String getId() {
+        return id;
     }
 }

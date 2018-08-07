@@ -1,7 +1,8 @@
 package ngo.vnexpress.reader.managers;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
+
+import com.annimon.stream.Stream;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.items.Item;
@@ -21,9 +21,11 @@ import ngo.vnexpress.reader.items.Item;
 public class ItemManager<T extends Item> implements Collection<T> {
     protected ArrayList<T> items;
     private String fileName;
+    private File fileDir;
 
 
     ItemManager(Class<? extends T> type) {
+        this.fileDir = MainActivity.fileDir;
         items = new ArrayList<>();
         fileName = type.getName() + ".txt";
     }
@@ -63,10 +65,10 @@ public class ItemManager<T extends Item> implements Collection<T> {
 
     @Override
     public boolean add(T t) {
-        if(!this.contains(t)){
-            items.add(0,t);
+        if (!this.contains(t)) {
+            items.add(0, t);
             return true;
-        }else{
+        } else {
             return false;
         }
 
@@ -102,20 +104,9 @@ public class ItemManager<T extends Item> implements Collection<T> {
         items.clear();
     }
 
-    public void saveItems(Context context) {
+    public ArrayList<T> loadItems() {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(context.getExternalFilesDir(null), fileName));
-            ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
-            out.writeObject(items);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ArrayList<T> loadItems(Context context) {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(new File(context.getExternalFilesDir(null), fileName));
+            FileInputStream fileInputStream = new FileInputStream(new File(fileDir, fileName));
             ObjectInputStream out = new ObjectInputStream(fileInputStream);
             items = (ArrayList<T>) out.readObject();
 
@@ -130,12 +121,24 @@ public class ItemManager<T extends Item> implements Collection<T> {
         for (int i = 0; i < items.size(); i++) {
             if (item.getId().equals(items.get(i).getId())) {
                 items.set(i, item);
-                saveItems(MainActivity.activity);
+                saveItems();
                 break;
             }
         }
     }
-    public T getItemById(UUID id) throws NoSuchElementException{
-        return items.stream().filter(t -> t.getId().equals(id)).findFirst().orElse(null);
+
+    public void saveItems() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(fileDir, fileName));
+            ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+            out.writeObject(items);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public T getItemById(String id) throws NoSuchElementException {
+        return Stream.of(items).filter(t -> t.getId().equals(id)).findFirst().orElse(null);
     }
 }

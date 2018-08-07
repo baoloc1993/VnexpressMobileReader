@@ -9,6 +9,23 @@ import java.util.UUID;
 
 
 public abstract class RSSItem extends Item {
+    // All <item> node name
+    protected String link = "";
+    protected String description = "";
+    protected String pubDate = "";
+    protected String imgUrl = "";
+    protected String content = "";
+    protected String category = "";
+    protected boolean isCached = false;
+    protected String source = "";
+    // constructor with parameters
+    public RSSItem() {
+        super("", UUID.randomUUID().toString());
+    }
+    private RSSItem(String title) {
+        super(title);
+    }
+
     public String getContent() {
         return content;
     }
@@ -19,18 +36,12 @@ public abstract class RSSItem extends Item {
 
     /**
      * Fetch news Image and content from element
+     *
      * @param item
      */
     public abstract void fetchRSS(Element item);
+    // constructor
 
-    // All <item> node name
-    protected String link="";
-    protected String description="";
-    protected String pubDate="";
-    protected String imgUrl="";
-    protected String content="";
-    protected String category="";
-    protected boolean isCached = false;
     public String getSource() {
         return source;
     }
@@ -38,48 +49,6 @@ public abstract class RSSItem extends Item {
     public void setSource(String source) {
         this.source = source;
     }
-
-    protected String source="";
-    // constructor
-
-
-    // constructor with parameters
-    public RSSItem() {
-        super("", UUID.randomUUID().toString());
-    }
-
-
-
-    private RSSItem(String title) {
-        super(title);
-    }
-
-    /**
-     * All SET methods
-     */
-
-
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    // public void setGuid(String guid){
-    // this._guid = guid;
-    // }
-
-    public void setImgUrl(String _img_url) {
-        this.imgUrl = _img_url;
-    }
-
 
     /**
      * All GET methods
@@ -89,31 +58,50 @@ public abstract class RSSItem extends Item {
         return id;
     }
 
-
     public String getLink() {
         return this.link;
     }
 
+    /**
+     * All SET methods
+     */
+
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    // public void setGuid(String guid){
+    // this._guid = guid;
+    // }
+
     public String getDescription() {
         return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPubDate() {
         return this.pubDate;
     }
 
-    // public String getGuid(){
-    // return this._guid;
-    // }
-
-
-
-
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
+    }
 
     public String getImgUrl() {
         return imgUrl;
     }
 
+    // public String getGuid(){
+    // return this._guid;
+    // }
+
+    public void setImgUrl(String _img_url) {
+        this.imgUrl = _img_url;
+    }
 
     public String getCategory() {
         return category;

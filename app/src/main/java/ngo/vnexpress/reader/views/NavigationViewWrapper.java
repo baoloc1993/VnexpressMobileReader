@@ -3,8 +3,11 @@ package ngo.vnexpress.reader.views;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
 
@@ -12,32 +15,37 @@ import ngo.vnexpress.reader.MainActivity;
 import ngo.vnexpress.reader.R;
 import ngo.vnexpress.reader.managers.RSSItemManager;
 
-public class NavigationViewWraper {
+public class NavigationViewWrapper {
     private View header;
-    public NavigationViewWraper(NavigationView navigationView) {
+    private NavigationView navigationView;
+
+    public NavigationViewWrapper(NavigationView navigationView) {
         this.navigationView = navigationView;
     }
-    public void iniNavigationView(){
+
+    public void iniNavigationView(MainActivity activity) {
         header = navigationView.getHeaderView(0);
         header.findViewById(R.id.navigation_header_container);
         Menu menu = navigationView.getMenu();
-        ArrayList<Class> newsSources = RSSItemManager.getRSSItemTypes();
-        newsSources.stream().forEach((Class item) ->{
-            int index = newsSources.indexOf(item);
-            menu.add(0,index,index,RSSItemManager.getInstance(item).getSource());
+        final ArrayList<Class> newsSources = RSSItemManager.getRSSItemTypes();
+        Stream.of(newsSources).forEach((Class newsSource) -> {
+            int index = newsSources.indexOf(newsSource);
+            menu.add(0, index, index, RSSItemManager.getInstance(newsSource).getSource());
         });
-        navigationView.setNavigationItemSelectedListener(item -> {
+        navigationView.setNavigationItemSelectedListener((MenuItem item) -> {
 
-            MainActivity.activity.changeSource(newsSources.get(item.getItemId()));
+            activity.changeSource(newsSources.get(item.getItemId()));
             return true;
         });
     }
-    public void updateNavigationView(){
+
+    public void updateNavigationView() {
 
         TextView title = header.findViewById(R.id.nav_header_title);
-        RSSItemManager rssItemManager  = RSSItemManager.getInstance(MainActivity.currentSource);
+        RSSItemManager rssItemManager = RSSItemManager.getInstance(MainActivity.currentSource);
         title.setText(rssItemManager.getSource());
         header.findViewById(R.id.nav_header_img).setBackgroundColor(Color.parseColor(rssItemManager.getHeaderBgColor()));
     }
-    NavigationView navigationView;
+
+
 }

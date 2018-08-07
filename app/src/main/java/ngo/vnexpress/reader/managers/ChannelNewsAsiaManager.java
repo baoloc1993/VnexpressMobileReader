@@ -2,6 +2,7 @@ package ngo.vnexpress.reader.managers;
 
 import android.support.annotation.NonNull;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,21 +15,23 @@ public class ChannelNewsAsiaManager extends RSSItemManager {
     private ChannelNewsAsiaManager(Class<? extends RSSItem> type) {
         super(type);
     }
-    public synchronized static ChannelNewsAsiaManager getInstance(){
-        if(instance == null){
+
+    public synchronized static ChannelNewsAsiaManager getInstance() {
+        if (instance == null) {
             instance = new ChannelNewsAsiaManager(ChannelNewsAsiaItem.class);
         }
         return instance;
     }
+
     @Override
     protected Map<String, String> fetchCategories() {
         HashMap<String, String> categories = new HashMap<>();
-        categories.put("Latest News","https://www.channelnewsasia.com/rssfeeds/8395986");
-        categories.put("Asia Pacific","https://www.channelnewsasia.com/rssfeeds/8395744");
-        categories.put("Business","https://www.channelnewsasia.com/rssfeeds/8395954");
-        categories.put("Singapore","https://www.channelnewsasia.com/rssfeeds/8396082");
-        categories.put("Sport","https://www.channelnewsasia.com/rssfeeds/8395838");
-        categories.put("World","https://www.channelnewsasia.com/rssfeeds/8395884");
+        categories.put("Latest News", "https://www.channelnewsasia.com/rssfeeds/8395986");
+        categories.put("Asia Pacific", "https://www.channelnewsasia.com/rssfeeds/8395744");
+        categories.put("Business", "https://www.channelnewsasia.com/rssfeeds/8395954");
+        categories.put("Singapore", "https://www.channelnewsasia.com/rssfeeds/8396082");
+        categories.put("Sport", "https://www.channelnewsasia.com/rssfeeds/8395838");
+        categories.put("World", "https://www.channelnewsasia.com/rssfeeds/8395884");
 
         return categories;
     }
@@ -36,11 +39,6 @@ public class ChannelNewsAsiaManager extends RSSItemManager {
     @Override
     protected String setSource() {
         return "Channel News Asia";
-    }
-
-    @Override
-    protected RSSItem createItem() {
-        return new ChannelNewsAsiaItem();
     }
 
     @NonNull
@@ -53,5 +51,10 @@ public class ChannelNewsAsiaManager extends RSSItemManager {
     @Override
     protected String setToolbarTextColor() {
         return "#ffffff";
+    }
+
+    @Override
+    protected RSSItem createItem() {
+        return new ChannelNewsAsiaItem();
     }
 }
