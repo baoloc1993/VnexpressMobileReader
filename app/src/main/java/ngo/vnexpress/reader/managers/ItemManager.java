@@ -109,6 +109,9 @@ public class ItemManager<T extends Item> implements Collection<T> {
             FileInputStream fileInputStream = new FileInputStream(new File(fileDir, fileName));
             ObjectInputStream out = new ObjectInputStream(fileInputStream);
             items = (ArrayList<T>) out.readObject();
+            for (T item : items) {
+                item.onLoaded();
+            }
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -131,6 +134,7 @@ public class ItemManager<T extends Item> implements Collection<T> {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(fileDir, fileName));
             ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+
             out.writeObject(items);
             out.close();
         } catch (IOException e) {

@@ -33,4 +33,6 @@ public abstract class Item implements Serializable {
     public String getId() {
         return id;
     }
+
+    public abstract void onLoaded();
 }

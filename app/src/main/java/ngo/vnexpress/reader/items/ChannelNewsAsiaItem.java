@@ -1,10 +1,15 @@
 package ngo.vnexpress.reader.items;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.text.Editable;
+
 import com.annimon.stream.Stream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.xml.sax.XMLReader;
 
 import ngo.vnexpress.reader.managers.RSSItemManager;
 
@@ -39,10 +44,20 @@ public class ChannelNewsAsiaItem extends RSSItem {
             setContent(content[0]);
 
         } catch (Exception e) {
-            setContent("This article is premium");
+            setContent(e.getMessage());
         } finally {
             isCached = true;
             RSSItemManager.getInstance(this.getClass()).saveItems();
         }
+    }
+
+    @Override
+    public Drawable getDrawable(String s, Context placeholder) {
+        return null;
+    }
+
+    @Override
+    public void handleTag(boolean b, String s, Editable editable, XMLReader xmlReader) {
+
     }
 }

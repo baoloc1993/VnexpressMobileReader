@@ -15,6 +15,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,8 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
     private View rootView;
     private View newsContainer;
     private ProgressBar progressBar;
-
+    public static int width;
+    public static int height;
     public WholeNewsDialog(RSSItem news) {
         this.news = news;
     }
@@ -74,7 +76,13 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
                 scrollView.scrollTo(0, 0);
                 title.setText(newsItem.getTitle());
                 description.setText(Html.fromHtml(newsItem.getDescription()));
-                readMore.setText(newsItem.getContent());
+                ImageView placeholder = view.findViewById(R.id.content_image_placeholder);
+
+                SpannableStringBuilder content = newsItem.getContent(dialog.getContext(), readMore::setText);
+
+                readMore.setText(content);
+
+
                 int width = MainActivity.screenWidth;
                 int height = (int) (width * 1080 / 1920.0);
                 if (newsItem.getImgUrl().equals("")) {
@@ -106,11 +114,14 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 dialog.getWindow().setStatusBarColor(Color.parseColor(rssItemManager.getHeaderBgColor()));
             }
+            showArticle();
 
 
 
         }
     }
+
+
 
     @Nullable
     @Override
@@ -139,7 +150,7 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
 
         toolbar.inflateMenu(R.menu.webview);
         for (int i = 0; i < toolbar.getMenu().size(); i++) {
-            MenuItemCompat.setIconTintList(toolbar.getMenu().getItem(i),ColorStateList.valueOf(textColor));
+            MenuItemCompat.setIconTintList(toolbar.getMenu().getItem(i), ColorStateList.valueOf(textColor));
         }
 
         toolbar.setNavigationOnClickListener(item -> this.dismiss());
@@ -159,7 +170,7 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
 
         });
 //        MainActivity.activity.setSupportActionBar(toolbar);
-        showArticle();
+
         return rootView;
 
     }
@@ -210,8 +221,8 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
 
     @Override
     public void showLoading() {
-        rootView.setVisibility(View.GONE);
-        newsContainer.setVisibility(View.VISIBLE);
+        newsContainer.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override

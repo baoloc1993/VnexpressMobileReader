@@ -74,13 +74,13 @@ public abstract class RSSItemManager extends ItemManager<RSSItem> {
             this.add(rssItem);
 
         }
-        saveItems();
+//        saveItems();
     }
 
     protected abstract RSSItem createItem();
 
     public List<RSSItem> getItemByCategory(String category) {
-        loadItems();
+//        loadItems();
         return Stream.of(items).filter(item -> item.getCategory().equals(category)).sorted((o1, o2) -> {
             SimpleDateFormat date1 = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
             SimpleDateFormat date2 = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");

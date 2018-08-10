@@ -34,7 +34,7 @@ import java.util.Set;
 import io.fabric.sdk.android.Fabric;
 import ngo.vnexpress.reader.adapters.ListNewsItemAdapter;
 import ngo.vnexpress.reader.items.RSSItem;
-import ngo.vnexpress.reader.items.StraightTimesItem;
+import ngo.vnexpress.reader.items.VnExpressItem;
 import ngo.vnexpress.reader.managers.RSSItemManager;
 import ngo.vnexpress.reader.rss.LoadRSSFeedItems;
 import ngo.vnexpress.reader.views.LoadingRecyclerView;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoadRSSFeedItems.
     /**
      * Facebook
      */
-    public static Class<? extends RSSItem> currentSource = StraightTimesItem.class;
+    public static Class<? extends RSSItem> currentSource = VnExpressItem.class;
     public static File fileDir;
     public static boolean pendingPublishReauthorization = false;
     /**
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements LoadRSSFeedItems.
 //        mAdapter = new ListNewsItemAdapter(rssItems);
 //        mRecyclerView.setAdapter(mAdapter);
         initializeTab();
-        changeSource(StraightTimesItem.class);
+        changeSource(VnExpressItem.class);
 
 
         uiHelper = new UiLifecycleHelper(this, null);

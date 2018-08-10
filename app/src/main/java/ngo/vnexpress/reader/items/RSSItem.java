@@ -3,9 +3,29 @@
  */
 package ngo.vnexpress.reader.items;
 
-import org.jsoup.nodes.Element;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.Editable;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
+import org.jsoup.nodes.Element;
+import org.xml.sax.XMLReader;
+
+import java.util.ArrayList;
 import java.util.UUID;
+
+import ngo.vnexpress.reader.MainActivity;
+import ngo.vnexpress.reader.R;
 
 
 public abstract class RSSItem extends Item {
@@ -18,6 +38,10 @@ public abstract class RSSItem extends Item {
     protected String category = "";
     protected boolean isCached = false;
     protected String source = "";
+    protected String htmlSource  = "";
+    private transient ArrayList<ContentImage> contentImages = new ArrayList<>();
+    private transient int numLoadedItem = 0;
+    private transient SpannableStringBuilder spannableStringBuilder;
     // constructor with parameters
     public RSSItem() {
         super("", UUID.randomUUID().toString());
@@ -25,9 +49,81 @@ public abstract class RSSItem extends Item {
     private RSSItem(String title) {
         super(title);
     }
+    private OnAllContentImagesLoadedListener onAllContentImagesLoadedListener;
+    protected void checkAllLoaded(){
 
-    public String getContent() {
-        return content;
+        ImageSpan[] imageSpans = spannableStringBuilder.getSpans(0,spannableStringBuilder.length(), ImageSpan.class);
+        if(numLoadedItem < imageSpans.length){
+            return;
+        }
+        for(int i = 0 ;i < contentImages.size();i++){
+//            contentImages.get(i).setBounds(0,0,500,600);
+            ImageSpan imageSpan = contentImages.get(i).imageSpan;
+
+            int start = spannableStringBuilder.getSpanStart(imageSpans[i]);
+            int end = spannableStringBuilder.getSpanEnd(imageSpans[i]);
+
+            spannableStringBuilder.removeSpan(imageSpans[i]);
+
+            spannableStringBuilder.setSpan(imageSpan,start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        }
+        this.onAllContentImagesLoadedListener.onAllContentImagesLoaded(spannableStringBuilder);
+
+    }
+    public SpannableStringBuilder getContent(Context placeholder, OnAllContentImagesLoadedListener onAllContentImagesLoadedListener) {
+        this.contentImages = new ArrayList<>();
+        this.onAllContentImagesLoadedListener = onAllContentImagesLoadedListener;
+        spannableStringBuilder = (SpannableStringBuilder) Html.fromHtml(content, s -> RSSItem.this.getDrawable(s, placeholder), null);
+        return spannableStringBuilder;
+    }
+
+    protected abstract void handleTag(boolean b, String s, Editable editable, XMLReader xmlReader);
+
+    protected Drawable getDrawable(String s, Context context){
+        ImageView imageView = new ImageView(context);
+
+        imageView.setImageResource(R.drawable.image_not_found);
+
+        int width = (int) (MainActivity.screenWidth*0.9);
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        Drawable drawable = imageView.getDrawable();
+
+        drawable.setBounds(0, 0, 1, 1);
+
+
+        ContentImage contentImage = new ContentImage(s);
+        contentImages.add(contentImage);
+        Picasso.get().load(s).into(imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+
+                Bitmap original = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                int height = (int) ((double)width*original.getHeight()/original.getWidth());
+                Bitmap bitmap = Bitmap.createScaledBitmap(original, width, height, false);
+                BitmapDrawable drawable = new BitmapDrawable(bitmap);
+                drawable.setBounds(0,0,width,height);
+                contentImage.setImageSpan(new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM));
+
+                numLoadedItem++;
+                checkAllLoaded();
+
+
+            }
+
+            @Override
+            public void onError(Exception e) {
+                contentImage.setImageSpan(new ImageSpan(((BitmapDrawable) drawable).getBitmap()));
+                numLoadedItem++;
+                checkAllLoaded();
+            }
+        });
+
+//        while(!loaded[0]){
+//
+//        }
+        return drawable;
     }
 
     public void setContent(String content) {
@@ -112,4 +208,30 @@ public abstract class RSSItem extends Item {
     }
 
     public abstract void fetchContent();
+
+    public String getHtmlSource() {
+        return htmlSource;
+    }
+
+    @Override
+    public void onLoaded() {
+        this.contentImages = new ArrayList<>();
+    }
+    protected class ContentImage{
+        ContentImage(String url) {
+            this.url = url;
+        }
+
+        String url;
+
+        public void setImageSpan(ImageSpan imageSpan) {
+            this.imageSpan = imageSpan;
+        }
+
+        ImageSpan imageSpan;
+
+    }
+    public interface OnAllContentImagesLoadedListener{
+        void onAllContentImagesLoaded(SpannableStringBuilder spannableStringBuilder);
+    }
 }
