@@ -135,7 +135,7 @@ public class ItemManager<T extends Item> implements Collection<T> {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(fileDir, fileName));
             ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
 
-            out.writeObject(items);
+//            out.writeObject(items);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();

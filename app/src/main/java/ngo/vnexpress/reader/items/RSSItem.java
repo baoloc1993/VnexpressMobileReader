@@ -22,6 +22,7 @@ import org.jsoup.nodes.Element;
 import org.xml.sax.XMLReader;
 
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.UUID;
 
 import ngo.vnexpress.reader.MainActivity;
@@ -38,59 +39,49 @@ public abstract class RSSItem extends Item {
     protected String category = "";
     protected boolean isCached = false;
     protected String source = "";
-    protected String htmlSource  = "";
+    protected String htmlSource = "";
+    protected String[] ignoreTags;
+    private String baseUrl ="";
+    private Stack<IgnoredTagSpan> ignoredTagSpans;
     private transient ArrayList<ContentImage> contentImages = new ArrayList<>();
     private transient int numLoadedItem = 0;
     private transient SpannableStringBuilder spannableStringBuilder;
+    private OnAllContentImagesLoadedListener onAllContentImagesLoadedListener;
+
     // constructor with parameters
     public RSSItem() {
         super("", UUID.randomUUID().toString());
+        this.ignoreTags = this.setIgnoreTag();
     }
+
+    protected abstract String[] setIgnoreTag();
+
     private RSSItem(String title) {
         super(title);
+        baseUrl = getBaseUrl();
     }
-    private OnAllContentImagesLoadedListener onAllContentImagesLoadedListener;
-    protected void checkAllLoaded(){
-
-        ImageSpan[] imageSpans = spannableStringBuilder.getSpans(0,spannableStringBuilder.length(), ImageSpan.class);
-        if(numLoadedItem < imageSpans.length){
-            return;
-        }
-        for(int i = 0 ;i < contentImages.size();i++){
-//            contentImages.get(i).setBounds(0,0,500,600);
-            ImageSpan imageSpan = contentImages.get(i).imageSpan;
-
-            int start = spannableStringBuilder.getSpanStart(imageSpans[i]);
-            int end = spannableStringBuilder.getSpanEnd(imageSpans[i]);
-
-            spannableStringBuilder.removeSpan(imageSpans[i]);
-
-            spannableStringBuilder.setSpan(imageSpan,start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        }
-        this.onAllContentImagesLoadedListener.onAllContentImagesLoaded(spannableStringBuilder);
-
+    
+    protected abstract String getBaseUrl();
+    
+    public String getContent(){
+        return this.content;
     }
     public SpannableStringBuilder getContent(Context placeholder, OnAllContentImagesLoadedListener onAllContentImagesLoadedListener) {
         this.contentImages = new ArrayList<>();
+        this.ignoredTagSpans = new Stack<>();
         this.onAllContentImagesLoadedListener = onAllContentImagesLoadedListener;
-        spannableStringBuilder = (SpannableStringBuilder) Html.fromHtml(content, s -> RSSItem.this.getDrawable(s, placeholder), null);
+        spannableStringBuilder = (SpannableStringBuilder) Html.fromHtml(content,Html.FROM_HTML_MODE_LEGACY, s -> RSSItem.this.getDrawable(s, placeholder), RSSItem.this::handleTag);
+        
         return spannableStringBuilder;
     }
 
-    protected abstract void handleTag(boolean b, String s, Editable editable, XMLReader xmlReader);
-
-    protected Drawable getDrawable(String s, Context context){
+    protected Drawable getDrawable(String s, Context context) {
         ImageView imageView = new ImageView(context);
 
-        imageView.setImageResource(R.drawable.image_not_found);
 
-        int width = (int) (MainActivity.screenWidth*0.9);
+        int width = (int) (MainActivity.screenWidth * 0.9);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        Drawable drawable = imageView.getDrawable();
-
-        drawable.setBounds(0, 0, 1, 1);
 
 
         ContentImage contentImage = new ContentImage(s);
@@ -100,10 +91,10 @@ public abstract class RSSItem extends Item {
             public void onSuccess() {
 
                 Bitmap original = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                int height = (int) ((double)width*original.getHeight()/original.getWidth());
+                int height = (int) ((double) width * original.getHeight() / original.getWidth());
                 Bitmap bitmap = Bitmap.createScaledBitmap(original, width, height, false);
                 BitmapDrawable drawable = new BitmapDrawable(bitmap);
-                drawable.setBounds(0,0,width,height);
+                drawable.setBounds(0, 0, width, height);
                 contentImage.setImageSpan(new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM));
 
                 numLoadedItem++;
@@ -114,7 +105,7 @@ public abstract class RSSItem extends Item {
 
             @Override
             public void onError(Exception e) {
-                contentImage.setImageSpan(new ImageSpan(((BitmapDrawable) drawable).getBitmap()));
+                contentImage.setImageSpan(null);
                 numLoadedItem++;
                 checkAllLoaded();
             }
@@ -123,7 +114,48 @@ public abstract class RSSItem extends Item {
 //        while(!loaded[0]){
 //
 //        }
-        return drawable;
+        return null;
+    }
+
+    protected void checkAllLoaded() {
+
+        ImageSpan[] imageSpans = spannableStringBuilder.getSpans(0, spannableStringBuilder.length(), ImageSpan.class);
+        if (numLoadedItem < imageSpans.length) {
+            return;
+        }
+        for (int i = 0; i < contentImages.size(); i++) {
+//            contentImages.get(i).setBounds(0,0,500,600);
+            ImageSpan imageSpan = contentImages.get(i).imageSpan;
+
+            int start = spannableStringBuilder.getSpanStart(imageSpans[i]);
+            int end = spannableStringBuilder.getSpanEnd(imageSpans[i]);
+
+            spannableStringBuilder.removeSpan(imageSpans[i]);
+
+            spannableStringBuilder.setSpan(imageSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        }
+        this.onAllContentImagesLoadedListener.onAllContentImagesLoaded(spannableStringBuilder);
+
+    }
+
+    protected void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+        
+        for (int i = 0; i < ignoreTags.length; i++) {
+            if (tag.equals(ignoreTags[i])) {
+                if (opening) {
+                    ignoredTagSpans.push(new IgnoredTagSpan(tag,output.length()));
+                    
+                } else {
+                    IgnoredTagSpan ignoredTag = ignoredTagSpans.pop();
+                    output.delete(ignoredTag.start,output.length());
+                    
+
+                }
+            }
+        }
+
+
     }
 
     public void setContent(String content) {
@@ -136,7 +168,6 @@ public abstract class RSSItem extends Item {
      * @param item
      */
     public abstract void fetchRSS(Element item);
-    // constructor
 
     public String getSource() {
         return source;
@@ -145,6 +176,7 @@ public abstract class RSSItem extends Item {
     public void setSource(String source) {
         this.source = source;
     }
+    // constructor
 
     /**
      * All GET methods
@@ -152,6 +184,11 @@ public abstract class RSSItem extends Item {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public void onLoaded() {
+        this.contentImages = new ArrayList<>();
     }
 
     public String getLink() {
@@ -167,13 +204,13 @@ public abstract class RSSItem extends Item {
         this.link = link;
     }
 
-    // public void setGuid(String guid){
-    // this._guid = guid;
-    // }
-
     public String getDescription() {
         return this.description;
     }
+
+    // public void setGuid(String guid){
+    // this._guid = guid;
+    // }
 
     public void setDescription(String description) {
         this.description = description;
@@ -191,13 +228,13 @@ public abstract class RSSItem extends Item {
         return imgUrl;
     }
 
-    // public String getGuid(){
-    // return this._guid;
-    // }
-
     public void setImgUrl(String _img_url) {
         this.imgUrl = _img_url;
     }
+
+    // public String getGuid(){
+    // return this._guid;
+    // }
 
     public String getCategory() {
         return category;
@@ -213,25 +250,33 @@ public abstract class RSSItem extends Item {
         return htmlSource;
     }
 
-    @Override
-    public void onLoaded() {
-        this.contentImages = new ArrayList<>();
+    public interface OnAllContentImagesLoadedListener {
+        void onAllContentImagesLoaded(SpannableStringBuilder spannableStringBuilder);
     }
-    protected class ContentImage{
+
+    public class IgnoredTagSpan {
+        String tag;
+    
+        public IgnoredTagSpan(String tag, int start) {
+            this.tag = tag;
+            this.start = start;
+        }
+    
+        int start;
+        int end;
+    }
+
+    protected class ContentImage {
+        String url;
+        ImageSpan imageSpan;
+
         ContentImage(String url) {
             this.url = url;
         }
-
-        String url;
 
         public void setImageSpan(ImageSpan imageSpan) {
             this.imageSpan = imageSpan;
         }
 
-        ImageSpan imageSpan;
-
-    }
-    public interface OnAllContentImagesLoadedListener{
-        void onAllContentImagesLoaded(SpannableStringBuilder spannableStringBuilder);
     }
 }

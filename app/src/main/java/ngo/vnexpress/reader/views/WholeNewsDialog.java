@@ -19,6 +19,8 @@ import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -75,11 +77,16 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
                 ScrollView scrollView = view.findViewById(R.id.news_scrollView);
                 scrollView.scrollTo(0, 0);
                 title.setText(newsItem.getTitle());
-                description.setText(Html.fromHtml(newsItem.getDescription()));
-                ImageView placeholder = view.findViewById(R.id.content_image_placeholder);
+                description.setText(Html.fromHtml(newsItem.getDescription(),Html.FROM_HTML_MODE_LEGACY));
+                
 
                 SpannableStringBuilder content = newsItem.getContent(dialog.getContext(), readMore::setText);
-
+//                WebView webView = view.findViewById(R.id.web_view_read_more);
+//                webView.getSettings().setLoadWithOverviewMode(true);
+//
+//                webView.getSettings().setJavaScriptEnabled(true);
+//
+//                webView.loadDataWithBaseURL(newsItem.getLink(),newsItem.getContent(),"text/html","","");
                 readMore.setText(content);
 
 
@@ -88,7 +95,7 @@ public class WholeNewsDialog extends DialogFragment implements LoadingComponent 
                 if (newsItem.getImgUrl().equals("")) {
                     newsImage.setVisibility(View.GONE);
                 } else {
-                    Picasso.get().load(newsItem.getImgUrl()).error(R.drawable.image_not_found).resize(width, height).into(newsImage);
+                    Picasso.get().load(newsItem.getImgUrl()).resize(width, height).into(newsImage);
                 }
             }
         }.execute();

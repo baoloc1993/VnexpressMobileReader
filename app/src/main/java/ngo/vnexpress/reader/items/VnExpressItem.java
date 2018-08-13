@@ -9,6 +9,16 @@ import org.xml.sax.XMLReader;
 
 public class VnExpressItem extends RSSItem {
     @Override
+    protected String[] setIgnoreTag() {
+        return new String[0];
+    }
+    
+    @Override
+    protected String getBaseUrl() {
+        return "https://vnexpress.net/";
+    }
+    
+    @Override
     public void handleTag(boolean b, String s, Editable editable, XMLReader xmlReader) {
         System.out.println("Handle tag: " + s);
     }
