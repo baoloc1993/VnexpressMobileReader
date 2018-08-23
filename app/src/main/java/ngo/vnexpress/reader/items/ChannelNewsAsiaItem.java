@@ -32,13 +32,13 @@ public class ChannelNewsAsiaItem extends RSSItem {
     }
 
     @Override
-    public void fetchContent() {
+    public void fetchContent(String html) {
         if (isCached) {
             return;
         }
         Document document;
         try {
-            document = Jsoup.connect(getLink()).get();
+            document = Jsoup.parse(html);
             System.out.println(getLink());
 
             Element body = document.body();
@@ -77,7 +77,7 @@ public class ChannelNewsAsiaItem extends RSSItem {
     @Override
     protected String[] setIgnoreTag() {
         return new String[]{
-                "aside","source"
+                "aside"
         };
     }
     

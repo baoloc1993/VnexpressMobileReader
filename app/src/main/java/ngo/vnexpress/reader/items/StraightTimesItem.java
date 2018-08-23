@@ -20,14 +20,13 @@ public class StraightTimesItem extends RSSItem {
     }
 
     @Override
-    public void fetchContent() {
+    public void fetchContent(String html) {
         if (isCached) {
             return;
         }
         Document document;
         try {
-            document = Jsoup.connect(getLink()).get();
-            System.out.println(getLink());
+            document = Jsoup.parse(html);
 
             Element body = document.body();
             Element articleRoot = body.getElementsByAttributeValueContaining("class", "node-article").get(0);
@@ -36,7 +35,7 @@ public class StraightTimesItem extends RSSItem {
                 setImgUrl(mediaEntities.get(0).attr("resource"));
             }
 
-            Element readmoreSection = articleRoot.getElementsByAttributeValueContaining("itemprop", "articleBody").get(0);
+            Element readmoreSection = articleRoot.getElementsByAttributeValueContaining("property", "content:encoded").get(0);
 //            Elements scripts = readmoreSection.getElementsByTag("script");
             String readmoreHtml = readmoreSection.html();
 //            for(int i = 0 ; i < scripts.size();i++){

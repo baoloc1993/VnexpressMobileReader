@@ -31,6 +31,7 @@ public class VnExpressManager extends RSSItemManager {
         categories.put("World", "https://vnexpress.net/rss/the-gioi.rss");
         categories.put("Business", "https://vnexpress.net/rss/kinh-doanh.rss");
         categories.put("Sport", "https://vnexpress.net/rss/the-thao.rss");
+        categories.put("Entertainment", "https://vnexpress.net/rss/giai-tri.rss");
 
         return categories;
     }

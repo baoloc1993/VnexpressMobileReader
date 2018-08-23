@@ -1,14 +1,26 @@
 package ngo.vnexpress.reader.basic;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
+import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.net.InetAddress;
 
 /**
  * @author Fabio Ngo Class store basic functions ( most-used functions)
  */
 public class BasicFunctions {
-
+    
     /**
      * Convert DP to PX
      */
@@ -30,6 +42,19 @@ public class BasicFunctions {
             return false;
         }
     }
-
-
+    @SuppressLint("AddJavascriptInterface")
+    public static void fetchHtml(String url, OnFetchedHtmlListener onFetchedHtmlListener, Context context){
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+            onFetchedHtmlListener.onFetchedHtml("");
+            return;
+        }
+        onFetchedHtmlListener.onFetchedHtml(doc.body().html());
+    }
+    private static class CustomJavaScriptInterface {
+    
+    }
 }
